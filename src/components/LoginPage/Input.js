@@ -1,23 +1,20 @@
-import { TextField } from "@mui/material";
-import { Fragment } from "react";
+import { Fragment, forwardRef } from "react";
+import styles from './Input.module.css'
 
-const Input = (props) => {
-    const { onChange, type, inputRef, label } = props;
+const Input = forwardRef((props,ref) => {
+    const { onChange, type, label } = props;
     return (
-        <Fragment>
-            <TextField
+        <div className={styles.inputContainer}>
+            <label>{label}</label>
+            <input
                 type={type}
                 placeholder={`Enter your ${type} here...`}
-                variant='filled'
-                label={label}
-                margin='normal'
-                inputRef={inputRef}
-                fullWidth
                 onChange={onChange ? onChange : undefined}
+                ref={ref}
             />
-        </Fragment>
+        </div>
     )
-}
+});
 
 
 export default Input;

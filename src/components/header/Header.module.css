@@ -1,0 +1,37 @@
+.headerStyle {
+    display: flex;
+    justify-content: space-between;
+    height:80px;
+    background-color: var(--hardB);
+    padding:0 150px;
+}
+
+
+.logo{
+    color:var(--med3);
+}
+
+
+
+ul {
+    list-style-type: none;
+    display: flex;
+    margin-right: 30px;
+}
+
+ul li{
+    display: flex;
+    align-items: center;
+}
+
+.anchorStyle {
+    color:var(--med3);
+    font-size:20px;
+    margin-left:40px;
+    text-decoration: none;
+}
+
+
+.anchorStyle:hover{
+    color:var(--med1);
+}

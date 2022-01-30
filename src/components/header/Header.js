@@ -1,34 +1,26 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import AuthContext from '../../store/auth-context';
+import { Link } from 'react-router-dom';
+import styles from './Header.module.css'
+
 
 export default function Header() {
+
+
+    const authCtx = React.useContext(AuthContext)
+    const isLoggedIn = authCtx.isLoggedIn;
+
     return (
-        <Box>
-            <AppBar position='sticky'>
-                <Toolbar>
+        <header className={styles.headerStyle}>
+            <div>
+                <h1 className={styles.logo}>BugTracker</h1>
+            </div>
+            <ul>
+                <li><Link to='/login' className={styles.anchorStyle}>Link 2</Link></li>
+                <li><Link to='/login' className={styles.anchorStyle}>{isLoggedIn ? 'Logout' : 'Login'}</Link></li>
+            </ul>
+        </header>
 
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
 
-                    <Typography component="div" sx={{ flexGrow: 1 }} />
-
-                    <Button color="inherit">Login</Button>
-
-                </Toolbar>
-            </AppBar>
-        </Box>
     );
 }
