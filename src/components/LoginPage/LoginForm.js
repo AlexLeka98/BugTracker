@@ -7,6 +7,7 @@ import useHttp from '../../hooks/useHttp';
 
 const LoginForm = () => {
     const [isLogin, setIsLogin] = useState(true); //Login or Sign up ?
+    const [passwordAuth, setPasswordAuth] = useState({isValid: true, message: null});
     const nameRef = useRef();
     const surnameRef = useRef();
     const emailRef = useRef();
@@ -31,8 +32,7 @@ const LoginForm = () => {
         }
     }
 
-    const { isLoading, httpRequest } = useHttp();
-
+    const { isLoading, httpRequest, error } = useHttp();
 
     const authCtx = useContext(AuthContext);
     const history = useHistory();
@@ -47,6 +47,12 @@ const LoginForm = () => {
         event.preventDefault();
         const enteredEmail = emailRef.current.value;
         const enteredPassword = passwordRef.current.value;
+        if (enteredPassword.length < 6) {
+            setPasswordAuth({isValid:false, message:'Password should be at least 6 characters'});
+            passwordRef.current.value = '';
+            return;
+        }
+        setPasswordAuth({isValid:true, message:''})
         let url;
         let dbUrl = 'https://react-http-a713f-default-rtdb.europe-west1.firebasedatabase.app/users.json'
         let httpInfo;
@@ -121,6 +127,7 @@ const LoginForm = () => {
                     placeholder='Enter password...'
                     ref={passwordRef}
                 />
+                {!passwordAuth.isValid && <p className={styles.errorMessage}>{passwordAuth.message}</p>}
 
                 {isLogin && <button className={styles.submitButton} type='submit' variant="outlined" sx={{ marginTop: 2, px: 6, py: 1 }}>
                     {isLoading ? 'Loading...' : 'Login'}

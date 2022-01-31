@@ -7,7 +7,6 @@ const useHttp = () => {
     const httpRequest = async (httpInfo, dataFunc) => {
         setIsLoading(true);
         setError(null);
-        console.log(dataFunc)
         try {
             const response = await fetch(httpInfo.url,
                 {
@@ -15,18 +14,18 @@ const useHttp = () => {
                     body: httpInfo.body ? JSON.stringify(httpInfo.body) : undefined,
                     headers: httpInfo.headers ? httpInfo.headers : undefined,
                 })
+            const data = await response.json();
             if (!response.ok) {
                 setIsLoading(false);
-                throw new Error('Something went wrong!');
+                throw new Error(data.error.message);
             }
             setIsLoading(false);
-            const data = await response.json();
             if (dataFunc !== undefined) {
                 return dataFunc(data);
             }
             return;
         }
-        catch (error) {
+        catch (error) {       
             console.log(error);
             setError(error);
         }

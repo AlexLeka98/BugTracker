@@ -12,7 +12,6 @@ export default function Header() {
     const logoutClickHandler = () => {
         authCtx.logout();
     }
-    console.log("Login status: ", isLoggedIn);
     return (
         <header className={styles.headerStyle}>
             <div className={styles.logoStyle}>
