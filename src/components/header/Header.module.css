@@ -4,10 +4,14 @@
     height:80px;
     background-color: var(--hardB);
     padding:0 150px;
+    z-index:10;
 }
 
+.logoStyle a {
+    text-decoration: none;
+}
 
-.logo{
+.logoStyle a h1{
     color:var(--med3);
 }
 

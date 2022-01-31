@@ -67,3 +67,14 @@
 .changeAuthButton:active{
     color:var(--med3)
 }
+
+
+.namesStyle{
+    display: flex;
+    justify-content: space-between;
+}
+
+.namesStyle div{
+    width:49%;
+    
+}
