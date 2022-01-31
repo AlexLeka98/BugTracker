@@ -8,7 +8,6 @@ import LandingPage from './components/display/LandingPage';
 import { useContext, useEffect } from 'react';
 import AuthContext from './store/auth-context';
 
-// const addUser = 
 
 function App() {
 
@@ -17,7 +16,6 @@ function App() {
   const { token } = authCtx;
   useEffect(() => {
     if (localStorage.getItem('token') && localStorage.getItem('token')!== '') {
-      console.log('YEs!');
       let storageData = JSON.parse(localStorage.getItem('token'));
       authCtx.initializeAuth({token:storageData.token, userInfo: storageData.userInfo});
     }
