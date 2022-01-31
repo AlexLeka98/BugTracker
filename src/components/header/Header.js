@@ -37,17 +37,11 @@ export default function Header() {
                     <div className={styles.dropdown}>
                         <button onClick={openDropDown} className={styles.dropButton}>My Profile</button>
                         <div id="myDropdown" className={`${styles.dropdownContent} ${openDropdown && styles.show}`}>
-                            <Link href="#">Profile</Link>
-                            <Link href="#">Settings</Link>
-                            <Link href="#">Logout</Link>
+                            <Link to="/">{`${authCtx.userInfo.username} ${authCtx.userInfo.surname}`}</Link>
+                            <Link to="/">Settings</Link>
+                            <Link to="/" onClick={logoutClickHandler}>Logout</Link>
                         </div>
                     </div>
-                    {/* <Link to='/' onClick={logoutClickHandler} className={styles.dropDown}>My Profile</Link> */}
-                    {/* <Link to='/' onClick={openDropDown} className={styles.dropDown}>My Profile</Link> */}
-
-                    {/* <li>
-                            <Link to='/' className={styles.anchorStyle}>{authCtx.userInfo.username}</Link>
-                        </li> */}
                 </Fragment>
             }
         </header>
