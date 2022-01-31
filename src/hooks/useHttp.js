@@ -22,11 +22,11 @@ const useHttp = () => {
             }
             setIsLoading(false);
             if (dataFunc !== undefined) {
-                return dataFunc(data);
+                return await dataFunc(data);
             }
             return;
         }
-        catch (error) {       
+        catch (error) {
             console.log(error);
             setError(error);
         }

@@ -10,6 +10,7 @@ const AuthContext = React.createContext({
     updateUserInfo: () => { },
     toggleDropDown: () => { },
     closeDropDown: () => { },
+    initializeAuth: () => { },
 });
 
 
@@ -32,7 +33,7 @@ export const AuthContextProvider = (props) => {
         setDropDownIsOpen(prevState => (!prevState));
     }
 
-    const closeDropDown= () => {
+    const closeDropDown = () => {
         setDropDownIsOpen(false);
     }
 
@@ -43,11 +44,17 @@ export const AuthContextProvider = (props) => {
             email: '',
         }));
         setToken(null);
+        localStorage.setItem('token', '');
         closeDropDown();
     };
 
     const onUserInfoHandler = (userInfo) => {
-        setUserInfo(prevState => (userInfo));
+        setUserInfo(userInfo);
+    }
+
+    const initializeAuth = (auth) => {
+        loginHandler(auth.token);
+        onUserInfoHandler(auth.userInfo);
     }
 
     const contextValue = {
@@ -58,8 +65,9 @@ export const AuthContextProvider = (props) => {
         login: loginHandler,
         logout: logoutHandler,
         updateUserInfo: onUserInfoHandler,
-        toggleDropDown: toggleDropDown, 
-        closeDropDown: closeDropDown
+        toggleDropDown: toggleDropDown,
+        closeDropDown: closeDropDown,
+        initializeAuth: initializeAuth,
     }
 
 

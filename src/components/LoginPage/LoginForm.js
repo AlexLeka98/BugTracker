@@ -1,13 +1,17 @@
 import Input from '../UI/Input';
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState, useContext, useEffect } from 'react';
 import AuthContext from "../../store/auth-context";
 import styles from './LoginForm.module.css'
 import { useHistory } from 'react-router-dom';
 import useHttp from '../../hooks/useHttp';
+import { CollectionsBookmarkOutlined } from '@mui/icons-material';
 
 const LoginForm = () => {
     const [isLogin, setIsLogin] = useState(true); //Login or Sign up ?
-    const [passwordAuth, setPasswordAuth] = useState({isValid: true, message: null});
+    const [passwordAuth, setPasswordAuth] = useState({ isValid: true, message: null });
+    const authCtx = useContext(AuthContext);
+    const { isLoading, httpRequest, error } = useHttp();
+    const history = useHistory();
     const nameRef = useRef();
     const surnameRef = useRef();
     const emailRef = useRef();
@@ -19,7 +23,7 @@ const LoginForm = () => {
         history.replace('/app')
     }
 
-    const userInfoFunc = (data) => {
+    const userInfoFunc = async (data) => {
         authCtx.updateUserInfo(data);
     }
 
@@ -32,32 +36,18 @@ const LoginForm = () => {
         }
     }
 
-    const { isLoading, httpRequest, error } = useHttp();
 
-    const authCtx = useContext(AuthContext);
-    const history = useHistory();
 
 
     const onChangeLoginHandler = () => {
         setIsLogin(prevState => (!prevState));
     }
 
-    // if password is correct, we procced,
-    // 
-    const submitHandler = (event) => {
-        event.preventDefault();
-        const enteredEmail = emailRef.current.value;
-        const enteredPassword = passwordRef.current.value;
-        if (enteredPassword.length < 6) {
-            setPasswordAuth({isValid:false, message:'Password should be at least 6 characters'});
-            passwordRef.current.value = '';
-            return;
-        }
-        setPasswordAuth({isValid:true, message:''})
 
 
-
-
+    // This makes a authentication request , and later receives the user information
+    // from the database.
+    const authenticateUser = async (user) => {
         let dbUrl = 'https://react-http-a713f-default-rtdb.europe-west1.firebasedatabase.app/users.json'
         let url;
         let httpInfo;
@@ -69,14 +59,12 @@ const LoginForm = () => {
                 'Content-Type': 'application/json'
             },
             body: {
-                email: enteredEmail,
-                password: enteredPassword,
+                email: user.email,
+                password: user.password,
                 returnSecureToken: true
             }
         }
         httpRequest(httpInfo, authFunc);
-
-
 
         // Recieving user information after Authentication request.
         if (isLogin) {
@@ -88,7 +76,7 @@ const LoginForm = () => {
             const enteredSurname = surnameRef.current.value;
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0';
             let userInfo = {
-                email: enteredEmail,
+                email: user.email,
                 username: enteredName,
                 surname: enteredSurname
             }
@@ -103,8 +91,23 @@ const LoginForm = () => {
             httpRequest(httpInfo);
             userInfoFunc(userInfo);
         }
+    }
 
-        
+    // if password is correct, we procced to make the authentication.
+    // 
+    const submitHandler = async (event) => {
+        event.preventDefault();
+        const enteredEmail = emailRef.current.value;
+        const enteredPassword = passwordRef.current.value;
+        if (enteredPassword.length < 6) {
+            setPasswordAuth({ isValid: false, message: 'Password should be at least 6 characters' });
+            passwordRef.current.value = '';
+            return;
+        }
+        setPasswordAuth({ isValid: true, message: '' })
+
+        // authenticating a user by email and password
+        authenticateUser({ email: enteredEmail, password: enteredPassword });
     }
 
     return (
