@@ -4,7 +4,6 @@ import styles from "./MainContent.module.css";
 
 
 const MainContent = () => {
-
     const authCtx = useContext(AuthContext);
     return (
         <div className={styles.maincontentContainer}>
