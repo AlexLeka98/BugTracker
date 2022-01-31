@@ -4,14 +4,18 @@ const AuthContext = React.createContext({
     token: '',
     isLoggedIn: false,
     userInfo: {},
+    dropDownIsOpen: false,
     login: (token) => { },
     logout: () => { },
     updateUserInfo: () => { },
+    toggleDropDown: () => { },
+    closeDropDown: () => { },
 });
 
 
 export const AuthContextProvider = (props) => {
     const [token, setToken] = useState(null);
+    const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
     const [userInfo, setUserInfo] = useState({
         username: '',
         surname: '',
@@ -24,6 +28,14 @@ export const AuthContextProvider = (props) => {
         setToken(token)
     };
 
+    const toggleDropDown = () => {
+        setDropDownIsOpen(prevState => (!prevState));
+    }
+
+    const closeDropDown= () => {
+        setDropDownIsOpen(false);
+    }
+
     const logoutHandler = () => {
         setUserInfo(prevState => ({
             username: '',
@@ -31,6 +43,7 @@ export const AuthContextProvider = (props) => {
             email: '',
         }));
         setToken(null);
+        closeDropDown();
     };
 
     const onUserInfoHandler = (userInfo) => {
@@ -41,9 +54,12 @@ export const AuthContextProvider = (props) => {
         token: token,
         isLoggedIn: userIsLoggedIn,
         userInfo: userInfo,
+        dropDownIsOpen: dropDownIsOpen,
         login: loginHandler,
         logout: logoutHandler,
         updateUserInfo: onUserInfoHandler,
+        toggleDropDown: toggleDropDown, 
+        closeDropDown: closeDropDown
     }
 
 

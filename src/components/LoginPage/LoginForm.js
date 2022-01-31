@@ -42,7 +42,8 @@ const LoginForm = () => {
         setIsLogin(prevState => (!prevState));
     }
 
-
+    // if password is correct, we procced,
+    // 
     const submitHandler = (event) => {
         event.preventDefault();
         const enteredEmail = emailRef.current.value;
@@ -53,9 +54,31 @@ const LoginForm = () => {
             return;
         }
         setPasswordAuth({isValid:true, message:''})
-        let url;
+
+
+
+
         let dbUrl = 'https://react-http-a713f-default-rtdb.europe-west1.firebasedatabase.app/users.json'
+        let url;
         let httpInfo;
+        // Authentication request
+        httpInfo = {
+            url: `https://identitytoolkit.googleapis.com/v1/accounts:${isLogin ? 'signInWithPassword' : 'signUp'}?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0`,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: {
+                email: enteredEmail,
+                password: enteredPassword,
+                returnSecureToken: true
+            }
+        }
+        httpRequest(httpInfo, authFunc);
+
+
+
+        // Recieving user information after Authentication request.
         if (isLogin) {
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0';
             httpRequest({ url: dbUrl }, getUserInfo);
@@ -80,19 +103,8 @@ const LoginForm = () => {
             httpRequest(httpInfo);
             userInfoFunc(userInfo);
         }
-        httpInfo = {
-            url: url,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: {
-                email: enteredEmail,
-                password: enteredPassword,
-                returnSecureToken: true
-            }
-        }
-        httpRequest(httpInfo, authFunc);
+
+        
     }
 
     return (
