@@ -10,7 +10,6 @@ import AuthContext from './store/auth-context';
 
 function App() {
   const [data,setData] = useState(null)
-
   const authCtx = useContext(AuthContext);
 
   const { token } = authCtx;
