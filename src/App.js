@@ -11,12 +11,6 @@ import AuthContext from './store/auth-context';
 function App() {
   const [data,setData] = useState(null)
 
-  useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, [])
-
   const authCtx = useContext(AuthContext);
 
   const { token } = authCtx;
@@ -33,7 +27,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1>{data ? data : 'Loading'}</h1>
       <Header />
       <Switch>
         <Route path='/' exact>
