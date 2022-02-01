@@ -11,7 +11,7 @@ const LandingPage = () => {
     return (
         <div className={styles.landingContainer}>
             <h1>Welcome to BugTracker!</h1>
-            {!authCtx.isLoggedIn && <button><Link to='/auth/login'>Login to continue</Link></button>}
+            {!authCtx.isLoggedIn && <Link to='/auth/login'><button>Login to continue</button></Link>}
         </div>
     )
 }

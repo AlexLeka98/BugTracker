@@ -20,7 +20,7 @@ const LoginForm = () => {
 
     const authFunc = (data) => {
         authCtx.login(data.idToken);
-        history.replace('/app')
+        history.replace('/app/dashboard')
     }
 
     const userInfoFunc = async (data) => {
@@ -144,13 +144,13 @@ const LoginForm = () => {
                 />
                 {!passwordAuth.isValid && <p className={styles.errorMessage}>{passwordAuth.message}</p>}
 
-                {isLogin && <button className={styles.submitButton} type='submit' variant="outlined" sx={{ marginTop: 2, px: 6, py: 1 }}>
-                    {isLoading ? 'Loading...' : 'Login'}
+
+                {!isLoading && <button className={styles.submitButton} type='submit' variant="outlined" sx={{ marginTop: 2, px: 6, py: 1 }}>
+                    {isLogin ? 'Login' : 'Create account'}
                 </button>}
-                {!isLogin && <button className={styles.submitButton} type='submit' variant="outlined" sx={{ marginTop: 2, px: 6, py: 1 }}>
-                    {isLoading ? 'Loading...' : 'Create account'}
-                </button>}
+                {isLoading && <div className='loader'></div>}
                 <button className={styles.changeAuthButton} type='button' onClick={onChangeLoginHandler}>{isLogin ? 'Create new account' : 'Log In with existing account'}</button>
+
             </form>
         </div>
     )

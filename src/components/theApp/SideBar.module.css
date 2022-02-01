@@ -1,5 +1,5 @@
 .sidebarContainer{
-    width:300px;
+    width:230px;
     height:100%;
     background-color:var(--lightB);
 
@@ -16,13 +16,13 @@
 .sidebarMenu a li {
     padding:15px 0 15px 30px;
     max-width:100%;
-    background-color:var(--med1);
+    transition: all 120ms ease-in;
 }
 
 .sidebarMenu a{
     text-decoration: none;
     color:#000000;
-    font-size:23px;
+    font-size:20px;
     font-weight: 700;
     text-align: left;
     width:100%;
@@ -31,5 +31,9 @@
 }
 
 .sidebarMenu a li:hover{
+    background-color: var(--med2);
+}
+
+.active li{
     background-color: var(--med2);
 }

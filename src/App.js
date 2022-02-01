@@ -1,32 +1,39 @@
 import Header from './components/header/Header';
 import LoginMenu from './components/LoginPage/LoginMenu';
-import WelcomePage from './components/display/WelcomePage';
 import { Route, Switch } from 'react-router-dom';
 import BugTracker from './components/theApp/BugTracker';
 import './App.css';
 import LandingPage from './components/display/LandingPage';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AuthContext from './store/auth-context';
 
 
 function App() {
+  const [data,setData] = useState(null)
+
+  useEffect(() => {
+    fetch("/api")
+      .then((res) => res.json())
+      .then((data) => setData(data.message));
+  }, [])
 
   const authCtx = useContext(AuthContext);
 
   const { token } = authCtx;
   useEffect(() => {
-    if (localStorage.getItem('token') && localStorage.getItem('token')!== '') {
+    if (localStorage.getItem('token') && localStorage.getItem('token') !== '') {
       let storageData = JSON.parse(localStorage.getItem('token'));
-      authCtx.initializeAuth({token:storageData.token, userInfo: storageData.userInfo});
+      authCtx.initializeAuth({ token: storageData.token, userInfo: storageData.userInfo });
     }
-    else if(authCtx.isLoggedIn) {
-      localStorage.setItem('token',JSON.stringify({token:authCtx.token,userInfo:authCtx.userInfo}))
+    else if (authCtx.isLoggedIn) {
+      localStorage.setItem('token', JSON.stringify({ token: authCtx.token, userInfo: authCtx.userInfo }))
     }
   }, [token])
 
 
   return (
     <div className="App">
+      <h1>{data ? data : 'Loading'}</h1>
       <Header />
       <Switch>
         <Route path='/' exact>
