@@ -1,7 +1,10 @@
 .sidebarContainer{
     width:230px;
-    height:100%;
+    height:100vh;
     background-color:var(--lightB);
+    position: sticky;
+    position:-webkit-sticky;
+    top:0;
 
 }
 

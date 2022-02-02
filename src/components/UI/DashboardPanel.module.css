@@ -1,0 +1,36 @@
+.panelStyles{
+    width:100%;
+    background-color: var(--med4);
+    align-self: center;
+    border-radius: 10px;
+    /* padding:10px; */
+    box-sizing: border-box;
+}
+
+.panelStyles h4 {
+    text-align: start;
+    margin:0;
+}
+
+.panelTitleAndButton {
+    display: flex;
+    justify-content: space-between;
+    padding:20px;
+}
+
+.panelTitleAndButton button {
+    border:none;
+    background-color:var(--hardB);
+    color:#ffffff;
+    font-size:15px;
+    padding:8px 20px;
+    border-radius: 20px;
+}
+
+.panelTitleAndButton button:hover{
+    cursor: pointer;
+    background-color:var(--lightB);
+}
+.panelTitleAndButton button:active{
+    background-color:rgb(34, 34, 34);
+}

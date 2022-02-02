@@ -1,0 +1,30 @@
+.projectList {
+    display: flex;
+    flex-direction: column;
+    /* margin:10px; */
+    padding:0;
+    margin:16px 30px;
+}
+
+.projectTitleAndButton {
+    display: flex;
+    justify-content: space-between;
+    padding:20px;
+}
+
+.projectTitleAndButton button {
+    border:none;
+    background-color:var(--hardB);
+    color:#ffffff;
+    font-size:15px;
+    padding:8px 20px;
+    border-radius: 20px;
+}
+
+.projectTitleAndButton button:hover{
+    cursor: pointer;
+    background-color:var(--lightB);
+}
+.projectTitleAndButton button:active{
+    background-color:rgb(34, 34, 34);
+}

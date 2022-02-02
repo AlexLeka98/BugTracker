@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Route, Switch } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import styles from "./MainContent.module.css";
-import Dashboard from "./SidebarPages/Dashboard";
+import Dashboard from "./SidebarPages/Dashboard/Dashboard";
 import Ticket from "./SidebarPages/Tickets";
 import Administration from "./SidebarPages/Administration";
 

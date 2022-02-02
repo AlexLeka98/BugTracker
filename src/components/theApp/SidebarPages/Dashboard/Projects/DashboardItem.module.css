@@ -1,0 +1,35 @@
+
+.listItem {
+    width:100%;
+}
+.listItem a {
+    width:100%;
+    color:black;
+    text-decoration: none;
+}
+
+.listItem a:hover{
+    background-color: #fff;
+}
+
+.listItem .linkItem {
+    display: flex;
+    padding:14px;
+}
+.listItem .linkItem div{
+    text-align: start;
+}
+
+.listItem .linkItem div:nth-child(1){
+    width:15%;
+}
+
+.listItem .linkItem div:nth-child(2){
+    width:60%;
+}
+.listItem .linkItem div:nth-child(3){
+    width:20%;
+}
+.listItem .linkItem div:nth-child(4){
+    width:5%;
+}

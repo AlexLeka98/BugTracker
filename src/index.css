@@ -16,6 +16,7 @@ body {
   --med1: #9A8C98;
   --med2: #C9ADA7;
   --med3: #F2E9E4;
+  --med4: rgba(240, 248, 255, 0.74);
 }
 
 code {
