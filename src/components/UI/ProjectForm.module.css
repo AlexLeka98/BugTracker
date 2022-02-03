@@ -1,0 +1,31 @@
+.formContainer{
+    margin-top:20px;
+    padding:20px;
+    background-color:var(--med2);
+    max-width: 600px;;
+}
+
+
+.formStyle{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+.formStyle div{
+    margin-bottom:20px;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.formStyle div label{
+    text-align: start;
+    margin-left:20px;
+    margin-bottom:5px;
+}
+.formStyle div input{
+    width:80%;
+    height:30px;
+}

@@ -7,7 +7,7 @@ const DashboardItem = (props) => {
         return (
             <li className={styles.headerItem}>
                 <div>
-                    {props.name}
+                    {props.title}
                 </div>
                 <div>
                     {props.description}
@@ -24,13 +24,13 @@ const DashboardItem = (props) => {
             <li className={styles.listItem}>
                 <Link to='/' className={styles.linkItem}>
                     <div>
-                        {props.name}
+                        {props.title}
                     </div>
                     <div>
                         {props.description}
                     </div>
                     <div>
-                        {`${props.authorname} ${props.authorsurname}`}
+                        {`${props.author}`}
                     </div>
                     <div>
                         dots

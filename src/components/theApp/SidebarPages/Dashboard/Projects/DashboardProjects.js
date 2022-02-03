@@ -1,6 +1,8 @@
 import styles from './DashboardProjects.module.css'
 import DashboardItem from './DashboardItem';
 import DashboardPanel from '../../../../UI/DashboardPanel';
+import { useEffect, useState } from 'react';
+import useHttp from '../../../../../hooks/useHttp';
 
 const DUMMY_DATA = [
     {
@@ -38,25 +40,42 @@ const addNewProject = () => {
 }
 
 const DashboardProjects = () => {
+    const [dashItemsData, setDashItemsData] = useState([]);
+    const { isLoading, error, httpRequest } = useHttp();
+    useEffect(() => {
+        let httpInfo = {
+            url: '/projects',
+        }
+        // let data;
+        httpRequest(httpInfo).then(res => {
+            setDashItemsData(res);
+        })
+    }, [])
+    console.log(dashItemsData);
+
     return (
         <DashboardPanel name='Projects' buttonName='New Project' onClick={addNewProject} >
             <ul className={styles.projectList}>
-                <DashboardItem
-                    name='PROJECT'
-                    description='DESCRIPTION'
-                    contributors='CONTRIBUTORS'
-                />
-                {DUMMY_DATA.map(item => (
+                {dashItemsData.length > 0 &&
                     <DashboardItem
-                        name={item.name}
+                        title='PROJECT'
+                        description='DESCRIPTION'
+                        contributors='CONTRIBUTORS'
+                    />
+                }
+                {dashItemsData.length > 0 && dashItemsData.map(item => (
+                    <DashboardItem
+                        title={item.title}
                         description={item.description}
-                        authorname={item.authorname}
-                        authorsurname={item.authorsurname}
-                        key={item.id}
-                        id={item.id}
+                        author={item.author}
+                        key={item._id}
+                        id={item._id}
                     />
                 ))}
+                {isLoading && <div className='loader'></div>}
+                {dashItemsData.length === 0 && <h5 className={styles.noProjects}>No Projects yet.</h5>}
             </ul>
+            
         </DashboardPanel >
     )
 }

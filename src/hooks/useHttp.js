@@ -24,7 +24,7 @@ const useHttp = () => {
             if (dataFunc !== undefined) {
                 return await dataFunc(data);
             }
-            return;
+            return data;
         }
         catch (error) {
             console.log(error);

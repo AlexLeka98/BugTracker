@@ -28,3 +28,11 @@
 .projectTitleAndButton button:active{
     background-color:rgb(34, 34, 34);
 }
+
+
+.noProjects{
+    color:rgb(114, 114, 114);
+    margin: 10px 0px 60px 0px;
+    font-size: 30px;
+    text-align: center;
+}
