@@ -9,8 +9,9 @@ import AuthContext from './store/auth-context';
 
 
 function App() {
-  const [data,setData] = useState(null)
+  const [data, setData] = useState(null)
   const authCtx = useContext(AuthContext);
+  const [userData, setUserData] = useState(null);
 
   const { token } = authCtx;
   useEffect(() => {
@@ -22,6 +23,23 @@ function App() {
       localStorage.setItem('token', JSON.stringify({ token: authCtx.token, userInfo: authCtx.userInfo }))
     }
   }, [token])
+
+
+  useEffect(() => {
+    fetch('/users').then(res => {
+      if (!res.ok) {
+        throw new Error('Somethign happends');
+      }
+      const data = res.json()
+        .then(data => {
+          setUserData(data);
+          console.log(data);
+        })
+    }).catch(err => {
+      console.log(err)
+    })
+  }, [])
+
 
 
   return (
@@ -39,7 +57,6 @@ function App() {
           <BugTracker />
         </Route>
       </Switch>
-
     </div>
   );
 }

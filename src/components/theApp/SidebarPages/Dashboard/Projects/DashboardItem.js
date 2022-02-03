@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 
 const DashboardItem = (props) => {
-    console.log(props.contributors);
     if (props.contributors) {
         return (
             <li className={styles.headerItem}>
