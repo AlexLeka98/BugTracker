@@ -33,11 +33,19 @@ const DUMMY_DATA = [
     },
 ]
 
+const addNewProject = () => {
+    console.log("Add a new Project!!!!!");
+}
 
 const DashboardProjects = () => {
     return (
-        <DashboardPanel>
+        <DashboardPanel name='Projects' buttonName='New Project' onClick={addNewProject} >
             <ul className={styles.projectList}>
+                <DashboardItem
+                    name='PROJECT'
+                    description='DESCRIPTION'
+                    contributors='CONTRIBUTORS'
+                />
                 {DUMMY_DATA.map(item => (
                     <DashboardItem
                         name={item.name}

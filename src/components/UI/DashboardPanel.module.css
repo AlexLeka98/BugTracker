@@ -3,12 +3,13 @@
     background-color: var(--med4);
     align-self: center;
     border-radius: 10px;
-    /* padding:10px; */
+    box-shadow: 0px 0px 20px 1px black;
     box-sizing: border-box;
 }
 
 .panelStyles h4 {
     text-align: start;
+    font-size:22px;
     margin:0;
 }
 
@@ -16,6 +17,7 @@
     display: flex;
     justify-content: space-between;
     padding:20px;
+    /* border-bottom:2px solid var(--hardB); */
 }
 
 .panelTitleAndButton button {

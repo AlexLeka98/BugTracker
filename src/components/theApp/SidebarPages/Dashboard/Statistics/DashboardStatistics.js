@@ -4,21 +4,21 @@ import StatsCard from './StatsCard'
 
 const DUMMY_DATA = [
     {
-        name:'Chart One',
+        name:'Tickets by Type',
         values: [2, 3, 4],
-        labels: ['tick1', 'tick2', 'tick3'],
+        labels: ['Issue', 'Bug', 'Feature request'],
         id: Math.random(),
     },
     {
-        name:'Chart Two',
+        name:'Tickets by Priority',
         values: [10, 3, 4, 5, 2],
-        labels: ['asd1', 'asd2', 'asd3', 'asd4', 'asd5'],
+        labels: ['Immediate', 'High', 'Low', 'Medium'],
         id: Math.random(),
     },
     {
-        name:'Chart Three',
+        name:'Tickets by Status',
         values: [20, 3, 12, 12],
-        labels: ['cx1', 'cx2', 'cx3', 'cx4'],
+        labels: ['Resolved', 'New', 'In Progress'],
         id: Math.random(),
     }
 ]

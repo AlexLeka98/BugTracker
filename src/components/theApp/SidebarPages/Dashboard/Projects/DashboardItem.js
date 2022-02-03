@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 
 const DashboardItem = (props) => {
-    return (
-        <li className={styles.listItem}>
-            <Link to='/' className={styles.linkItem}>
-
+    console.log(props.contributors);
+    if (props.contributors) {
+        return (
+            <li className={styles.headerItem}>
                 <div>
                     {props.name}
                 </div>
@@ -14,14 +14,32 @@ const DashboardItem = (props) => {
                     {props.description}
                 </div>
                 <div>
-                    {`${props.authorname} ${props.authorsurname}`}
+                    {props.contributors}
                 </div>
-                <div>
-                    Three dots
-                </div>
-            </Link>
-        </li>
-    )
+                <div></div>
+            </li>
+        )
+    }
+    else {
+        return (
+            <li className={styles.listItem}>
+                <Link to='/' className={styles.linkItem}>
+                    <div>
+                        {props.name}
+                    </div>
+                    <div>
+                        {props.description}
+                    </div>
+                    <div>
+                        {`${props.authorname} ${props.authorsurname}`}
+                    </div>
+                    <div>
+                        dots
+                    </div>
+                </Link>
+            </li>
+        )
+    }
 }
 
 export default DashboardItem;

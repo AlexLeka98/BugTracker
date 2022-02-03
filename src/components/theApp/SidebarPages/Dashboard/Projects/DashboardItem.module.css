@@ -14,9 +14,10 @@
 
 .listItem .linkItem {
     display: flex;
-    padding:14px;
+    padding:14px 14px;
 }
 .listItem .linkItem div{
+    padding-left:6px;
     text-align: start;
 }
 
@@ -31,5 +32,37 @@
     width:20%;
 }
 .listItem .linkItem div:nth-child(4){
+    padding-left:0;
+    width:5%;
+}
+
+
+
+.headerItem{
+    box-sizing: border-box;
+    width:100%;
+    font-size:12px;
+    font-weight: 700;
+    display: flex;
+    background-color:rgb(245, 245, 245);
+    padding:8px 14px;
+
+}
+.headerItem div{
+    text-align: start;
+}
+
+.headerItem div:nth-child(1){
+    width:15%;
+}
+
+.headerItem div:nth-child(2){
+    width:60%;
+}
+.headerItem div:nth-child(3){
+    width:20%;
+}
+
+.headerItem div:nth-child(4){
     width:5%;
 }

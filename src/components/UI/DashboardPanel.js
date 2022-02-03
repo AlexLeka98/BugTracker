@@ -6,7 +6,10 @@ const DashboardPanel = (props) => {
         <div className={styles.panelStyles}>
             <div className={styles.panelTitleAndButton}>
                 <h4>{props.name}</h4>
-                {props.buttonName ? <button>{props.buttonName}</button> : null}
+                {props.buttonName ? <button onClick={props.onClick}>{props.buttonName}</button> : null}
+            </div>
+            <div className={styles.panelHeader}>
+                
             </div>
             {props.children}
         </div>
