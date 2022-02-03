@@ -5,8 +5,14 @@ const PORT = process.env.PORT || 3001;
 
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
+
+
+
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 mongoose.connect('mongodb://localhost:27017/myapp')
   .then(res => (console.log('We are in!! : ')))
@@ -14,11 +20,24 @@ mongoose.connect('mongodb://localhost:27017/myapp')
 
 
 const { Users } = require('./models/users');
+const { Tickets } = require('./models/tickets');
+const { Projects } = require('./models/projects');
 
 
 
-app.get('/projects', (req, res) => {
-  res.json({ message: 'Very good project' });
+app.get('/projects', async (req, res) => {
+  const allProjects = await Projects.find({});
+  console.log(allProjects);
+  res.json(allProjects);
+})
+
+app.post('/projects', (req, res) => {
+  let projectData = req.body;
+  new Projects(projectData).save(err => {
+    if (err) {
+      res.json({error: err})
+    };
+  })
 })
 
 app.get('/projects/:id', (req, res) => {
