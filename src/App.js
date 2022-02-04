@@ -33,7 +33,6 @@ function App() {
       const data = res.json()
         .then(data => {
           setUserData(data);
-          console.log(data);
         })
     }).catch(err => {
       console.log(err)

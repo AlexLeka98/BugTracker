@@ -1,8 +1,8 @@
 .formContainer{
-    margin-top:20px;
-    padding:20px;
-    background-color:var(--med2);
+    padding:30px;
+    background-color: #4a4e69c2;
     max-width: 600px;;
+    border-radius: 1rem;
 }
 
 
@@ -22,10 +22,33 @@
 
 .formStyle div label{
     text-align: start;
-    margin-left:20px;
     margin-bottom:5px;
+    font-size: 16px;
+    margin-left:5px;
+    color:#ffffff;
 }
 .formStyle div input{
-    width:80%;
-    height:30px;
+    width:100%;
+    padding-left:15px;
+    box-sizing: border-box;
+    height:40px;
+    font-size: 16px;
+}
+
+.formStyle button{
+    margin:0px auto;
+    padding:12px 30px;
+    font-size:18px;
+    border-radius: 0.6rem;
+    border:none;
+    background-color: var(--hardB);
+    color:#ffffff;
+    transition:all 200ms ease;
+}
+.formStyle button:hover{
+    cursor: pointer;
+    background-color: var(--med2);
+}
+.formStyle button:active{
+    background-color:var(--med3)
 }

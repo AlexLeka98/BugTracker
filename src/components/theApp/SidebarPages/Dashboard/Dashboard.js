@@ -1,7 +1,6 @@
 import styles from './Dashboard.module.css'
 import DashboardProjects from './Projects/DashboardProjects';
 import DashboardStatistics from './Statistics/DashboardStatistics';
-import ProjectForm from '../../../UI/ProjectForm';
 
 const Dashboard = () => {
 
@@ -12,8 +11,6 @@ const Dashboard = () => {
             </div>
             <DashboardProjects />
             <DashboardStatistics />
-            
-            <ProjectForm />
         </div>
     )
 }

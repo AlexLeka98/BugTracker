@@ -5,7 +5,8 @@
     width: 100%;
     height: 100vh;
     z-index: 20;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: #4a4e69c2;
+    /* background-color: blue; */
   }
   
   .modal {
@@ -13,14 +14,33 @@
     top: 20vh;
     left: 5%;
     width: 90%;
-    background-color: white;
-    padding: 1rem;
+    background-color: #4a4e69c2;
     border-radius: 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     z-index: 30;
     animation: slide-down 300ms ease-out forwards;
   }
   
+  .closeModal {
+    border:none;
+    position:absolute;
+    height:30px;
+    width:30px;
+    background: url('../../assets/Close_round_hover.png');
+    
+    background-repeat: no-repeat;
+    background-size: contain;
+    right:0;
+    margin:8px 8px 0 0;
+    transition: all 120ms ease-in;
+  }
+  .closeModal:hover{
+    cursor: pointer;
+    background: url('../../assets/Close_square.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
   @media (min-width: 768px) {
     .modal {
       width: 40rem;

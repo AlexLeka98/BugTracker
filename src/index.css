@@ -24,6 +24,9 @@ code {
     monospace;
 }
 
+input:focus{
+  outline: none;
+}
 
 .loader {
   --b: 10px;  /* border thickness */

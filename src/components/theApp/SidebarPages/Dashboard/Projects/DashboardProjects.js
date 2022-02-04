@@ -3,6 +3,7 @@ import DashboardItem from './DashboardItem';
 import DashboardPanel from '../../../../UI/DashboardPanel';
 import { useEffect, useState } from 'react';
 import useHttp from '../../../../../hooks/useHttp';
+import ProjectForm from '../../../../UI/ProjectForm';
 
 const DUMMY_DATA = [
     {
@@ -35,12 +36,19 @@ const DUMMY_DATA = [
     },
 ]
 
-const addNewProject = () => {
-    console.log("Add a new Project!!!!!");
-}
+
 
 const DashboardProjects = () => {
     const [dashItemsData, setDashItemsData] = useState([]);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const closeFormModal = () => {
+        setModalIsOpen(prevState => !prevState);
+    }
+    const openFormModal = () => {
+        setModalIsOpen(true);
+    }
+
     const { isLoading, error, httpRequest } = useHttp();
     useEffect(() => {
         let httpInfo = {
@@ -51,10 +59,8 @@ const DashboardProjects = () => {
             setDashItemsData(res);
         })
     }, [])
-    console.log(dashItemsData);
-
     return (
-        <DashboardPanel name='Projects' buttonName='New Project' onClick={addNewProject} >
+        <DashboardPanel name='Projects' buttonName='New Project' onClick={openFormModal} >
             <ul className={styles.projectList}>
                 {dashItemsData.length > 0 &&
                     <DashboardItem
@@ -75,7 +81,7 @@ const DashboardProjects = () => {
                 {isLoading && <div className='loader'></div>}
                 {dashItemsData.length === 0 && <h5 className={styles.noProjects}>No Projects yet.</h5>}
             </ul>
-            
+            {modalIsOpen && <ProjectForm closeFormModal={closeFormModal} />}
         </DashboardPanel >
     )
 }

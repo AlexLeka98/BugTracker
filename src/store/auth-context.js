@@ -17,6 +17,7 @@ const AuthContext = React.createContext({
 export const AuthContextProvider = (props) => {
     const [token, setToken] = useState(null);
     const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+    const [modalIsOpen,setModalIsOpen] = useState(false);
     const [userInfo, setUserInfo] = useState({
         username: '',
         surname: '',
@@ -32,7 +33,6 @@ export const AuthContextProvider = (props) => {
     const toggleDropDown = () => {
         setDropDownIsOpen(prevState => (!prevState));
     }
-
     const closeDropDown = () => {
         setDropDownIsOpen(false);
     }

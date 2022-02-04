@@ -3,7 +3,7 @@ import useHttp from '../../hooks/useHttp';
 import styles from './ProjectForm.module.css'
 import Modal from './Modal';
 
-const ProjectForm = () => {
+const ProjectForm = (props) => {
     const { httpRequest } = useHttp()
     const enteredTitle = useRef();
     const enteredDescription = useRef();
@@ -24,11 +24,15 @@ const ProjectForm = () => {
             headers: { 'Content-Type': 'application/json' }
         }
         httpRequest(httpInfo)
+
+        enteredTitle.current.value = '';
+        enteredDescription.current.value = '';
+        enteredAuthor.current.value = '';
     }
 
 
     return (
-        <Modal>
+        <Modal onModalHandler={props.closeFormModal}>
             <div className={styles.formContainer}>
                 <form className={styles.formStyle} onSubmit={onSubmitFormHandler}>
                     <div>
