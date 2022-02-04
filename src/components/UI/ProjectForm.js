@@ -24,7 +24,7 @@ const ProjectForm = (props) => {
             headers: { 'Content-Type': 'application/json' }
         }
         httpRequest(httpInfo)
-
+        props.onAddNewProject(newProject);
         enteredTitle.current.value = '';
         enteredDescription.current.value = '';
         enteredAuthor.current.value = '';

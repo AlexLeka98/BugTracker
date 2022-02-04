@@ -32,9 +32,7 @@ const DashboardItem = (props) => {
                     <div>
                         {`${props.author}`}
                     </div>
-                    <div>
-                        dots
-                    </div>
+                    <div className={styles.dots}></div>
                 </Link>
             </li>
         )

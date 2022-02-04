@@ -1,6 +1,6 @@
 import Header from './components/header/Header';
 import LoginMenu from './components/LoginPage/LoginMenu';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import BugTracker from './components/theApp/BugTracker';
 import './App.css';
 import LandingPage from './components/display/LandingPage';
@@ -39,21 +39,22 @@ function App() {
     })
   }, [])
 
-
+  console.log(authCtx.isLoggedIn);
 
   return (
     <div className="App">
       <Header />
       <Switch>
         <Route path='/' exact>
-          {authCtx.isLoggedIn && <BugTracker />}
+          {authCtx.isLoggedIn && <Redirect to='/app' />}
           {!authCtx.isLoggedIn && <LandingPage />}
         </Route>
         <Route path='/auth'>
           <LoginMenu />
         </Route>
         <Route path='/app'>
-          <BugTracker />
+          {authCtx.isLoggedIn && <BugTracker />}
+          {!authCtx.isLoggedIn && <Redirect to='/' />}
         </Route>
       </Switch>
     </div>
