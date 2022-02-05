@@ -11,8 +11,11 @@ const DashboardItem = (props) => {
     const onOpenDropDownHandler = () => {
         setOpenDropDown(true);
     }
-    const onCloseDropDownHandler = () => {
+    const onCloseDropDownHandler = (event) => {
         setOpenDropDown(false);
+    }
+    const toggleDropDownHandler = (event) => {
+        setOpenDropDown(prevState => !prevState);
     }
 
 
@@ -45,16 +48,16 @@ const DashboardItem = (props) => {
                     <div className={styles.author}>
                         {`${props.author}`}
                     </div>
-                    <div className={styles.dots} onClick={onOpenDropDownHandler}>
-                        {openDropDown && <div className={styles.dropDown}>
-                            <OutsideClick eventHandler={onCloseDropDownHandler}>
+                    <OutsideClick eventHandler={onCloseDropDownHandler}>
+                        <div className={styles.dots} onClick={toggleDropDownHandler}>
+                            {openDropDown && <div className={styles.dropDown}>
                                 <ul>
                                     <li>Update</li>
                                     <li>Delete</li>
                                 </ul>
-                            </OutsideClick>
-                        </div>}
-                    </div>
+                            </div>}
+                        </div>
+                    </OutsideClick>
                 </div>
             </li>
         )

@@ -7,9 +7,10 @@
     color:black;
     text-decoration: none;
 }
-
-.listItem a:hover{
-    /* background-color: #fff; */
+.listItem a:hover {
+    width:100%;
+    color:var(--med2);
+    text-decoration: none;
 }
 
 .listItem .linkItem {
@@ -38,7 +39,12 @@
 }
 
 .listItem .title{
+    color:red;
     font-weight: 600;
+    transition:all 100ms ease;
+}
+.listItem .title:hover{
+    color:var(--med2);
 }
 
 
@@ -95,14 +101,13 @@
 .dots .dropDown{
     top:50%;
     position:absolute;
-    right:0;
+    right:55px;
 }
 
 .dots .dropDown ul{
     position:absolute;
     display: flex;
     flex-direction: column;
-    right:0;
     padding:0;
     margin:0;
     border-radius: 10px 0px 10px 10px;
