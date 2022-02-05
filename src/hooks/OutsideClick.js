@@ -1,19 +1,17 @@
-import React, { useRef, useEffect, useContext } from "react";
-import AuthContext from "../store/auth-context";
+import React, { useRef, useEffect} from "react";
 import PropTypes from "prop-types";
 
 /**
  * Hook that alerts clicks outside of the passed ref
  */
-function useOutsideAlerter(ref) {
-    const authCtx = useContext(AuthContext);
+function useOutsideAlerter(ref, eventHandler) {
     useEffect(() => {
         /**
          * Alert if clicked on outside of element
          */
         function handleClickOutside(event) {
             if (ref.current && !ref.current.contains(event.target)) {
-                authCtx.closeDropDown();
+                eventHandler();
             }
         }
         // Bind the event listener
@@ -28,15 +26,15 @@ function useOutsideAlerter(ref) {
 /**
  * Component that alerts if you click outside of it
  */
-function OutsideAlerter(props) {
+function OutsideClick(props) {
     const wrapperRef = useRef(null);
-    useOutsideAlerter(wrapperRef);
+    useOutsideAlerter(wrapperRef, props.eventHandler);
 
     return <div ref={wrapperRef}>{props.children}</div>;
 }
 
-OutsideAlerter.propTypes = {
+OutsideClick.propTypes = {
     children: PropTypes.element.isRequired
 };
 
-export default OutsideAlerter;
+export default OutsideClick;

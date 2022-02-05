@@ -9,11 +9,12 @@
 }
 
 .listItem a:hover{
-    background-color: #fff;
+    /* background-color: #fff; */
 }
 
 .listItem .linkItem {
     display: flex;
+    width:100%;
     padding:14px 14px;
 }
 .listItem .linkItem div{
@@ -36,6 +37,9 @@
     width:5%;
 }
 
+.listItem .title{
+    font-weight: 600;
+}
 
 
 .headerItem{
@@ -72,8 +76,58 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    /* background-position: right; */
-    height:12px;
-    width:12px;
-    padding:2px;
+    background-position-y: center;
+    height:20px;
+    width:30px;
+    transition: all 100ms ease-in;
+    position: relative;
+}
+
+.dots:hover{
+    background:url('../../../../../assets/more2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y: center;
+    cursor: pointer;
+}
+
+.dots .dropDown{
+    top:50%;
+    position:absolute;
+    right:0;
+}
+
+.dots .dropDown ul{
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    right:0;
+    padding:0;
+    margin:0;
+    border-radius: 10px 0px 10px 10px;
+    z-index: 2;
+    transform: translateX(-50%);
+}
+
+.dots .dropDown ul li {
+    padding:8px 16px;
+    background-color: var(--hardB);
+    color:#ffffff;
+}
+
+.dots .dropDown ul li:first-child{
+    border:10px 0 0 0;
+}
+
+.dots .dropDown ul li:hover{
+    background-color: var(--med2);
+}
+
+.dots .dropDown ul li:first-child{
+    border-radius: 5px 0 0 0;
+}
+
+.dots .dropDown ul li:last-child{
+    border-radius: 0 0 5px 5px;
 }

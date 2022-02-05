@@ -19,9 +19,9 @@ const DashboardProjects = () => {
 
     const addNewProjectHandler = (newProject) => {
         setProjectItems(prevProjects => {
-            return [...prevProjects,newProject];
+            return [...prevProjects, newProject];
         })
-        
+
     }
 
     const { isLoading, error, httpRequest } = useHttp();

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import AuthContext from '../../store/auth-context';
 import { Link } from 'react-router-dom';
 import styles from './DropDownButton.module.css'
-import OutsideAlerter from '../../hooks/OutsideAlerter';
+import OutsideClick from '../../hooks/OutsideClick';
 
 
 export default function DropDownButton() {
@@ -18,7 +18,7 @@ export default function DropDownButton() {
 
 
     return (
-        <OutsideAlerter>
+        <OutsideClick eventHandler={authCtx.closeDropDown}>
             <div className={styles.dropdown}>
                 <button onClick={onDropdownHandler} className={styles.dropButton}>My Profile</button>
                 <div id="myDropdown" className={`${styles.dropdownContent} ${authCtx.dropDownIsOpen && styles.show}`}>
@@ -27,7 +27,7 @@ export default function DropDownButton() {
                     <Link to="/" onClick={logoutClickHandler}>Logout</Link>
                 </div>
             </div>
-        </OutsideAlerter>
+        </OutsideClick>
     )
 
 }
