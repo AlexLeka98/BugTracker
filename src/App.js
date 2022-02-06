@@ -39,8 +39,6 @@ function App() {
     })
   }, [])
 
-  console.log(authCtx.isLoggedIn);
-
   return (
     <div className="App">
       <Header />

@@ -1,13 +1,13 @@
 import styles from './DashboardItem.module.css'
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, Route } from 'react-router-dom';
+import { Fragment, useState } from 'react';
 import OutsideClick from '../../../../../hooks/OutsideClick';
-
+import useHttp from '../../../../../hooks/useHttp';
 
 const DashboardItem = (props) => {
 
     const [openDropDown, setOpenDropDown] = useState(false);
-
+    const { isLoading, error, httpRequest } = useHttp();
     const onOpenDropDownHandler = () => {
         setOpenDropDown(true);
     }
@@ -16,6 +16,18 @@ const DashboardItem = (props) => {
     }
     const toggleDropDownHandler = (event) => {
         setOpenDropDown(prevState => !prevState);
+    }
+
+    const deleteProjectHandler = () => {
+        let httpInfo = {
+            url: '/projects',
+            method: 'DELETE',
+            body: { id: props.id },
+            headers: { 'Content-Type': 'application/json' }
+        }
+        httpRequest(httpInfo).then(() => {
+            props.onRemoveItem(props.id);
+        })
     }
 
 
@@ -37,29 +49,31 @@ const DashboardItem = (props) => {
     }
     else {
         return (
-            <li className={styles.listItem}>
-                <div className={styles.linkItem}>
-                    <div className={styles.title}>
-                        <Link to='/'>{props.title}</Link>
-                    </div>
-                    <div className={styles.description}>
-                        {props.description}
-                    </div>
-                    <div className={styles.author}>
-                        {`${props.author}`}
-                    </div>
-                    <OutsideClick eventHandler={onCloseDropDownHandler}>
-                        <div className={styles.dots} onClick={toggleDropDownHandler}>
-                            {openDropDown && <div className={styles.dropDown}>
-                                <ul>
-                                    <li>Update</li>
-                                    <li>Delete</li>
-                                </ul>
-                            </div>}
+            <Fragment>
+                <li className={styles.listItem}>
+                    <div className={styles.linkItem}>
+                        <div className={styles.title}>
+                            <Link to={`/app/dashboard/project?${props.id}`}>{props.title}</Link>
                         </div>
-                    </OutsideClick>
-                </div>
-            </li>
+                        <div className={styles.description}>
+                            {props.description}
+                        </div>
+                        <div className={styles.author}>
+                            {`${props.author}`}
+                        </div>
+                        <OutsideClick eventHandler={onCloseDropDownHandler}>
+                            <div className={styles.dots} onClick={toggleDropDownHandler}>
+                                {openDropDown && <div className={styles.dropDown}>
+                                    <ul>
+                                        <li>Update</li>
+                                        <li onClick={deleteProjectHandler}>Delete</li>
+                                    </ul>
+                                </div>}
+                            </div>
+                        </OutsideClick>
+                    </div>
+                </li>
+            </Fragment>
         )
     }
 }

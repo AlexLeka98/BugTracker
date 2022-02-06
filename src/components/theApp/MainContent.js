@@ -5,6 +5,7 @@ import styles from "./MainContent.module.css";
 import Dashboard from "./SidebarPages/Dashboard/Dashboard";
 import Ticket from "./SidebarPages/Tickets";
 import Administration from "./SidebarPages/Administration";
+import ProjectPage from "./SidebarPages/Dashboard/Projects/ProjectPage";
 
 const MainContent = (props) => {
     const authCtx = useContext(AuthContext);
@@ -13,6 +14,9 @@ const MainContent = (props) => {
             <Switch>
                 <Route path='/app/dashboard' exact>
                     <Dashboard />
+                </Route>
+                <Route path='/app/dashboard/project/:id'>
+                    <ProjectPage />
                 </Route>
                 <Route path='/app/tickets' exact>
                     <Ticket />

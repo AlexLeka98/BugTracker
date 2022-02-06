@@ -33,6 +33,7 @@
     border-radius:5px 0px 5px 5px;
     padding:20px 0;
     background-color:var(--med1);
+    animation: slide-down 250ms ease-out forwards;
 }
 
 
@@ -48,6 +49,7 @@
     background-color:var(--med1);
     color:black;
     /* text-align: start; */
+    animation: slide-down 150ms ease-out forwards;
 }
 .dropdownContent a:hover{
     background-color:var(--med2);
@@ -62,3 +64,16 @@
 .anchorStyle,.dropDown:hover{
     color:var(--med1);
 }
+
+
+
+@keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
