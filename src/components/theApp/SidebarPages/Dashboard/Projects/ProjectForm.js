@@ -1,7 +1,9 @@
 import { useRef } from 'react';
-import useHttp from '../../hooks/useHttp';
+// import useHttp from '../../hooks/useHttp';
+import useHttp from '../../../../../hooks/useHttp';
 import styles from './ProjectForm.module.css'
-import Modal from './Modal';
+// import Modal from './Modal';
+import Modal from '../../../../UI/Modal';
 
 const ProjectForm = (props) => {
     const { httpRequest } = useHttp()

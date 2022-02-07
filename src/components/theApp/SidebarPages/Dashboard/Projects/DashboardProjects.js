@@ -3,7 +3,7 @@ import DashboardItem from './DashboardItem';
 import DashboardPanel from '../../../../UI/DashboardPanel';
 import { useEffect, useState } from 'react';
 import useHttp from '../../../../../hooks/useHttp';
-import ProjectForm from '../../../../UI/ProjectForm';
+import ProjectForm from './ProjectForm';
 
 
 
