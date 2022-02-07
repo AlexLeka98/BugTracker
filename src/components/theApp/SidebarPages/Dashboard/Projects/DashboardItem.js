@@ -19,17 +19,8 @@ const DashboardItem = (props) => {
     }
 
     const deleteProjectHandler = () => {
-        let httpInfo = {
-            url: '/projects',
-            method: 'DELETE',
-            body: { id: props.id },
-            headers: { 'Content-Type': 'application/json' }
-        }
-        httpRequest(httpInfo).then(() => {
-            props.onRemoveItem(props.id);
-        })
+        props.onRemoveItem(props.id);
     }
-
 
     if (props.contributors) {
         return (

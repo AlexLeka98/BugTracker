@@ -25,6 +25,8 @@ const ProjectPage = (props) => {
         }
         httpRequest(httpInfo).then(res => {
             setProject(res);
+            setTickets(res.tickets);
+            setMembers(res.users);
         }).catch(err => {
             console.log(err);
         })
@@ -57,14 +59,28 @@ const ProjectPage = (props) => {
         setTicketModalIsOpen(prevState => !prevState);
     }
     const addNewTicketHandler = (newTicket) => {
+        console.log(newTicket);
         setTickets(prevProjects => {
             return [...prevProjects, newTicket];
         })
     }
     const removeTicketHandler = (id) => {
-        console.log('Removing ticket from the Project And in general');
+        let httpInfo = {
+            url: '/tickets',
+            method: 'DELETE',
+            body: { id: id },
+            headers: { 'Content-Type': 'application/json' }
+        }
+        httpRequest(httpInfo).then(() => {
+            console.log('Hey there');
+            console.log(id);
+            setTickets(prevTickets => {
+                return prevTickets.filter(ticket => ticket._id !== id);
+            })
+        }).catch(err => {
+            console.log(err);
+        })
     }
-
     return (
         <div className={styles.projectPageContainer}>
             {project &&
@@ -104,10 +120,10 @@ const ProjectPage = (props) => {
                                         key={item._id}
                                         id={item._id}
                                         status={item.status}
-                                    onRemoveTicket={removeTicketHandler}
+                                        onRemoveItem={removeTicketHandler}
                                     />
                                 ))}
-                                {isLoading && <div className='loader'></div>}
+                                {/* {isLoading && <div className='loader'></div>} */}
                                 {tickets.length === 0 && <h5 className={styles.noProjects}>No Tickets yet.</h5>}
                             </ul>
                             {ticketModalIsOpen &&

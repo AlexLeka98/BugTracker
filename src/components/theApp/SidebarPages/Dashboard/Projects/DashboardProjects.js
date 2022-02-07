@@ -26,9 +26,19 @@ const DashboardProjects = () => {
     }
 
     const removeProjectHandler = (id) => {
-        setProjectItems(prevProjects => {
-            return prevProjects.filter(item => item._id !== id);
+        let httpInfo = {
+            url: '/projects',
+            method: 'DELETE',
+            body: { id: id },
+            headers: { 'Content-Type': 'application/json' }
+        }
+        httpRequest(httpInfo).then(() => {
+            setProjectItems(prevProjects => {
+                return prevProjects.filter(item => item._id !== id);
+            })
         })
+
+
     }
 
     const { isLoading, error, httpRequest } = useHttp();

@@ -31,8 +31,7 @@ const ProjectTicketForm = (props) => {
             headers: { 'Content-Type': 'application/json' }
         }
         httpRequest(httpInfo).then(res => {
-            console.log(res);
-            props.addNewTicketHandler(newTicket);
+            props.addNewTicketHandler(res);
         })
         enteredTitle.current.value = '';
         enteredDescription.current.value = '';
