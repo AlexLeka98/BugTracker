@@ -13,7 +13,9 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }]
+    contributors: [{ name: String, surname: String }],
+    users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
+    tickets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tickets' }],
 });
 
 const Projects = mongoose.model('Projects', projectSchema);

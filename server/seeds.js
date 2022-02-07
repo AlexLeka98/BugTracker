@@ -36,24 +36,34 @@ const USER_DUMMY = [
 
 const PROJECT_DUMMY = [
     {
-        title: 'Next facebook',
-        description: 'This is the next facebook 100%.',
-        author: 'admin',
+        title: 'Bug Tracker',
+        description: 'But tracking software for professional software development.',
+        author: 'Aleksander Leka',
+        contributors: [{name:'Nick',surname:'Papadopoulos'}]
     },
     {
-        title: 'Next Twitter',
-        description: 'This is the next twitter, we are getting rich.',
-        author: 'dev',
+        title: 'Facebook 2.0',
+        description: 'New facebook, because Zuckerberg has lost his mind.',
+        author: 'Aleksander Leka',
+        contributors: []
     },
     {
-        title: 'Next Youtube',
-        description: 'This is the next youtube, probably going to be name YouTub.',
-        author: 'dev',
+        title: 'Tesla autopilot',
+        description: 'Solving full autonomous autopilot for electric vehicles.',
+        author: 'Aleksander Leka',
+        contributors: []
     },
     {
-        title: 'Next Reddit',
-        description: 'Next Reddit, aka Redit.',
-        author: 'dev',
+        title: 'Retid',
+        description: 'The infamous Reddit project, AKA Retid will be deployed very soon.',
+        author: 'Aleksander Leka',
+        contributors: []
+    },
+    {
+        title: 'Tesla',
+        description: 'We building cars.',
+        author: 'Aleksander Leka',
+        contributors: []
     },
 ]
 
@@ -87,21 +97,21 @@ const TICKET_DUMMY = [
 
 
 const feedDataBase = () => {
-    USER_DUMMY.map(item => {
-        new Users(item).save(err => {
-            if (err) {
-                console.log(err);
-            };
-        })
-    });
+    // USER_DUMMY.map(item => {
+    //     new Users(item).save(err => {
+    //         if (err) {
+    //             console.log(err);
+    //         };
+    //     })
+    // });
 
-    TICKET_DUMMY.map(item => {
-        new Tickets(item).save(err => {
-            if (err) {
-                console.log(err);
-            };
-        })
-    });
+    // TICKET_DUMMY.map(item => {
+    //     new Tickets(item).save(err => {
+    //         if (err) {
+    //             console.log(err);
+    //         };
+    //     })
+    // });
 
     PROJECT_DUMMY.map(item => {
         new Projects(item).save(err => {
@@ -112,7 +122,9 @@ const feedDataBase = () => {
     });
 }
 
-// feedDataBase();
+
+
+feedDataBase();
 
 
  
