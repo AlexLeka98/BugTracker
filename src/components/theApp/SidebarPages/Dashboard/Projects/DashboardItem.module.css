@@ -133,7 +133,7 @@
 }
 
 .dots .dropDown ul li:hover{
-    background-color: var(--med2);
+    background-color: var(--med1);
 }
 
 .dots .dropDown ul li:first-child{

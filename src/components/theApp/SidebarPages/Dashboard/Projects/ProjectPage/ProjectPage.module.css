@@ -10,16 +10,9 @@
 }
 
 .projectPage .teamPanelStyle{
-    width:30%;
+    width:35%;
 }
 
 .projectPage .ticketsPanelStyle{
     width:60%;
-}
-
-.projectList {
-    display: flex;
-    flex-direction: column;
-    padding:0;
-    margin:0 0 16px 0;
 }

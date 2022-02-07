@@ -53,28 +53,27 @@ const DashboardProjects = () => {
             })
     }, [])
 
+    const panelTitles = { col1: 'PROJECT', col2: 'DESCRIPTION', col3: 'CONTRIBUTORS' }
+
     return (
-        <DashboardPanel name='Projects' buttonName='New Project' onClick={toggleFormModal} >
-            <ul className={styles.projectList}>
+        <DashboardPanel
+            name='Projects'
+            buttonName='New Project'
+            onClick={toggleFormModal}
+            panelTitles={panelTitles}>
+            {projectItems.length > 0 && projectItems.map(item => (
                 <DashboardItem
-                    title='PROJECT'
-                    description='DESCRIPTION'
-                    contributors='CONTRIBUTORS'
+                    col1={item.title}
+                    col2={item.description}
+                    col3={item.author}
+                    contrib={item.contributors}
+                    key={item._id}
+                    id={item._id}
+                    onRemoveItem={removeProjectHandler}
                 />
-                {projectItems.length > 0 && projectItems.map(item => (
-                    <DashboardItem
-                        title={item.title}
-                        description={item.description}
-                        author={item.author}
-                        contrib={item.contributors}
-                        key={item._id}
-                        id={item._id}
-                        onRemoveItem={removeProjectHandler}
-                    />
-                ))}
-                {isLoading && <div className='loader'></div>}
-                {projectItems.length === 0 && <h5 className={styles.noProjects}>No Projects yet.</h5>}
-            </ul>
+            ))}
+            {isLoading && <div className='loader'></div>}
+            {projectItems.length === 0 && <h5 className={styles.noProjects}>No Projects yet.</h5>}
             {modalIsOpen && <ProjectForm onAddNewProject={addNewProjectHandler} closeFormModal={closeFormModal} />}
         </DashboardPanel >
     )

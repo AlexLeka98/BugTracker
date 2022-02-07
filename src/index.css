@@ -31,11 +31,12 @@ input:focus{
 }
 
 .loader {
-  --b: 10px;  /* border thickness */
-  --n: 20;    /* number of dashes*/
-  --g: 7deg; /* gap  between dashes*/
-  --c: #fff;   /* the color */
+  --b: 12px;  /* border thickness */
+  --n: 14;    /* number of dashes*/
+  --g: 10deg; /* gap  between dashes*/
+  --c: rgb(180, 180, 180);   /* the color */
   margin:0 auto;
+  margin-bottom:20px;
   width:50px; /* size */
   aspect-ratio: 1;
   border-radius: 50%;

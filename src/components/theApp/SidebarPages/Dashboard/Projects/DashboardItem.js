@@ -22,17 +22,17 @@ const DashboardItem = (props) => {
         props.onRemoveItem(props.id);
     }
 
-    if (props.contributors) {
+    if (props.headerItem) {
         return (
             <li className={styles.headerItem}>
                 <div>
-                    {props.title}
+                    {props.col1}
                 </div>
                 <div>
-                    {props.description}
+                    {props.col2}
                 </div>
                 <div>
-                    {props.contributors}
+                    {props.col3}
                 </div>
                 <div></div>
             </li>
@@ -43,13 +43,14 @@ const DashboardItem = (props) => {
             <li className={styles.listItem}>
                 <div className={styles.linkItem}>
                     <div className={styles.title}>
-                        <Link to={`/app/dashboard/project/${props.id}`}>{props.title}</Link>
+                        <Link to={`/app/dashboard/project/${props.id}`}>{props.col1}</Link>
                     </div>
                     <div className={styles.description}>
-                        <Link to={`/app/dashboard/project/${props.id}`}>{props.description}</Link>
+                        <Link to={`/app/dashboard/project/${props.id}`}>{props.col2}</Link>
                     </div>
                     <div className={styles.author}>
-                        {`${props.author}${props.contrib !== undefined && props.contrib.map(contributor => ` , ${contributor.name} ${contributor.surname}`)}`}
+                        {`${props.col3}`}
+                        {/* {`${props.author}${props.contrib !== undefined && props.contrib.map(contributor => ` , ${contributor.name} ${contributor.surname}`)}`} */}
                     </div>
                     <OutsideClick eventHandler={onCloseDropDownHandler}>
                         <div className={styles.dots} onClick={toggleDropDownHandler}>

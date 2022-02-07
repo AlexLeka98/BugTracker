@@ -1,7 +1,7 @@
 import { useRef } from 'react';
-import styles from './ProjectTicketAndTeamForm.module.css'
-import Modal from '../../../../../UI/Modal';
-import useHttp from '../../../../../../hooks/useHttp';
+import styles from '../ProjectTicketAndMemberForm.module.css'
+import Modal from '../../../../../../UI/Modal';
+import useHttp from '../../../../../../../hooks/useHttp';
 import { useRouteMatch } from 'react-router-dom';
 
 const ProjectTicketForm = (props) => {
