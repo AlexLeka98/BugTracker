@@ -14,9 +14,10 @@
 }
 
 .panelTitleAndButton {
-    display: flex;
+    display: flex; 
     justify-content: space-between;
     padding:20px;
+
     /* border-bottom:2px solid var(--hardB); */
 }
 

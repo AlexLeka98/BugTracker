@@ -1,0 +1,19 @@
+.projectPageContainer{
+    display: flex;
+    
+}
+
+.projectPage{
+    display: flex;
+    width:100%;
+    justify-content: space-around;
+    padding:20px;
+}
+
+.projectPage .teamPanelStyle{
+    width:30%;
+}
+
+.projectPage .ticketsPanelStyle{
+    width:60%;
+}

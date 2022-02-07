@@ -49,31 +49,30 @@ const DashboardItem = (props) => {
     }
     else {
         return (
-            <Fragment>
-                <li className={styles.listItem}>
-                    <div className={styles.linkItem}>
-                        <div className={styles.title}>
-                            <Link to={`/app/dashboard/project?${props.id}`}>{props.title}</Link>
-                        </div>
-                        <div className={styles.description}>
-                            {props.description}
-                        </div>
-                        <div className={styles.author}>
-                            {`${props.author}`}
-                        </div>
-                        <OutsideClick eventHandler={onCloseDropDownHandler}>
-                            <div className={styles.dots} onClick={toggleDropDownHandler}>
-                                {openDropDown && <div className={styles.dropDown}>
-                                    <ul>
-                                        <li>Update</li>
-                                        <li onClick={deleteProjectHandler}>Delete</li>
-                                    </ul>
-                                </div>}
-                            </div>
-                        </OutsideClick>
+            <li className={styles.listItem}>
+                <div className={styles.linkItem}>
+                    <div className={styles.title}>
+                        <Link to={`/app/dashboard/project/${props.id}`}>{props.title}</Link>
                     </div>
-                </li>
-            </Fragment>
+                    <div className={styles.description}>
+                        <Link to={`/app/dashboard/project/${props.id}`}>{props.description}</Link>
+                    </div>
+                    <div className={styles.author}>
+                        {`${props.author}${props.contrib.map(contributor => ` , ${contributor.name} ${contributor.surname}`)}`}
+                    </div>
+                    <OutsideClick eventHandler={onCloseDropDownHandler}>
+                        <div className={styles.dots} onClick={toggleDropDownHandler}>
+                            {openDropDown && <div className={styles.dropDown}>
+                                <ul>
+                                    <li>Update</li>
+                                    <li onClick={deleteProjectHandler}>Delete</li>
+                                </ul>
+                            </div>}
+                        </div>
+                    </OutsideClick>
+                </div>
+            </li>
+
         )
     }
 }

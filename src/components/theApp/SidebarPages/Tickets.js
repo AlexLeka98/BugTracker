@@ -1,6 +1,10 @@
 
-const Ticket = () => {
-    return <h1>Ticket component</h1>
+
+
+
+
+const Tickets = () => {
+    return <h1>Administration component</h1>
 }
 
-export default Ticket;
+export default Tickets;

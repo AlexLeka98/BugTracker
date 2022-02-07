@@ -3,9 +3,9 @@ import { Route, Switch } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import styles from "./MainContent.module.css";
 import Dashboard from "./SidebarPages/Dashboard/Dashboard";
-import Ticket from "./SidebarPages/Tickets";
+import Tickets from "./SidebarPages/Tickets";
 import Administration from "./SidebarPages/Administration";
-import ProjectPage from "./SidebarPages/Dashboard/Projects/ProjectPage";
+import ProjectPage from "./SidebarPages/Dashboard/Projects/ProjectPage/ProjectPage";
 
 const MainContent = (props) => {
     const authCtx = useContext(AuthContext);
@@ -19,7 +19,7 @@ const MainContent = (props) => {
                     <ProjectPage />
                 </Route>
                 <Route path='/app/tickets' exact>
-                    <Ticket />
+                    <Tickets />
                 </Route>
                 <Route path='/app/administration' exact>
                     <Administration />

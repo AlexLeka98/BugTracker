@@ -13,5 +13,4 @@ const BugTracker = () => {
     )
 }
 
-
 export default BugTracker;

@@ -23,6 +23,10 @@
     text-align: start;
 }
 
+.author{
+    font-size: 14px;
+}
+
 .listItem .linkItem div:nth-child(1){
     width:15%;
 }
@@ -76,6 +80,8 @@
 .headerItem div:nth-child(4){
     width:5%;
 }
+
+
 
 .dots{
     background:url('../../../../../assets/more.png');

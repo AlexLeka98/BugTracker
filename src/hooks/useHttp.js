@@ -20,10 +20,10 @@ const useHttp = () => {
                 console.dir(error)
                 throw new Error(data.error.message);
             }
-            setIsLoading(false);
             if (dataFunc !== undefined) {
                 return await dataFunc(data);
             }
+            setIsLoading(false);
             // console.log(data);
             return data;
         }
