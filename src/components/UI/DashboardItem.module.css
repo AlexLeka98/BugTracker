@@ -1,0 +1,158 @@
+
+.listItem {
+    width:100%;
+    text-decoration: none;
+}
+.listItem a {
+    width:100%;
+    color:black;
+    text-decoration: none;
+}
+.listItem a:hover {
+    width:100%;
+    color:var(--med2);
+    text-decoration: none;
+}
+.listItem .linkItem {
+    display: flex;
+    width:100%;
+    padding:14px 14px;
+}
+.listItem .linkItem div{
+    padding-left:6px;
+    text-align: start;
+}
+
+.author{
+    font-size: 14px;
+}
+
+.listItem .linkItem div:nth-child(1){
+    width:15%;
+}
+
+.listItem .linkItem div:nth-child(2){
+    width:60%;
+}
+.listItem .linkItem div:nth-child(3){
+    width:20%;
+}
+.listItem .linkItem div:nth-child(4){
+    padding-left:0;
+    width:5%;
+}
+
+.listItem .title{
+    color:red;
+    font-weight: 600;
+    transition:all 100ms ease;
+}
+.listItem .title:hover{
+    color:var(--med2);
+}
+
+
+.headerItem{
+    box-sizing: border-box;
+    width:100%;
+    font-size:12px;
+    font-weight: 700;
+    display: flex;
+    background-color:rgb(245, 245, 245);
+    padding:8px 14px;
+
+}
+.headerItem div{
+    text-align: start;
+}
+
+.headerItem div:nth-child(1){
+    width:15%;
+}
+
+.headerItem div:nth-child(2){
+    width:60%;
+}
+.headerItem div:nth-child(3){
+    width:20%;
+}
+
+.headerItem div:nth-child(4){
+    width:5%;
+}
+
+
+
+.dots{
+    background:url('../../assets/more.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y: center;
+    height:20px;
+    width:30px;
+    transition: all 100ms ease-in;
+    position: relative;
+}
+
+.dots:hover{
+    background:url('../../assets/more2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y: center;
+    cursor: pointer;
+}
+
+.dots .dropDown{
+    top:50%;
+    position:absolute;
+    right:55px;
+    animation: slide-down 150ms ease-out forwards;
+}
+
+.dots .dropDown ul{
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    padding:0;
+    margin:0;
+    border-radius: 10px 0px 10px 10px;
+    z-index: 2;
+    transform: translateX(-50%);
+}
+
+.dots .dropDown ul li {
+    padding:8px 16px;
+    background-color: var(--hardB);
+    color:#ffffff;
+}
+
+.dots .dropDown ul li:first-child{
+    border:10px 0 0 0;
+}
+
+.dots .dropDown ul li:hover{
+    background-color: var(--med1);
+}
+
+.dots .dropDown ul li:first-child{
+    border-radius: 5px 0 0 0;
+}
+
+.dots .dropDown ul li:last-child{
+    border-radius: 0 0 5px 5px;
+}
+
+
+
+@keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

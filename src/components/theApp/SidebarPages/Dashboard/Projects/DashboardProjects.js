@@ -1,9 +1,8 @@
-import styles from './DashboardProjects.module.css'
-import DashboardItem from './DashboardItem';
 import DashboardPanel from '../../../../UI/DashboardPanel';
 import { useEffect, useState } from 'react';
 import useHttp from '../../../../../hooks/useHttp';
 import ProjectForm from './ProjectForm';
+import DashboardItem from '../../../../UI/DashboardItem';
 
 
 
@@ -73,7 +72,7 @@ const DashboardProjects = () => {
                 />
             ))}
             {isLoading && <div className='loader'></div>}
-            {projectItems.length === 0 && <h5 className={styles.noProjects}>No Projects yet.</h5>}
+            {projectItems.length === 0 && <h5>No Projects yet.</h5>}
             {modalIsOpen && <ProjectForm onAddNewProject={addNewProjectHandler} closeFormModal={closeFormModal} />}
         </DashboardPanel >
     )

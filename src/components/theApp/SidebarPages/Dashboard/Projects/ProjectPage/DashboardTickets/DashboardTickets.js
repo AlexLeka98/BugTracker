@@ -1,8 +1,7 @@
 import DashboardPanel from "../../../../../../UI/DashboardPanel"
-import DashboardItem from "../../DashboardItem";
 import ProjectTicketForm from "./ProjectTicketForm";
 import { useRouteMatch } from "react-router-dom";
-import styles from '../ProjectPage.module.css';
+import DashboardItem from "../../../../../../UI/DashboardItem";
 
 const DashboardTickets = (props) => {
     const match = useRouteMatch();
