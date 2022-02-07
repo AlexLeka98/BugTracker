@@ -58,7 +58,7 @@ const DashboardItem = (props) => {
                         <Link to={`/app/dashboard/project/${props.id}`}>{props.description}</Link>
                     </div>
                     <div className={styles.author}>
-                        {`${props.author}${props.contrib.map(contributor => ` , ${contributor.name} ${contributor.surname}`)}`}
+                        {`${props.author}${props.contrib !== undefined && props.contrib.map(contributor => ` , ${contributor.name} ${contributor.surname}`)}`}
                     </div>
                     <OutsideClick eventHandler={onCloseDropDownHandler}>
                         <div className={styles.dots} onClick={toggleDropDownHandler}>

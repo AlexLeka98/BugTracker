@@ -39,22 +39,18 @@ const DashboardProjects = () => {
         console.log(httpInfo);
         httpRequest(httpInfo)
             .then(res => {
-                console.log(res);
                 setProjectItems(res);
             })
     }, [])
 
-    console.log(projectItems);
     return (
         <DashboardPanel name='Projects' buttonName='New Project' onClick={toggleFormModal} >
             <ul className={styles.projectList}>
-                {projectItems.length > 0 &&
-                    <DashboardItem
-                        title='PROJECT'
-                        description='DESCRIPTION'
-                        contributors='CONTRIBUTORS'
-                    />
-                }
+                <DashboardItem
+                    title='PROJECT'
+                    description='DESCRIPTION'
+                    contributors='CONTRIBUTORS'
+                />
                 {projectItems.length > 0 && projectItems.map(item => (
                     <DashboardItem
                         title={item.title}

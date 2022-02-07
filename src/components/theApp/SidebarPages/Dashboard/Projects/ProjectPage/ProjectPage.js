@@ -17,7 +17,6 @@ const ProjectPage = (props) => {
     const [teamModalIsOpen, setTeamModalIsOpen] = useState(false)
 
     const match = useRouteMatch();
-    console.log(match.params.id);
 
     useEffect(() => {
         let httpInfo = {
@@ -40,9 +39,9 @@ const ProjectPage = (props) => {
     const closeTicketFormModal = () => {
         setTicketModalIsOpen(prevState => !prevState);
     }
-    const addNewTicketHandler = (newProject) => {
+    const addNewTicketHandler = (newTicket) => {
         setTickets(prevProjects => {
-            return [...prevProjects, newProject];
+            return [...prevProjects, newTicket];
         })
     }
 
@@ -59,7 +58,7 @@ const ProjectPage = (props) => {
             return [...prevProjects, newMember];
         })
     }
-
+    console.log(tickets);
 
     return (
         <div className={styles.projectPageContainer}>
@@ -67,11 +66,18 @@ const ProjectPage = (props) => {
                 <div className={styles.projectPage}>
                     <div className={styles.teamPanelStyle}>
                         <DashboardPanel name='Team' buttonName='Add Member' onClick={toggleTeamFormModal}>
-                            <DashboardItem
-                                title='NAME'
-                                description='EMAIL'
-                                contributors='PHONE'
-                            />
+                            <ul className={styles.projectList}>
+                                <DashboardItem
+                                    title='NAME'
+                                    description='EMAIL'
+                                    contributors='PHONE'
+                                />
+
+
+
+                                {isLoading && <div className='loader'></div>}
+                                {team.length === 0 && <h5 className={styles.noProjects}>No Teams yet.</h5>}
+                            </ul>
                             {teamModalIsOpen &&
                                 <ProjectTeamForm addNewMemberHandler={addNewMemberHandler} closeTeamFormModal={closeTeamFormModal} id={match.params.id} />
                             }
@@ -79,11 +85,26 @@ const ProjectPage = (props) => {
                     </div>
                     <div className={styles.ticketsPanelStyle}>
                         <DashboardPanel name='Tickets' buttonName='New Ticket' onClick={toggleTicketFormModal}>
-                            <DashboardItem
-                                title='TICKET TITLE'
-                                description='DESCRIPTION'
-                                contributors='TICKET AUTHOR'
-                            />
+                            <ul className={styles.projectList}>
+                                <DashboardItem
+                                    title='TICKET TITLE'
+                                    description='DESCRIPTION'
+                                    contributors='TICKET AUTHOR'
+                                />
+                                {tickets.length > 0 && tickets.map(item => (
+                                    <DashboardItem
+                                        title={item.title}
+                                        description={item.description}
+                                        author={item.author}
+                                        key={item._id}
+                                        id={item._id}
+                                        status={item.status}
+                                    // onRemoveItem={removeProjectHandler}
+                                    />
+                                ))}
+                                {isLoading && <div className='loader'></div>}
+                                {tickets.length === 0 && <h5 className={styles.noProjects}>No Projects yet.</h5>}
+                            </ul>
                             {ticketModalIsOpen &&
                                 <ProjectTicketForm addNewTicketHandler={addNewTicketHandler} closeTicketFormModal={closeTicketFormModal} id={match.params.id} />
                             }
