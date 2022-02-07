@@ -5,34 +5,3 @@
     padding:0;
     margin:0 0 16px 0;
 }
-
-.projectTitleAndButton {
-    display: flex;
-    justify-content: space-between;
-    padding:20px;
-}
-
-.projectTitleAndButton button {
-    border:none;
-    background-color:var(--hardB);
-    color:#ffffff;
-    font-size:15px;
-    padding:8px 20px;
-    border-radius: 20px;
-}
-
-.projectTitleAndButton button:hover{
-    cursor: pointer;
-    background-color:var(--lightB);
-}
-.projectTitleAndButton button:active{
-    background-color:rgb(34, 34, 34);
-}
-
-
-.noProjects{
-    color:rgb(114, 114, 114);
-    margin: 10px 0px 60px 0px;
-    font-size: 30px;
-    text-align: center;
-}

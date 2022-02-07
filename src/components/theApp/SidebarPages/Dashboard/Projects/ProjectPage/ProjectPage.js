@@ -12,9 +12,9 @@ const ProjectPage = (props) => {
     const [project, setProject] = useState(null)
 
     const [tickets, setTickets] = useState([]);
-    const [team, setTeam] = useState([]);
+    const [members, setMembers] = useState([]);
     const [ticketModalIsOpen, setTicketModalIsOpen] = useState(false);
-    const [teamModalIsOpen, setTeamModalIsOpen] = useState(false)
+    const [membersModalIsOpen, setMembersModalIsOpen] = useState(false)
 
     const match = useRouteMatch();
 
@@ -31,9 +31,26 @@ const ProjectPage = (props) => {
     }, [])
 
 
+    // TEAM FORM
+    const toggleMembersFormModal = () => {
+        setTicketModalIsOpen(false)
+        setMembersModalIsOpen(prevState => (!prevState));
+    }
+    const closeMembersFormModal = () => {
+        setMembersModalIsOpen(prevState => !prevState);
+    }
+    const addNewMemberHandler = (newMember) => {
+        setMembers(prevProjects => {
+            return [...prevProjects, newMember];
+        })
+    }
+    const removeMemberHandler = (id) => {
+        console.log('Removing member from the Member And in general');
+    }
+
     // TICKET FORM
     const toggleTicketFormModal = () => {
-        setTeamModalIsOpen(false)
+        setMembersModalIsOpen(false)
         setTicketModalIsOpen(prevState => (!prevState));
     }
     const closeTicketFormModal = () => {
@@ -44,28 +61,16 @@ const ProjectPage = (props) => {
             return [...prevProjects, newTicket];
         })
     }
-
-    // TEAM FORM
-    const toggleTeamFormModal = () => {
-        setTicketModalIsOpen(false)
-        setTeamModalIsOpen(prevState => (!prevState));
+    const removeTicketHandler = (id) => {
+        console.log('Removing ticket from the Project And in general');
     }
-    const closeTeamFormModal = () => {
-        setTeamModalIsOpen(prevState => !prevState);
-    }
-    const addNewMemberHandler = (newMember) => {
-        setTeam(prevProjects => {
-            return [...prevProjects, newMember];
-        })
-    }
-    console.log(tickets);
 
     return (
         <div className={styles.projectPageContainer}>
             {project &&
                 <div className={styles.projectPage}>
                     <div className={styles.teamPanelStyle}>
-                        <DashboardPanel name='Team' buttonName='Add Member' onClick={toggleTeamFormModal}>
+                        <DashboardPanel name='Team' buttonName='Add Member' onClick={toggleMembersFormModal}>
                             <ul className={styles.projectList}>
                                 <DashboardItem
                                     title='NAME'
@@ -76,10 +81,10 @@ const ProjectPage = (props) => {
 
 
                                 {isLoading && <div className='loader'></div>}
-                                {team.length === 0 && <h5 className={styles.noProjects}>No Teams yet.</h5>}
+                                {members.length === 0 && <h5 className={styles.noProjects}>No Members yet.</h5>}
                             </ul>
-                            {teamModalIsOpen &&
-                                <ProjectTeamForm addNewMemberHandler={addNewMemberHandler} closeTeamFormModal={closeTeamFormModal} id={match.params.id} />
+                            {membersModalIsOpen &&
+                                <ProjectTeamForm addNewMemberHandler={addNewMemberHandler} closeMembersFormModal={closeMembersFormModal} id={match.params.id} />
                             }
                         </DashboardPanel>
                     </div>
@@ -99,11 +104,11 @@ const ProjectPage = (props) => {
                                         key={item._id}
                                         id={item._id}
                                         status={item.status}
-                                    // onRemoveItem={removeProjectHandler}
+                                    onRemoveTicket={removeTicketHandler}
                                     />
                                 ))}
                                 {isLoading && <div className='loader'></div>}
-                                {tickets.length === 0 && <h5 className={styles.noProjects}>No Projects yet.</h5>}
+                                {tickets.length === 0 && <h5 className={styles.noProjects}>No Tickets yet.</h5>}
                             </ul>
                             {ticketModalIsOpen &&
                                 <ProjectTicketForm addNewTicketHandler={addNewTicketHandler} closeTicketFormModal={closeTicketFormModal} id={match.params.id} />

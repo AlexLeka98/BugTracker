@@ -31,12 +31,12 @@ const ProjectTeamForm = (props) => {
         enteredDescription.current.value = '';
         enteredAuthor.current.value = '';
         enteredType.current.value = '';
-        props.closeTeamFormModal();
+        props.closeMembersFormModal();
     }
 
 
     return (
-        <Modal onModalHandler={props.closeTeamFormModal}>
+        <Modal onModalHandler={props.closeMembersFormModal}>
             <div className={styles.formContainer}>
                 <form className={styles.formStyle} onSubmit={onSubmitFormHandler}>
                     <h2 className={styles.formHeader}>New Member</h2>
