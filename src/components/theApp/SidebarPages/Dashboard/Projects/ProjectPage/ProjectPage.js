@@ -11,7 +11,7 @@ const ProjectPage = (props) => {
     const [tickets, setTickets] = useState([]);
     const [members, setMembers] = useState([]);
     const [ticketModalIsOpen, setTicketModalIsOpen] = useState(false);
-    const [memberModalIsOpen, setMemberModalIsOpen] = useState(false)
+    const [memberModalIsOpen, setMemberModalIsOpen] = useState(false);
 
     const match = useRouteMatch();
 
@@ -27,38 +27,18 @@ const ProjectPage = (props) => {
         }).catch(err => {
             console.log(err);
         })
+        return () => {
+            setProject({}); // This worked for me
+        };
     }, [])
-
+    console.log(project);
 
     // MEMBERS FORM
     const toggleMemberFormModal = () => {
         setTicketModalIsOpen(false)
         setMemberModalIsOpen(prevState => (!prevState));
     }
-    const closeMemberFormModal = () => {
-        setMemberModalIsOpen(prevState => !prevState);
-    }
-    const addNewMemberHandler = (newMember) => {
-        setMembers(prevMembers => {
-            return [...prevMembers, newMember];
-        })
-    }
-    const removeMemberHandler = (userId) => {
-        console.log('Icamehere');
-        let httpInfo = {
-            url: '/projects/user',
-            method: 'DELETE',
-            body: { userId: userId, projectId: match.params.id },
-            headers: { 'Content-Type': 'application/json' }
-        }
-        httpRequest(httpInfo).then(() => {
-            setMembers(prevUsers => {
-                return prevUsers.filter(user => user._id !== userId);
-            })
-        }).catch(err => {
-            console.log(err);
-        })
-    }
+    
 
 
 
@@ -93,31 +73,29 @@ const ProjectPage = (props) => {
     return (
         <Fragment>
             <h1>{project && project.title}</h1>
-            <div className={styles.projectPageContainer}>
-                <div className={styles.projectPage}>
-                    <div className={styles.ticketsPanelStyle}>
-                        <DashboardTickets
-                            tickets={tickets}
-                            addNewTicketHandler={addNewTicketHandler}
-                            toggleTicketFormModal={toggleTicketFormModal}
-                            ticketModalIsOpen={ticketModalIsOpen}
-                            closeTicketFormModal={closeTicketFormModal}
-                            removeTicketHandler={removeTicketHandler}
-                        />
+            {project &&
+                <div className={styles.projectPageContainer}>
+                    <div className={styles.projectPage}>
+                        <div className={styles.ticketsPanelStyle}>
+                            <DashboardTickets
+                                tickets={tickets}
+                                addNewTicketHandler={addNewTicketHandler}
+                                toggleTicketFormModal={toggleTicketFormModal}
+                                ticketModalIsOpen={ticketModalIsOpen}
+                                closeTicketFormModal={closeTicketFormModal}
+                                removeTicketHandler={removeTicketHandler}
+                            />
+                        </div>
+                        <div className={styles.teamPanelStyle}>
+                            <DashboardMembers
+                                members={project.users}
+                                toggleMemberFormModal={toggleMemberFormModal}
+                            />
+                        </div>
                     </div>
-                    <div className={styles.teamPanelStyle}>
-                        <DashboardMembers
-                            members={members}
-                            addNewMemberHandler={addNewMemberHandler}
-                            toggleMemberFormModal={toggleMemberFormModal}
-                            memberModalIsOpen={memberModalIsOpen}
-                            closeMemberFormModal={closeMemberFormModal}
-                            removeMemberHandler={removeMemberHandler}
-                        />
-                    </div>
+                    {isLoading && <div className='loader'></div>}
                 </div>
-                {isLoading && <div className='loader'></div>}
-            </div>
+            }
         </Fragment>
     )
 }

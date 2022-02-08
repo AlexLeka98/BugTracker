@@ -1,0 +1,98 @@
+.formContainer{
+    padding:30px;
+    background-color: #4a4e69c2;
+    max-width: 600px;;
+    border-radius: 1rem;
+}
+
+
+.formStyle{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* margin:20px 0; */
+}
+.formStyle ul{
+    margin:10px 0;
+    padding:0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.formStyle ul li{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width:90%;
+    padding:5px 0;
+}
+
+.formStyle .formControl{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    color:blue;
+}
+
+.formStyle .formControl:hover{
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    /* Add if not using autoprefixer */
+    /* -webkit-appearance: none;
+    appearance: none; */
+    /* For iOS < 15 to remove gradient background */
+    color:red;
+    background-color: #fff;
+    /* Not removed via appearance */
+    margin: 0;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+}
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+
+
+
+
+.formStyle button{
+    margin:0px auto;
+    padding:12px 30px;
+    font-size:18px;
+    border-radius: 0.6rem;
+    border:none;
+    background-color: var(--hardB);
+    color:#ffffff;
+    transition:all 200ms ease;
+}
+.formStyle button:hover{
+    cursor: pointer;
+    background-color: var(--med2);
+}
+.formStyle button:active{
+    background-color:var(--med3)
+}
+
+.formHeader{
+    align-self: center;
+    margin:0;
+    color:#ffffff;
+    font-size: 40px;
+}  
+
+
+
+
+
