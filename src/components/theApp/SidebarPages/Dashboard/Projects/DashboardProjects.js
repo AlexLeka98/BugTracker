@@ -45,7 +45,6 @@ const DashboardProjects = () => {
         let httpInfo = {
             url: '/projects',
         }
-        console.log(httpInfo);
         httpRequest(httpInfo)
             .then(res => {
                 setProjectItems(res);

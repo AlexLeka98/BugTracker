@@ -22,9 +22,7 @@ const ProjectPage = (props) => {
         }
         httpRequest(httpInfo).then(res => {
             setProject(res);
-            console.log(res);
             setTickets(res.tickets);
-            console.log(res.users);
             setMembers(res.users);
         }).catch(err => {
             console.log(err);
@@ -32,7 +30,7 @@ const ProjectPage = (props) => {
     }, [])
 
 
-    // TEAM FORM
+    // MEMBERS FORM
     const toggleMemberFormModal = () => {
         setTicketModalIsOpen(false)
         setMemberModalIsOpen(prevState => (!prevState));
@@ -45,23 +43,26 @@ const ProjectPage = (props) => {
             return [...prevMembers, newMember];
         })
     }
-    const removeMemberHandler = (id) => {
+    const removeMemberHandler = (userId) => {
+        console.log('Icamehere');
         let httpInfo = {
-            url: '/users',
+            url: '/projects/user',
             method: 'DELETE',
-            body: { id: id },
+            body: { userId: userId, projectId: match.params.id },
             headers: { 'Content-Type': 'application/json' }
         }
         httpRequest(httpInfo).then(() => {
-            setMembers(prevMembers => {
-                return prevMembers.filter(member => member._id !== id);
+            setMembers(prevUsers => {
+                return prevUsers.filter(user => user._id !== userId);
             })
         }).catch(err => {
             console.log(err);
         })
-        console.log('Removing member from the Member And in general');
     }
 
+
+
+    // TICKETS FORM
     const toggleTicketFormModal = () => {
         setMemberModalIsOpen(false)
         setTicketModalIsOpen(prevState => (!prevState));
@@ -70,20 +71,20 @@ const ProjectPage = (props) => {
         setTicketModalIsOpen(prevState => !prevState);
     }
     const addNewTicketHandler = (newTicket) => {
-        setTickets(prevProjects => {
-            return [...prevProjects, newTicket];
+        setTickets(prevTickets => {
+            return [...prevTickets, newTicket];
         })
     }
-    const removeTicketHandler = (id) => {
+    const removeTicketHandler = (ticketId) => {
         let httpInfo = {
-            url: '/tickets',
+            url: '/projects/ticket',
             method: 'DELETE',
-            body: { id: id },
+            body: { ticketId: ticketId, projectId: match.params.id },
             headers: { 'Content-Type': 'application/json' }
         }
         httpRequest(httpInfo).then(() => {
             setTickets(prevTickets => {
-                return prevTickets.filter(ticket => ticket._id !== id);
+                return prevTickets.filter(ticket => ticket._id !== ticketId);
             })
         }).catch(err => {
             console.log(err);
