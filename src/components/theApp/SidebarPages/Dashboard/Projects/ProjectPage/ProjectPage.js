@@ -63,9 +63,9 @@ const ProjectPage = (props) => {
                             />
                         </div>
                     </div>
-                    {isLoading && <div className='loader'></div>}
                 </div>
             }
+            {isLoading && <div className='loader bigBlack'></div>}
         </Fragment>
     )
 }

@@ -20,7 +20,7 @@ const DashboardMembers = (props) => {
     }
     const addNewMemberHandler = (newMember) => {
         setMembers(prevMembers => {
-            return [...prevMembers, newMember];
+            return [...prevMembers, ...newMember];
         })
     }
     const removeMemberHandler = (userId) => {
@@ -38,6 +38,7 @@ const DashboardMembers = (props) => {
             console.log(err);
         })
     }
+
     return (
         <DashboardPanel
             name='Members'

@@ -21,47 +21,37 @@
 }
 .formStyle ul li{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    width:90%;
-    padding:5px 0;
+    width:80%;
+    padding:5px 10px;
+}
+.formStyle ul li:hover{
+    background-color: red;
 }
 
+
+.formStyle ul li input {
+    display: block;
+    justify-self: flex-end;
+    color:red;
+    padding:5px;
+}
+
+
 .formStyle .formControl{
-    width:100%;
     display: flex;
+    width:100%;
     flex-direction: column;
     font-size: 1.5rem;
     line-height: 1.1;
-    color:blue;
+    color:#ffffff;
 }
 
 .formStyle .formControl:hover{
     cursor: pointer;
 }
 
-input[type="checkbox"] {
-    /* Add if not using autoprefixer */
-    /* -webkit-appearance: none;
-    appearance: none; */
-    /* For iOS < 15 to remove gradient background */
-    color:red;
-    background-color: #fff;
-    /* Not removed via appearance */
-    margin: 0;
-}
-
-input[type="checkbox"]::before {
-    content: "";
-    width: 0.65em;
-    height: 0.65em;
-    transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em var(--form-control-color);
-}
-input[type="checkbox"]:checked::before {
-    transform: scale(1);
-}
 
 
 

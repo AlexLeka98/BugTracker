@@ -60,4 +60,11 @@ input:focus{
 
   animation: load 1s infinite steps(var(--n));
 }
+
+.bigBlack{
+  width:100px;
+  --c:#000;
+  --b:20px;
+}
+
 @keyframes load {to{transform: rotate(1turn)}}

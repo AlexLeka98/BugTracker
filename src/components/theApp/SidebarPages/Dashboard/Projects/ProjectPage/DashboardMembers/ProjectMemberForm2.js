@@ -19,18 +19,21 @@ const ProjectMemberForm2 = (props) => {
             url: `/users`,
         }
         httpRequest(httpInfo).then(res => {
-            setAllUsers(res);
+            let userFilter = res.filter(user => {
+                let flag = true;
+                props.projectMembers.map(member => {
+                    if (member._id === user._id) {
+                        flag = false;
+                    }
+                })
+                return flag;
+            })
+            setAllUsers(userFilter);
         })
     }, [])
 
-
-    // console.log("All users:   ", allUsers);
-    // console.log("All project members users:    ", props.projectMembers);
     const onSubmitFormHandler = async (event) => {
         event.preventDefault();
-
-        console.log(newMembers);
-
         let httpInfo = {
             url: `/projects/users/${match.params.id}`,
             method: 'POST',
@@ -40,13 +43,7 @@ const ProjectMemberForm2 = (props) => {
         httpRequest(httpInfo).then(res => {
             props.addNewMemberHandler(res);
         })
-        // enteredName.current.value = '';
-        // enteredEmail.current.value = '';
-        // enteredPhone.current.value = '';
-        // enteredAuthority.current.value = '';
-        // props.closeMemberFormModal();
-
-        // Delete user from newUsers state
+        props.closeMemberFormModal();
     }
 
 
@@ -69,6 +66,7 @@ const ProjectMemberForm2 = (props) => {
             <div className={styles.formContainer}>
                 <form className={styles.formStyle} onSubmit={onSubmitFormHandler}>
                     <h2 className={styles.formHeader}>New Member</h2>
+
                     <ul>
                         {allUsers && allUsers.map(user => (
                             <li>
@@ -77,27 +75,6 @@ const ProjectMemberForm2 = (props) => {
                             </li>
                         ))}
                     </ul>
-                    {/* <div>
-                        <label className={styles.formControl}>Mario Leka</label>
-                        <input type="checkbox" name="Mario" onChange={onCheckboxMember} />
-                    </div> */}
-
-                    {/* <div>
-                        <label>Name</label>
-                        <input type='text' placeholder='name' ref={enteredName} />
-                    </div>
-                    <div>
-                        <label>Email</label>
-                        <input type='text' placeholder='email' ref={enteredEmail} />
-                    </div>
-                    <div>
-                        <label>Phone</label>
-                        <input type='number' placeholder='phone' ref={enteredPhone} />
-                    </div>
-                    <div>
-                        <label>Authority</label>
-                        <input type='text' placeholder='authority' ref={enteredAuthority} />
-                    </div> */}
                     <button type='submit'>Submit</button>
                 </form>
             </div>
