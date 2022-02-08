@@ -32,6 +32,25 @@ app.get('/projects', async (req, res) => {
   res.json(allProjects);
 })
 
+
+
+// Get the specific project with the id passed in the params
+app.get('/projects/:id', async (req, res) => {
+  const { id } = req.params;
+  const resProj = await Projects.findById(id);
+  resProj.users.map(item => typeof (item));
+  const resProjPop = await resProj.populate('tickets').then(res => {
+    return res.populate('users');
+  })
+
+
+  res.json(resProjPop)
+  console.log('Get the specific project, and all user & tickets of the project');
+  // res.json({ message: 'Very good procect id' });
+})
+
+
+
 // Receive all tickets from the project with the corresponding id
 // passed in req.params.
 app.get('/projects/tickets/:projectId', async (req, res) => {
@@ -50,31 +69,119 @@ app.post('/projects', async (req, res) => {
   })
 })
 
-// Add a new ticket to the Ticket model, and then push that ticket 
+// Add a new ticket to the Tickets model, and then push that ticket 
 // to the project Id.
 app.post('/projects/ticket/:projectId', async (req, res) => {
   let ticketData = req.body;
+  console.log(ticketData);
   let projectId = req.params.projectId;
   const project = await Projects.findById(projectId);
   const newTicket = await new Tickets(ticketData);
   await newTicket.save();
-  project.push(newTicket);
+  project.tickets.push(newTicket);
   await project.save();
-  res.json({ hello: 'ldasdsa' });
+  // const projectsPop = await project.populate('tickets');
+  res.json(newTicket);
 })
+
+// Add a new user to the Users model, and then push that ticket 
+// to the project Id.
+app.post('/projects/users/:projectId', async (req, res) => {
+  let userData = req.body;
+  let projectId = req.params.projectId;
+  const project = await Projects.findById(projectId);
+  console.log(await project.populate('users'))
+  const newUser = await new Users(userData);
+  await newUser.save();
+  project.users.push(newUser);
+  await project.save();
+  res.json(newUser);
+})
+
+
 
 app.delete('/projects', async (req, res) => {
   // let deleteId = req.body;
+  console.log('projects delete');
   console.log(req.body.id);
   res.json(await Projects.findOneAndDelete({ _id: req.body.id }))
 })
 
-app.get('/projects/:id', async (req, res) => {
-  const { id } = req.params;
-  const resProj = await Projects.findById(id);
-  res.json(resProj)
-  // res.json({ message: 'Very good procect id' });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Delete a ticket from a project, then delete the ticket from everywhere.
+app.delete('/projects/ticket', async (req, res) => {
+  const projectId = req.body.projectId;
+  const ticketId = req.body.ticketId;
+  console.log("Project ID : ", projectId);
+  console.log("Ticket ID : ", ticketId);
+    
+  const filter = { _id: projectId };
+  Projects.findOne(filter).then(projectFound => {
+    const foundProjectsFiltered = projectFound.tickets.filter(item => item.toString() !== ticketId);
+    projectFound.tickets = foundProjectsFiltered;
+    return projectFound.save()
+  }).catch(error => {
+    console.log(error);
+  })
+  await Tickets.findOneAndDelete({ _id:  ticketId});
+
+  res.json({ name: 'ok' });
 })
+
+
+// Delete a ticket from a project.
+app.delete('/projects/user', async (req, res) => {
+  const projectId = req.body.projectId;
+  const userId = req.body.userId;
+  console.log("Project ID : ", projectId);
+  console.log("User ID : ", userId);
+    
+  const filter = { _id: projectId };
+  Projects.findOne(filter).then(projectFound => {
+    // const foundProjectsFiltered = projectFound.users.filter(item => item.toString() !== userId);
+    const foundProjectsFiltered = projectFound.users.filter(item => item.toString() === '');
+    projectFound.users = foundProjectsFiltered;
+    return projectFound.save()
+  }).catch(error => {
+    console.log(error);
+  })
+  // await Users.findOneAndDelete({ _id:  userId});
+
+  res.json({ name: 'ok' });
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -88,6 +195,10 @@ app.get('/users/:id', (req, res) => {
   res.json({ message: 'Hello from bruh!' });
 })
 
+app.delete('/users', async (req, res) => {
+  res.json(await Users.findOneAndDelete({ _id: req.body.id }))
+})
+
 
 // TICKETS
 app.get('/tickets', (req, res) => {
@@ -99,10 +210,13 @@ app.post('/tickets', (req, res) => {
   res.json({ message: 'Hello from bruh!' });
 })
 
-app.get('/ticket/:id', (req, res) => {
+app.get('/tickets/:id', (req, res) => {
   res.json({ message: 'Hello from bruh!' });
 })
 
+app.delete('/tickets', async (req, res) => {
+  res.json(await Tickets.findOneAndDelete({ _id: req.body.id }))
+})
 
 
 
