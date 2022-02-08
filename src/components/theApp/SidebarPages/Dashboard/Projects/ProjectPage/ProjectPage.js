@@ -8,8 +8,6 @@ import DashboardMembers from './DashboardMembers/DashboardMembers';
 const ProjectPage = (props) => {
     const { isLoading, error, httpRequest } = useHttp();
     const [project, setProject] = useState(null)
-    const [tickets, setTickets] = useState([]);
-    const [members, setMembers] = useState([]);
     const [ticketModalIsOpen, setTicketModalIsOpen] = useState(false);
     const [memberModalIsOpen, setMemberModalIsOpen] = useState(false);
 
@@ -22,8 +20,6 @@ const ProjectPage = (props) => {
         }
         httpRequest(httpInfo).then(res => {
             setProject(res);
-            setTickets(res.tickets);
-            setMembers(res.users);
         }).catch(err => {
             console.log(err);
         })
@@ -31,45 +27,19 @@ const ProjectPage = (props) => {
             setProject({}); // This worked for me
         };
     }, [])
-    console.log(project);
 
-    // MEMBERS FORM
+    // Member and Ticket modal communicate with each other, thats why they have to be in the parebt component.
     const toggleMemberFormModal = () => {
         setTicketModalIsOpen(false)
         setMemberModalIsOpen(prevState => (!prevState));
     }
-    
-
-
-
     // TICKETS FORM
     const toggleTicketFormModal = () => {
-        setMemberModalIsOpen(false)
+        setMemberModalIsOpen(false);
         setTicketModalIsOpen(prevState => (!prevState));
     }
-    const closeTicketFormModal = () => {
-        setTicketModalIsOpen(prevState => !prevState);
-    }
-    const addNewTicketHandler = (newTicket) => {
-        setTickets(prevTickets => {
-            return [...prevTickets, newTicket];
-        })
-    }
-    const removeTicketHandler = (ticketId) => {
-        let httpInfo = {
-            url: '/projects/ticket',
-            method: 'DELETE',
-            body: { ticketId: ticketId, projectId: match.params.id },
-            headers: { 'Content-Type': 'application/json' }
-        }
-        httpRequest(httpInfo).then(() => {
-            setTickets(prevTickets => {
-                return prevTickets.filter(ticket => ticket._id !== ticketId);
-            })
-        }).catch(err => {
-            console.log(err);
-        })
-    }
+
+
     return (
         <Fragment>
             <h1>{project && project.title}</h1>
@@ -78,18 +48,18 @@ const ProjectPage = (props) => {
                     <div className={styles.projectPage}>
                         <div className={styles.ticketsPanelStyle}>
                             <DashboardTickets
-                                tickets={tickets}
-                                addNewTicketHandler={addNewTicketHandler}
+                                tickets={project.tickets}
                                 toggleTicketFormModal={toggleTicketFormModal}
                                 ticketModalIsOpen={ticketModalIsOpen}
-                                closeTicketFormModal={closeTicketFormModal}
-                                removeTicketHandler={removeTicketHandler}
+                                setTicketModalIsOpen={setTicketModalIsOpen}
                             />
                         </div>
                         <div className={styles.teamPanelStyle}>
                             <DashboardMembers
                                 members={project.users}
                                 toggleMemberFormModal={toggleMemberFormModal}
+                                memberModalIsOpen={memberModalIsOpen}
+                                setMemberModalIsOpen={setMemberModalIsOpen}
                             />
                         </div>
                     </div>

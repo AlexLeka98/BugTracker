@@ -9,7 +9,6 @@ import useHttp from "../../../../../../../hooks/useHttp";
 const DashboardMembers = (props) => {
     const match = useRouteMatch();
     const panelTitles = { col1: 'NAME', col2: 'EMAIL', col3: 'PHONE' }
-    const [memberModalIsOpen, setMemberModalIsOpen] = useState(false);
     const [members, setMembers] = useState(props.members);
     const { isLoading, error, httpRequest } = useHttp()
 
@@ -17,7 +16,7 @@ const DashboardMembers = (props) => {
         props.toggleMemberFormModal();
     }
     const closeMemberFormModal = () => {
-        setMemberModalIsOpen(prevState => !prevState);
+        props.setMemberModalIsOpen(prevState => !prevState);
     }
     const addNewMemberHandler = (newMember) => {
         setMembers(prevMembers => {
@@ -55,8 +54,8 @@ const DashboardMembers = (props) => {
                     onRemoveItem={removeMemberHandler}
                 />
             ))}
-            {props.members.length === 0 && <h5>No Members yet.</h5>}
-            {memberModalIsOpen &&
+            {members.length === 0 && <h5>No Members yet.</h5>}
+            {props.memberModalIsOpen &&
                 <ProjectMemberForm2
                     addNewMemberHandler={addNewMemberHandler}
                     closeMemberFormModal={closeMemberFormModal}
