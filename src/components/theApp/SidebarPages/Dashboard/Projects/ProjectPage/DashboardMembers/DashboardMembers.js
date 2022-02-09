@@ -1,5 +1,5 @@
 import DashboardPanel from "../../../../../../UI/DashboardPanel"
-import ProjectMemberForm2 from "./ProjectMemberForm2";
+import AddMemberForm from "./AddMemberForm";
 import { useRouteMatch } from "react-router-dom";
 import DashboardItem from "../../../../../../UI/DashboardItem";
 import { useState } from "react";
@@ -16,13 +16,15 @@ const DashboardMembers = (props) => {
         props.toggleMemberFormModal();
     }
     const closeMemberFormModal = () => {
-        props.setMemberModalIsOpen(prevState => !prevState);
+        props.setMemberAddFormModalIsOpen(prevState => !prevState);
     }
     const addNewMemberHandler = (newMember) => {
         setMembers(prevMembers => {
             return [...prevMembers, ...newMember];
         })
     }
+
+
     const removeMemberHandler = (userId) => {
         let httpInfo = {
             url: '/projects/user',
@@ -39,10 +41,14 @@ const DashboardMembers = (props) => {
         })
     }
 
+    const redirectMemberItemHandler = (id) => {
+        console.log('redirect Ticket Item Handler');
+    }
+
     return (
         <DashboardPanel
             name='Members'
-            buttonName='New Member'
+            buttonName='Add Member'
             onClick={onToggleMemberFormModal}
             panelTitles={panelTitles}>
             {members.length > 0 && members.map(item => (
@@ -53,11 +59,12 @@ const DashboardMembers = (props) => {
                     key={item._id}
                     id={item._id}
                     onRemoveItem={removeMemberHandler}
+                    onRedirectItem={redirectMemberItemHandler}
                 />
             ))}
             {members.length === 0 && <h5>No Members yet.</h5>}
-            {props.memberModalIsOpen &&
-                <ProjectMemberForm2
+            {props.memberAddFormModalIsOpen &&
+                <AddMemberForm
                     addNewMemberHandler={addNewMemberHandler}
                     closeMemberFormModal={closeMemberFormModal}
                     id={match.params.id}

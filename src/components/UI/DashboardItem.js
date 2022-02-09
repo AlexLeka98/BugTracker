@@ -1,15 +1,14 @@
 import styles from './DashboardItem.module.css'
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import OutsideClick from '../../hooks/OutsideClick';
 import useHttp from '../../hooks/useHttp';
 
-
 const DashboardItem = (props) => {
 
     const [openDropDown, setOpenDropDown] = useState(false);
     const { isLoading, error, httpRequest } = useHttp();
+
     const onOpenDropDownHandler = () => {
         setOpenDropDown(true);
     }
@@ -20,21 +19,28 @@ const DashboardItem = (props) => {
         setOpenDropDown(prevState => !prevState);
     }
 
-    const deleteProjectHandler = () => {
+    const updateItemHandler = () => {
+        props.onUpdateItem(props.item);
+    }
+
+    const deleteItemHandler = () => {
         props.onRemoveItem(props.id);
     }
 
+    const redirectItemPath = () => {
+        props.onRedirectItem(props.id);
+    }
 
     return (
         <li className={styles.listItem}>
             <div className={styles.linkItem}>
-                <div className={styles.title}>
-                    <Link to={`/app/dashboard/project/${props.id}`}>{props.col1}</Link>
+                <div className={styles.col1}>
+                    <a onClick={redirectItemPath}>{props.col1}</a>
                 </div>
-                <div className={styles.description}>
-                    <Link to={`/app/dashboard/project/${props.id}`}>{props.col2}</Link>
+                <div className={styles.col2}>
+                    <a onClick={redirectItemPath}>{props.col2}</a>
                 </div>
-                <div className={styles.author}>
+                <div className={styles.col3}>
                     {`${props.col3}`}
                     {/* {`${props.author}${props.contrib !== undefined && props.contrib.map(contributor => ` , ${contributor.name} ${contributor.surname}`)}`} */}
                 </div>
@@ -42,8 +48,8 @@ const DashboardItem = (props) => {
                     <div className={styles.dots} onClick={toggleDropDownHandler}>
                         {openDropDown && <div className={styles.dropDown}>
                             <ul>
-                                <li>Update</li>
-                                <li onClick={deleteProjectHandler}>Delete</li>
+                                {props.onUpdateItem && <li onClick={updateItemHandler}>Update</li>}
+                                <li onClick={deleteItemHandler}>Delete</li>
                             </ul>
                         </div>}
                     </div>

@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-// import styles from '../ProjectTicketAndMemberForm.module.css'
-import styles from './ProjectMemberForm2.module.css'
+import { useEffect, useState } from 'react';
+import styles from './AddMemberForm.module.css'
 import Modal from '../../../../../../UI/Modal';
 import useHttp from '../../../../../../../hooks/useHttp';
 import { useRouteMatch } from 'react-router-dom';
 
-const ProjectMemberForm2 = (props) => {
+const AddMemberForm = (props) => {
     const { httpRequest } = useHttp()
     const [newMembers, setNewMembers] = useState([])
     const [allUsers, setAllUsers] = useState(null);
@@ -82,4 +81,4 @@ const ProjectMemberForm2 = (props) => {
     )
 }
 
-export default ProjectMemberForm2;
+export default AddMemberForm;

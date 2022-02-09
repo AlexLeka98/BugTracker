@@ -8,8 +8,9 @@ import DashboardMembers from './DashboardMembers/DashboardMembers';
 const ProjectPage = (props) => {
     const { isLoading, error, httpRequest } = useHttp();
     const [project, setProject] = useState(null)
-    const [ticketModalIsOpen, setTicketModalIsOpen] = useState(false);
-    const [memberModalIsOpen, setMemberModalIsOpen] = useState(false);
+    const [memberAddFormModalIsOpen, setMemberAddFormModalIsOpen] = useState(false);
+    const [ticketAddFormModalIsOpen, setTicketAddFormModalIsOpen] = useState(false);
+    const [ticketUpdateFormModalIsOpen, setTicketUpdateFormModalIsOpen] = useState(false);
 
     const match = useRouteMatch();
 
@@ -30,13 +31,13 @@ const ProjectPage = (props) => {
 
     // Member and Ticket modal communicate with each other, thats why they have to be in the parebt component.
     const toggleMemberFormModal = () => {
-        setTicketModalIsOpen(false)
-        setMemberModalIsOpen(prevState => (!prevState));
+        setTicketAddFormModalIsOpen(false)
+        setMemberAddFormModalIsOpen(prevState => (!prevState));
     }
     // TICKETS FORM
     const toggleTicketFormModal = () => {
-        setMemberModalIsOpen(false);
-        setTicketModalIsOpen(prevState => (!prevState));
+        setMemberAddFormModalIsOpen(false);
+        setTicketAddFormModalIsOpen(prevState => (!prevState));
     }
 
 
@@ -50,16 +51,18 @@ const ProjectPage = (props) => {
                             <DashboardTickets
                                 tickets={project.tickets}
                                 toggleTicketFormModal={toggleTicketFormModal}
-                                ticketModalIsOpen={ticketModalIsOpen}
-                                setTicketModalIsOpen={setTicketModalIsOpen}
+                                ticketAddFormModalIsOpen={ticketAddFormModalIsOpen}
+                                setTicketAddFormModalIsOpen={setTicketAddFormModalIsOpen}
+                                ticketUpdateFormModalIsOpen={ticketUpdateFormModalIsOpen}
+                                setTicketUpdateFormModalIsOpen={setTicketUpdateFormModalIsOpen}
                             />
                         </div>
                         <div className={styles.teamPanelStyle}>
                             <DashboardMembers
                                 members={project.users}
                                 toggleMemberFormModal={toggleMemberFormModal}
-                                memberModalIsOpen={memberModalIsOpen}
-                                setMemberModalIsOpen={setMemberModalIsOpen}
+                                memberAddFormModalIsOpen={memberAddFormModalIsOpen}
+                                setMemberAddFormModalIsOpen={setMemberAddFormModalIsOpen}
                             />
                         </div>
                     </div>

@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react';
 import useHttp from '../../../../../hooks/useHttp';
 import ProjectForm from './ProjectForm';
 import DashboardItem from '../../../../UI/DashboardItem';
+import { useHistory } from 'react-router-dom';
 
 
 
 const DashboardProjects = () => {
     const [projectItems, setProjectItems] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const history = useHistory();
+
 
     const closeFormModal = () => {
         setModalIsOpen(prevState => !prevState);
@@ -53,6 +56,11 @@ const DashboardProjects = () => {
 
     const panelTitles = { col1: 'PROJECT', col2: 'DESCRIPTION', col3: 'CONTRIBUTORS' }
 
+    const redirectProjectItemHandler = (id) => {
+        let path = `/app/dashboard/project/${id}`
+        history.push(path);
+    }
+
     return (
         <DashboardPanel
             name='Projects'
@@ -68,6 +76,7 @@ const DashboardProjects = () => {
                     key={item._id}
                     id={item._id}
                     onRemoveItem={removeProjectHandler}
+                    onRedirectItem={redirectProjectItemHandler}
                 />
             ))}
             {isLoading && <div className='loader'></div>}

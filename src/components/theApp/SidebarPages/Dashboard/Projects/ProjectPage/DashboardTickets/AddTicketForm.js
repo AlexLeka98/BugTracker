@@ -1,10 +1,10 @@
 import { useRef } from 'react';
-import styles from '../ProjectTicketAndMemberForm.module.css'
+import styles from './AddTicketForm.module.css'
 import Modal from '../../../../../../UI/Modal';
 import useHttp from '../../../../../../../hooks/useHttp';
 import { useRouteMatch } from 'react-router-dom';
 
-const ProjectTicketForm = (props) => {
+const AddTicketForm = (props) => {
     const { httpRequest } = useHttp()
     const enteredTitle = useRef();
     const enteredDescription = useRef();
@@ -43,7 +43,7 @@ const ProjectTicketForm = (props) => {
 
 
     return (
-        <Modal onModalHandler={props.closeTicketFormModal}>
+        <Modal onModalHandler={props.closeAddTicketFormModal}>
             <div className={styles.formContainer}>
                 <form className={styles.formStyle} onSubmit={onSubmitFormHandler}>
                     <h2 className={styles.formHeader}>New Ticket</h2>
@@ -74,4 +74,4 @@ const ProjectTicketForm = (props) => {
     )
 }
 
-export default ProjectTicketForm;
+export default AddTicketForm;
