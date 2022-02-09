@@ -13,28 +13,30 @@ const DashboardTickets = (props) => {
     const { isLoading, error, httpRequest } = useHttp()
     const [updateTicket, setUpdateTicket] = useState(null);
 
-    const onToggleTicketFormModal = () => {
-        props.setTicketAddFormModalIsOpen(prevState => (!prevState));
-    }
 
-    const closeAddTicketFormModal = () => {
-        console.log('Colse Add form ticket')
-        props.setTicketAddFormModalIsOpen(prevState => !prevState);
-    }
+
     const addNewTicketHandler = (newTicket) => {
         setTickets(prevTickets => {
             return [...prevTickets, newTicket];
         })
     }
 
-    //Update Ticket with this ticket id.
-    const updateTicketHandler = (ticket) => {
-        props.setTicketUpdateFormModalIsOpen(true);
+    // Stores the item that we want to update, so its data are filled in the 
+    // modal form. Them we open the update <UpdateTicketForm />
+    const selectUpdateItem = (ticket) => {
+        props.toggleUpdateTicketFormModal();
         setUpdateTicket(ticket);
-        console.log('Updating...');
     }
-    const closeUpdateTicketFormModal = () => {
-        props.setTicketUpdateFormModalIsOpen(prevState => !prevState);
+
+    //Receive the ticket, open the form Model for update.
+    const updateTicketHandler = (updatedTicket) => {
+        // props.toggleUpdateTicketFormModal();
+        // console.log(updatedTicket);
+        // tickets.filter(ticket => ticket._id !== updatedTicket._id);
+        setTickets(prevTickets => {
+            let newTickets = prevTickets.filter(ticket => ticket._id !== updatedTicket._id);
+            return [...newTickets,updatedTicket];
+        })
     }
 
     //Remove ticket with this ticket id.
@@ -62,7 +64,7 @@ const DashboardTickets = (props) => {
         <DashboardPanel
             name='Tickets'
             buttonName='New Ticket'
-            onClick={onToggleTicketFormModal}
+            onClick={props.toggleAddTicketFormModal}
             panelTitles={panelTitles}>
             {tickets.length > 0 && tickets.map(item => (
                 <DashboardItem
@@ -74,7 +76,7 @@ const DashboardTickets = (props) => {
                     status={item.status}
                     item={item}
                     onRemoveItem={removeTicketHandler}
-                    onUpdateItem={updateTicketHandler}
+                    onUpdateItem={selectUpdateItem}
                     onRedirectItem={redirectTicketItemHandler}
                 />
             ))}
@@ -82,14 +84,15 @@ const DashboardTickets = (props) => {
             {props.ticketAddFormModalIsOpen &&
                 <AddTicketForm
                     addNewTicketHandler={addNewTicketHandler}
-                    closeAddTicketFormModal={closeAddTicketFormModal}
+                    closeAddTicketFormModal={props.toggleAddTicketFormModal}
+                    // closeAddTicketFormModal={closeAddTicketFormModal}
                     id={match.params.id}
                 />
             }
             {props.ticketUpdateFormModalIsOpen &&
                 <UpdateTicketForm
                     updateTicketHandler={updateTicketHandler}
-                    closeUpdateTicketFormModal={closeUpdateTicketFormModal}
+                    toggleUpdateTicketFormModal={props.toggleUpdateTicketFormModal}
                     id={match.params.id}
                     ticket={updateTicket}
                 />

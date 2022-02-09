@@ -21,12 +21,6 @@ const UpdateTicketForm = (props) => {
         enteredAuthor.current.value = ticket.author;
         enteredType.current.value = ticket.type;
         eneteredStatus.current.value = ticket.status;
-
-        console.log(props.ticket);
-        let httpInfo = {
-            url: '/ticket/:id',
-            method: 'GET'
-        }
     })
 
 
@@ -39,26 +33,27 @@ const UpdateTicketForm = (props) => {
             type: enteredType.current.value,
             status: eneteredStatus.current.value,
         }
+        console.log(newTicket);
         let httpInfo = {
-            url: `/projects/ticket/${match.params.id}`,
-            method: 'POST',
+            url: `/tickets/${ticket._id}`,
+            method: 'PUT',
             body: newTicket,
             headers: { 'Content-Type': 'application/json' }
         }
         httpRequest(httpInfo).then(res => {
-            props.addNewTicketHandler(res);
+            props.updateTicketHandler(res);
         })
         enteredTitle.current.value = '';
         enteredDescription.current.value = '';
         enteredAuthor.current.value = '';
         enteredType.current.value = '';
         eneteredStatus.current.value = '';
-        props.closeTicketFormModal();
+        props.toggleUpdateTicketFormModal();
     }
 
 
     return (
-        <Modal onModalHandler={props.closeUpdateTicketFormModal}>
+        <Modal onModalHandler={props.toggleUpdateTicketFormModal}>
             <div className={styles.formContainer}>
                 <form className={styles.formStyle} onSubmit={onSubmitFormHandler}>
                     <h2 className={styles.formHeader}>New Ticket</h2>

@@ -30,16 +30,24 @@ const ProjectPage = (props) => {
     }, [])
 
     // Member and Ticket modal communicate with each other, thats why they have to be in the parebt component.
-    const toggleMemberFormModal = () => {
-        setTicketAddFormModalIsOpen(false)
+    const toggleAddMemberFormModal = () => {
+        setTicketAddFormModalIsOpen(false);
+        setTicketUpdateFormModalIsOpen(false);
         setMemberAddFormModalIsOpen(prevState => (!prevState));
     }
     // TICKETS FORM
-    const toggleTicketFormModal = () => {
+    const toggleAddTicketFormModal = () => {
         setMemberAddFormModalIsOpen(false);
+        setTicketUpdateFormModalIsOpen(false);
         setTicketAddFormModalIsOpen(prevState => (!prevState));
     }
 
+    // const toggle
+    const toggleUpdateTicketFormModal = () => {
+        setMemberAddFormModalIsOpen(false);
+        setTicketAddFormModalIsOpen(false);
+        setTicketUpdateFormModalIsOpen(prevState => (!prevState));
+    }
 
     return (
         <Fragment>
@@ -50,19 +58,17 @@ const ProjectPage = (props) => {
                         <div className={styles.ticketsPanelStyle}>
                             <DashboardTickets
                                 tickets={project.tickets}
-                                toggleTicketFormModal={toggleTicketFormModal}
+                                toggleAddTicketFormModal={toggleAddTicketFormModal}
+                                toggleUpdateTicketFormModal={toggleUpdateTicketFormModal}
                                 ticketAddFormModalIsOpen={ticketAddFormModalIsOpen}
-                                setTicketAddFormModalIsOpen={setTicketAddFormModalIsOpen}
                                 ticketUpdateFormModalIsOpen={ticketUpdateFormModalIsOpen}
-                                setTicketUpdateFormModalIsOpen={setTicketUpdateFormModalIsOpen}
                             />
                         </div>
                         <div className={styles.teamPanelStyle}>
                             <DashboardMembers
                                 members={project.users}
-                                toggleMemberFormModal={toggleMemberFormModal}
+                                toggleAddMemberFormModal={toggleAddMemberFormModal}
                                 memberAddFormModalIsOpen={memberAddFormModalIsOpen}
-                                setMemberAddFormModalIsOpen={setMemberAddFormModalIsOpen}
                             />
                         </div>
                     </div>

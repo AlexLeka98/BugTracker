@@ -13,11 +13,9 @@ const DashboardMembers = (props) => {
     const { isLoading, error, httpRequest } = useHttp()
 
     const onToggleMemberFormModal = () => {
-        props.toggleMemberFormModal();
+        props.toggleAddMemberFormModal();
     }
-    const closeMemberFormModal = () => {
-        props.setMemberAddFormModalIsOpen(prevState => !prevState);
-    }
+
     const addNewMemberHandler = (newMember) => {
         setMembers(prevMembers => {
             return [...prevMembers, ...newMember];
@@ -66,7 +64,7 @@ const DashboardMembers = (props) => {
             {props.memberAddFormModalIsOpen &&
                 <AddMemberForm
                     addNewMemberHandler={addNewMemberHandler}
-                    closeMemberFormModal={closeMemberFormModal}
+                    closeMemberFormModal={onToggleMemberFormModal}
                     id={match.params.id}
                     projectMembers={members}
                 />

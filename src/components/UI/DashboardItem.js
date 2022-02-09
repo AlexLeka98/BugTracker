@@ -9,9 +9,6 @@ const DashboardItem = (props) => {
     const [openDropDown, setOpenDropDown] = useState(false);
     const { isLoading, error, httpRequest } = useHttp();
 
-    const onOpenDropDownHandler = () => {
-        setOpenDropDown(true);
-    }
     const onCloseDropDownHandler = (event) => {
         setOpenDropDown(false);
     }
