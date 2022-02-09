@@ -25,9 +25,10 @@ const DashboardItem = (props) => {
     }
 
     const redirectItemPath = () => {
-        props.onRedirectItem(props.id);
+        // console.log(props);
+        props.onClickItem(props.item);
+        // props.onClickItem(props.id);
     }
-
     return (
         <li className={styles.listItem}>
             <div className={styles.linkItem}>

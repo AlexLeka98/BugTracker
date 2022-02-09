@@ -4,10 +4,13 @@ import useHttp from '../../../../../../hooks/useHttp';
 import styles from './ProjectPage.module.css'
 import DashboardTickets from './DashboardTickets/DashboardTickets';
 import DashboardMembers from './DashboardMembers/DashboardMembers';
+import SingleTicket from './DashboardTickets/SingleTicket/SingleTicket';
+
 
 const ProjectPage = (props) => {
     const { isLoading, error, httpRequest } = useHttp();
     const [project, setProject] = useState(null)
+    const [selectedTicket, setSelectedTicket] = useState(null);
     const [memberAddFormModalIsOpen, setMemberAddFormModalIsOpen] = useState(false);
     const [ticketAddFormModalIsOpen, setTicketAddFormModalIsOpen] = useState(false);
     const [ticketUpdateFormModalIsOpen, setTicketUpdateFormModalIsOpen] = useState(false);
@@ -62,16 +65,19 @@ const ProjectPage = (props) => {
                                 toggleUpdateTicketFormModal={toggleUpdateTicketFormModal}
                                 ticketAddFormModalIsOpen={ticketAddFormModalIsOpen}
                                 ticketUpdateFormModalIsOpen={ticketUpdateFormModalIsOpen}
-                            />
+                                onSelectTicket={setSelectedTicket} />
                         </div>
                         <div className={styles.teamPanelStyle}>
                             <DashboardMembers
                                 members={project.users}
                                 toggleAddMemberFormModal={toggleAddMemberFormModal}
-                                memberAddFormModalIsOpen={memberAddFormModalIsOpen}
-                            />
+                                memberAddFormModalIsOpen={memberAddFormModalIsOpen} />
                         </div>
                     </div>
+                    {selectedTicket &&
+                        <SingleTicket
+                            ticket={selectedTicket} />
+                    }
                 </div>
             }
             {isLoading && <div className='loader bigBlack'></div>}

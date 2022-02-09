@@ -1,10 +1,13 @@
 .projectPageContainer{
     display: flex; 
+    flex-direction: column;
+    width:100%;
+    /* overflow: hidden; */
 }
 
 .projectPage{
     display: flex;
-    width:100%;
+    /* width:100%; */
     justify-content: space-around;
     padding:20px;
 }

@@ -30,12 +30,14 @@ const DashboardTickets = (props) => {
 
     //Receive the ticket, open the form Model for update.
     const updateTicketHandler = (updatedTicket) => {
-        // props.toggleUpdateTicketFormModal();
-        // console.log(updatedTicket);
-        // tickets.filter(ticket => ticket._id !== updatedTicket._id);
         setTickets(prevTickets => {
-            let newTickets = prevTickets.filter(ticket => ticket._id !== updatedTicket._id);
-            return [...newTickets,updatedTicket];
+            let newTickets = [...prevTickets];
+            prevTickets.map((ticket, index) => {
+                if (ticket._id === updatedTicket._id) {
+                    newTickets[index] = updatedTicket;
+                }
+            })
+            return newTickets;
         })
     }
 
@@ -56,10 +58,6 @@ const DashboardTickets = (props) => {
         })
     }
 
-    const redirectTicketItemHandler = (id) => {
-        console.log('redirect Ticket Item Handler');
-    }
-
     return (
         <DashboardPanel
             name='Tickets'
@@ -77,7 +75,7 @@ const DashboardTickets = (props) => {
                     item={item}
                     onRemoveItem={removeTicketHandler}
                     onUpdateItem={selectUpdateItem}
-                    onRedirectItem={redirectTicketItemHandler}
+                    onClickItem={props.onSelectTicket}
                 />
             ))}
             {tickets.length === 0 && <h5>No Tickets yet.</h5>}

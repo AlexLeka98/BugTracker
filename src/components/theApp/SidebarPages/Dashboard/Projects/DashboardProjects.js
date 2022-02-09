@@ -56,8 +56,8 @@ const DashboardProjects = () => {
 
     const panelTitles = { col1: 'PROJECT', col2: 'DESCRIPTION', col3: 'CONTRIBUTORS' }
 
-    const redirectProjectItemHandler = (id) => {
-        let path = `/app/dashboard/project/${id}`
+    const redirectProjectItemHandler = (item) => {
+        let path = `/app/dashboard/project/${item._id}`
         history.push(path);
     }
 
@@ -75,8 +75,9 @@ const DashboardProjects = () => {
                     contrib={item.contributors}
                     key={item._id}
                     id={item._id}
+                    item={item}
                     onRemoveItem={removeProjectHandler}
-                    onRedirectItem={redirectProjectItemHandler}
+                    onClickItem={redirectProjectItemHandler}
                 />
             ))}
             {isLoading && <div className='loader'></div>}

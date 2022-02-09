@@ -57,7 +57,7 @@ const DashboardMembers = (props) => {
                     key={item._id}
                     id={item._id}
                     onRemoveItem={removeMemberHandler}
-                    onRedirectItem={redirectMemberItemHandler}
+                    onClickItem={redirectMemberItemHandler}
                 />
             ))}
             {members.length === 0 && <h5>No Members yet.</h5>}
