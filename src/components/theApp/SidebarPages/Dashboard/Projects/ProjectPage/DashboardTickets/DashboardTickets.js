@@ -2,7 +2,7 @@ import DashboardPanel from "../../../../../../UI/DashboardPanel"
 import AddTicketForm from "./AddTicketForm";
 import { useRouteMatch } from "react-router-dom";
 import DashboardItem from "../../../../../../UI/DashboardItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useHttp from "../../../../../../../hooks/useHttp";
 import UpdateTicketForm from "./UpdateTicketForm";
 
@@ -12,6 +12,10 @@ const DashboardTickets = (props) => {
     const [tickets, setTickets] = useState(props.tickets);
     const { isLoading, error, httpRequest } = useHttp()
     const [updateTicket, setUpdateTicket] = useState(null);
+
+
+
+
 
 
 
@@ -30,6 +34,7 @@ const DashboardTickets = (props) => {
 
     //Receive the ticket, open the form Model for update.
     const updateTicketHandler = (updatedTicket) => {
+        
         setTickets(prevTickets => {
             let newTickets = [...prevTickets];
             prevTickets.map((ticket, index) => {
@@ -39,6 +44,9 @@ const DashboardTickets = (props) => {
             })
             return newTickets;
         })
+        // After we update the ticket, we check if the selectedTicket was update, cuz in that case
+        // it needs to change also.
+        props.updateSelectedTicket(updatedTicket);
     }
 
     //Remove ticket with this ticket id.

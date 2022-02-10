@@ -32,6 +32,17 @@ const ProjectPage = (props) => {
         };
     }, [])
 
+    console.log(project);
+
+
+    const updateSelectedTicket = (updatedTicket) => {
+        console.log(updatedTicket);
+        if (updatedTicket._id === selectedTicket._id) {
+            setSelectedTicket(updatedTicket);
+        }
+    }
+
+
     // Member and Ticket modal communicate with each other, thats why they have to be in the parebt component.
     const toggleAddMemberFormModal = () => {
         setTicketAddFormModalIsOpen(false);
@@ -52,6 +63,31 @@ const ProjectPage = (props) => {
         setTicketUpdateFormModalIsOpen(prevState => (!prevState));
     }
 
+    const onSelectNewTicket = (item) => {
+        setSelectedTicket(item);
+        // let ticketIndex;
+        // project.tickets.map((ticket,index) => {
+        //     if (ticket._id === item._id){
+        //         ticketIndex = index;
+        //     }
+        // })
+        // console.log(project.tickets[ticketIndex]);
+        // console.log(item);
+        // setSelectedTicketId(project.tickets[ticketIndex]);
+    }
+
+    // const onChangeSelectedItem = () => {
+    //     let ticketIndex;
+    //     project.tickets.map((ticket,index) => {
+    //         if (ticket._id === selectedTicket._id){
+    //             ticketIndex = index;
+    //         }
+    //     })
+    //     console.log(project.tickets[ticketIndex]);
+    //     console.log(selectedTicket);
+    //     setSelectedTicket(project.tickets[ticketIndex]);
+    // }
+
     return (
         <Fragment>
             <h1>{project && project.title}</h1>
@@ -65,7 +101,9 @@ const ProjectPage = (props) => {
                                 toggleUpdateTicketFormModal={toggleUpdateTicketFormModal}
                                 ticketAddFormModalIsOpen={ticketAddFormModalIsOpen}
                                 ticketUpdateFormModalIsOpen={ticketUpdateFormModalIsOpen}
-                                onSelectTicket={setSelectedTicket} />
+                                onSelectTicket={onSelectNewTicket}
+                                updateSelectedTicket={updateSelectedTicket}
+                            />
                         </div>
                         <div className={styles.teamPanelStyle}>
                             <DashboardMembers

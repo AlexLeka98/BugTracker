@@ -2,12 +2,10 @@ import styles from './DashboardItem.module.css'
 import { useState } from 'react';
 
 import OutsideClick from '../../hooks/OutsideClick';
-import useHttp from '../../hooks/useHttp';
 
 const DashboardItem = (props) => {
 
     const [openDropDown, setOpenDropDown] = useState(false);
-    const { isLoading, error, httpRequest } = useHttp();
 
     const onCloseDropDownHandler = (event) => {
         setOpenDropDown(false);
@@ -25,9 +23,7 @@ const DashboardItem = (props) => {
     }
 
     const redirectItemPath = () => {
-        // console.log(props);
         props.onClickItem(props.item);
-        // props.onClickItem(props.id);
     }
     return (
         <li className={styles.listItem}>

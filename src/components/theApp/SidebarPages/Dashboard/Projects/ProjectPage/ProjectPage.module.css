@@ -1,19 +1,20 @@
 .projectPageContainer{
+    
     display: flex; 
     flex-direction: column;
     width:100%;
-    /* overflow: hidden; */
+    box-sizing: border-box;
+    padding:20px;
 }
 
 .projectPage{
     display: flex;
-    /* width:100%; */
-    justify-content: space-around;
-    padding:20px;
+    justify-content: space-between;
+    
 }
 
 .projectPage .teamPanelStyle{
-    width:35%;
+    width:38%;
 }
 
 .projectPage .ticketsPanelStyle{
