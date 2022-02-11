@@ -114,7 +114,48 @@
 }
 
 
+/* Comments */
 
+.ticketComments {
+    width:100%;
+}
+
+.ticketComments h5{
+    text-align: start;
+    font-size: 20px;
+    margin-top:10px;
+}
+
+.ticketForm{
+    display: flex;
+    width:100%;
+    align-self: center;
+    justify-content: center;
+}
+
+.ticketForm input{
+    width:80%;
+    border:none;
+    padding:8px 0px 8px 10px;
+    background-color: var(--med3);
+    border-radius: 0.3rem 0 0 0.3rem;
+    font-size:16px;
+    box-sizing: border-box;
+}
+.ticketForm input:focus{
+    outline:1px solid var(--med3);
+    background-color: var(--med4);
+}
+.ticketForm button{
+    border:none;
+    background-color:var(--lightB);
+    color:#ffffff;
+    padding: 0 12px;
+}
+.ticketForm button:hover{
+    background-color: var(--hardB);
+    cursor: pointer;
+}
 
 
 

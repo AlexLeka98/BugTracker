@@ -1,12 +1,20 @@
 import styles from './SingleTicket.module.css'
-
+import { useRef } from 'react';
 
 
 
 const SingleTicket = (props) => {
-
+    const commentRef = useRef();
     const { ticket } = props;
-    console.log(ticket);
+
+    const submitComment = (event) => {
+        event.preventDefault();
+        const newComment = commentRef.current.value;
+        console.log(newComment);
+        console.log('We submit here');
+        commentRef.current.value = '';
+    }
+
     return (
         <div className={styles.panelStyles}>
             <h4>{ticket.title}</h4>
@@ -46,7 +54,11 @@ const SingleTicket = (props) => {
                     </div>
                 </div>
                 <div className={styles.ticketComments}>
-                    TicketComments
+                    <h5>Comments</h5>
+                    <form onSubmit={submitComment} className={styles.ticketForm}>
+                        <input type='text' placeholder='Enter comment...' ref={commentRef} />
+                        <button type='submit'>Comment</button>
+                    </form>
                 </div>
             </div>
         </div>

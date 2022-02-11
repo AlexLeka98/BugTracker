@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+
+let logoutTimer;
 
 const AuthContext = React.createContext({
     token: '',
@@ -13,22 +15,86 @@ const AuthContext = React.createContext({
     initializeAuth: () => { },
 });
 
+const calculateRemainingTime = (expirationTime) => {
+    const currentTime = new Date().getTime();
+    const adjExpirationTime = new Date(expirationTime).getTime();
+    return adjExpirationTime - currentTime;
+}
+
+const retrieveStoredToken = () => {
+    const storedToken = JSON.parse(localStorage.getItem('token'));
+    const storedExpirationDate = localStorage.getItem('expirationTime');
+
+    const remainingTime = calculateRemainingTime(storedExpirationDate);
+
+    // Threshhold, don't log the user in if there is only 1 minute left(60000 milisec)
+    if (remainingTime <= 60000) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('expirationTime');
+        return null;
+    }
+
+    return { token: storedToken, duration: remainingTime }
+}
 
 export const AuthContextProvider = (props) => {
-    const [token, setToken] = useState(null);
-    const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
-    const [modalIsOpen,setModalIsOpen] = useState(false);
-    const [userInfo, setUserInfo] = useState({
-        username: '',
-        surname: '',
-        email: '',
+    const tokenData = retrieveStoredToken();
+    let initialToken;
+    let initalUserInfo;
+    if (tokenData) {
+        initialToken = tokenData.token.token;
+        initalUserInfo = tokenData.token.userInfo;
+    }
 
-    })
+    const [token, setToken] = useState(initialToken);
+    const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+    const [userInfo, setUserInfo] = useState(initalUserInfo);
     const userIsLoggedIn = !!token;
 
-    const loginHandler = (token) => {
-        setToken(token)
+
+
+
+    const logoutHandler = useCallback(() => {
+        console.log('Right before I refresh');
+        setUserInfo(null);
+        setToken(null);
+        localStorage.removeItem('token');
+        localStorage.removeItem('expirationTime');
+        if (logoutTimer) {
+            clearTimeout(logoutTimer);
+        }
+        closeDropDown();
+    }, []);
+
+    // Right after you login.
+    // Save the tokenId, calculate the remaining time to be logged in.
+    // Logout after the remaining time is over.
+    const loginHandler = (token, userInfo, expirationTime) => {
+        console.log(token, userInfo, expirationTime);
+        console.log(expirationTime);
+        updateUserInfo(userInfo);
+        setToken(token);
+        const remainingTime = calculateRemainingTime(expirationTime);
+        console.log(remainingTime);
+        localStorage.setItem('token', JSON.stringify({ token: token, userInfo: userInfo }));
+        localStorage.setItem('expirationTime', expirationTime);
+        logoutTimer = setTimeout(logoutHandler, remainingTime);
     };
+
+    // Restart count, because soneone esle has been logged in.
+    // we know that because tokenData changed.
+    useEffect(() => {
+        if (tokenData) {
+            logoutTimer = setTimeout(logoutHandler, tokenData.duration);
+        }
+    }, [tokenData, logoutHandler]);
+
+
+
+
+
+
+
 
     const toggleDropDown = () => {
         setDropDownIsOpen(prevState => (!prevState));
@@ -37,24 +103,14 @@ export const AuthContextProvider = (props) => {
         setDropDownIsOpen(false);
     }
 
-    const logoutHandler = () => {
-        setUserInfo(prevState => ({
-            username: '',
-            surname: '',
-            email: '',
-        }));
-        setToken(null);
-        localStorage.setItem('token', '');
-        closeDropDown();
-    };
 
-    const onUserInfoHandler = (userInfo) => {
+    const updateUserInfo = (userInfo) => {
         setUserInfo(userInfo);
     }
 
     const initializeAuth = (auth) => {
         loginHandler(auth.token);
-        onUserInfoHandler(auth.userInfo);
+        updateUserInfo(auth.userInfo);
     }
 
     const contextValue = {
@@ -64,7 +120,7 @@ export const AuthContextProvider = (props) => {
         dropDownIsOpen: dropDownIsOpen,
         login: loginHandler,
         logout: logoutHandler,
-        updateUserInfo: onUserInfoHandler,
+        updateUserInfo: updateUserInfo,
         toggleDropDown: toggleDropDown,
         closeDropDown: closeDropDown,
         initializeAuth: initializeAuth,

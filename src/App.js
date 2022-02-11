@@ -13,16 +13,19 @@ function App() {
   const authCtx = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
 
-  const { token } = authCtx;
-  useEffect(() => {
-    if (localStorage.getItem('token') && localStorage.getItem('token') !== '') {
-      let storageData = JSON.parse(localStorage.getItem('token'));
-      authCtx.initializeAuth({ token: storageData.token, userInfo: storageData.userInfo });
-    }
-    else if (authCtx.isLoggedIn) {
-      localStorage.setItem('token', JSON.stringify({ token: authCtx.token, userInfo: authCtx.userInfo }))
-    }
-  }, [token])
+
+  // Relogin in if user was logged in before refresh.
+  // const { token } = authCtx;
+  // useEffect(() => {
+  //   if (localStorage.getItem('token') && localStorage.getItem('token') !== '') {
+  //     let storageData = JSON.parse(localStorage.getItem('token'));
+  //     authCtx.initializeAuth({ token: storageData.token, userInfo: storageData.userInfo });
+  //   }
+  //   else if (authCtx.isLoggedIn) {
+  //     localStorage.setItem('token', JSON.stringify({ token: authCtx.token, userInfo: authCtx.userInfo }))
+  //     localStorage.setItem('expirationTime', expirationTime);
+  //   }
+  // }, [token])
 
 
   useEffect(() => {
@@ -39,6 +42,8 @@ function App() {
     })
   }, [])
 
+
+  
   return (
     <div className="App">
       <Header />

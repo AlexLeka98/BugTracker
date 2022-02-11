@@ -32,8 +32,6 @@ const ProjectPage = (props) => {
         };
     }, [])
 
-    console.log(project);
-
 
     const updateSelectedTicket = (updatedTicket) => {
         console.log(updatedTicket);

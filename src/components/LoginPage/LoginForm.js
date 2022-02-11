@@ -4,10 +4,9 @@ import AuthContext from "../../store/auth-context";
 import styles from './LoginForm.module.css'
 import { useHistory } from 'react-router-dom';
 import useHttp from '../../hooks/useHttp';
-import { CollectionsBookmarkOutlined } from '@mui/icons-material';
 
 const LoginForm = () => {
-    const [isLogin, setIsLogin] = useState(true); //Login or Sign up ?
+    const [showLoginForm, setShowLoginForm] = useState(true); //Login or Sign up ?
     const [passwordAuth, setPasswordAuth] = useState({ isValid: true, message: null });
     const authCtx = useContext(AuthContext);
     const { isLoading, httpRequest, error } = useHttp();
@@ -18,8 +17,10 @@ const LoginForm = () => {
     const passwordRef = useRef();
 
 
-    const authFunc = (data) => {
-        authCtx.login(data.idToken);
+    const loginFunc = (authData, userInfo) => {
+        console.log(authData.idToken, '======', userInfo);
+        const expirationTime = new Date(new Date().getTime() + (+authData.expiresIn * 1000))  // Data expires in an hour.
+        authCtx.login(authData.idToken, userInfo, expirationTime.toString());
         history.replace('/app/dashboard')
     }
 
@@ -30,8 +31,7 @@ const LoginForm = () => {
     const getUserInfo = (data) => {
         for (const user in data) {
             if (data[user].email === emailRef.current.value) {
-                authCtx.updateUserInfo(data[user]);
-                return;
+                return data[user];
             }
         }
     }
@@ -40,7 +40,7 @@ const LoginForm = () => {
 
 
     const onChangeLoginHandler = () => {
-        setIsLogin(prevState => (!prevState));
+        setShowLoginForm(prevState => (!prevState));
     }
 
 
@@ -51,9 +51,10 @@ const LoginForm = () => {
         let dbUrl = 'https://react-http-a713f-default-rtdb.europe-west1.firebasedatabase.app/users.json'
         let url;
         let httpInfo;
-        // Authentication request
+        let userInfo;
+        // Authentication POST request
         httpInfo = {
-            url: `https://identitytoolkit.googleapis.com/v1/accounts:${isLogin ? 'signInWithPassword' : 'signUp'}?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0`,
+            url: `https://identitytoolkit.googleapis.com/v1/accounts:${showLoginForm ? 'signInWithPassword' : 'signUp'}?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,18 +65,18 @@ const LoginForm = () => {
                 returnSecureToken: true
             }
         }
-        httpRequest(httpInfo, authFunc);
+        let authData = await httpRequest(httpInfo);
 
         // Recieving user information after Authentication request.
-        if (isLogin) {
+        if (showLoginForm) {
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0';
-            httpRequest({ url: dbUrl }, getUserInfo);
-        }
+            userInfo = await httpRequest({ url: dbUrl }, getUserInfo);
+        } // Add new user to the database.
         else {
             const enteredName = nameRef.current.value;
             const enteredSurname = surnameRef.current.value;
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0';
-            let userInfo = {
+            userInfo = {
                 email: user.email,
                 username: enteredName,
                 surname: enteredSurname
@@ -88,9 +89,11 @@ const LoginForm = () => {
                 },
                 body: userInfo
             }
-            httpRequest(httpInfo);
+            const authData = await httpRequest(httpInfo);
             userInfoFunc(userInfo);
         }
+        loginFunc(authData, userInfo);
+
     }
 
     // if password is correct, we procced to make the authentication.
@@ -113,8 +116,8 @@ const LoginForm = () => {
     return (
         <div className={styles.formContainer}>
             <form className={styles.formStyle} onSubmit={submitHandler}>
-                <h3 className={styles.formHeader}>{isLogin ? 'Login' : 'Sign Up'}</h3>
-                {!isLogin &&
+                <h3 className={styles.formHeader}>{showLoginForm ? 'Login' : 'Sign Up'}</h3>
+                {!showLoginForm &&
                     <div className={styles.namesStyle}>
                         <Input
                             type='text'
@@ -146,10 +149,10 @@ const LoginForm = () => {
 
 
                 {!isLoading && <button className={styles.submitButton} type='submit' variant="outlined" sx={{ marginTop: 2, px: 6, py: 1 }}>
-                    {isLogin ? 'Login' : 'Create account'}
+                    {showLoginForm ? 'Login' : 'Create account'}
                 </button>}
                 {isLoading && <div className='loader'></div>}
-                <button className={styles.changeAuthButton} type='button' onClick={onChangeLoginHandler}>{isLogin ? 'Create new account' : 'Log In with existing account'}</button>
+                <button className={styles.changeAuthButton} type='button' onClick={onChangeLoginHandler}>{showLoginForm ? 'Create new account' : 'Log In with existing account'}</button>
 
             </form>
         </div>
