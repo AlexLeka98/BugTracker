@@ -6,8 +6,7 @@ import DashboardTickets from './DashboardTickets/DashboardTickets';
 import DashboardMembers from './DashboardMembers/DashboardMembers';
 import SingleTicket from './DashboardTickets/SingleTicket/SingleTicket';
 
-
-const ProjectPage = (props) => {
+const ProjectPage = () => {
     const { isLoading, error, httpRequest } = useHttp();
     const [project, setProject] = useState(null)
     const [selectedTicket, setSelectedTicket] = useState(null);
@@ -63,29 +62,7 @@ const ProjectPage = (props) => {
 
     const onSelectNewTicket = (item) => {
         setSelectedTicket(item);
-        // let ticketIndex;
-        // project.tickets.map((ticket,index) => {
-        //     if (ticket._id === item._id){
-        //         ticketIndex = index;
-        //     }
-        // })
-        // console.log(project.tickets[ticketIndex]);
-        // console.log(item);
-        // setSelectedTicketId(project.tickets[ticketIndex]);
     }
-
-    // const onChangeSelectedItem = () => {
-    //     let ticketIndex;
-    //     project.tickets.map((ticket,index) => {
-    //         if (ticket._id === selectedTicket._id){
-    //             ticketIndex = index;
-    //         }
-    //     })
-    //     console.log(project.tickets[ticketIndex]);
-    //     console.log(selectedTicket);
-    //     setSelectedTicket(project.tickets[ticketIndex]);
-    // }
-
     return (
         <Fragment>
             <h1>{project && project.title}</h1>
@@ -116,7 +93,7 @@ const ProjectPage = (props) => {
                     }
                 </div>
             }
-            {isLoading && <div className='loader bigBlack'></div>}
+            {isLoading && <div className={`${styles.loadingStyle} loader bigBlack`}></div>}
         </Fragment>
     )
 }

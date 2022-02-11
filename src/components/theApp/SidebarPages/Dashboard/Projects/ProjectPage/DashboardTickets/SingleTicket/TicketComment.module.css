@@ -1,0 +1,50 @@
+.ticketContainer{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin:10px 0;
+    background-color: var(--med3);
+    padding:10px;
+    box-sizing: border-box;
+    border-radius: 0.7rem;
+}
+
+
+.ticketContainer p{
+    font-size: 12px;
+    margin:0;
+}
+
+
+
+
+
+
+.commentInfo {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    height:15px;
+    padding:0 10px;
+    margin-bottom:10px;
+}
+
+.commentInfo p:first-child{
+    font-size:10px;
+    font-weight: 800;
+}
+
+.commentInfo p:last-child{
+    font-size:10px;
+}
+.commentInfo span{
+    font-size:20px;
+    font-weight: 900;
+    padding:0px 5px;
+}
+
+.commentText{
+    text-align: start;
+    padding:0 15px;
+}

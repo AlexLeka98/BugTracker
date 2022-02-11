@@ -1,5 +1,6 @@
 import styles from './SingleTicket.module.css'
 import { useRef } from 'react';
+import TicketComment from './TicketComment';
 
 
 
@@ -55,6 +56,11 @@ const SingleTicket = (props) => {
                 </div>
                 <div className={styles.ticketComments}>
                     <h5>Comments</h5>
+                    <ul className={styles.ticketComments}>
+                        <TicketComment />
+                        <TicketComment />
+                        <TicketComment />
+                    </ul>
                     <form onSubmit={submitComment} className={styles.ticketForm}>
                         <input type='text' placeholder='Enter comment...' ref={commentRef} />
                         <button type='submit'>Comment</button>

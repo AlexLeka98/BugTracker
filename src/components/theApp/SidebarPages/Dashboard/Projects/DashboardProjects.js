@@ -21,7 +21,6 @@ const DashboardProjects = () => {
     }
 
     const addNewProjectHandler = (newProject) => {
-        console.log('I am here!');
         setProjectItems(prevProjects => {
             return [...prevProjects, newProject];
         })
