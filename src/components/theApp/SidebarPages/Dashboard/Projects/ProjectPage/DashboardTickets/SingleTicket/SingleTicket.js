@@ -56,15 +56,15 @@ const SingleTicket = (props) => {
                 </div>
                 <div className={styles.ticketComments}>
                     <h5>Comments</h5>
+                    <form onSubmit={submitComment} className={styles.ticketForm}>
+                        <input type='text' placeholder='Enter comment...' ref={commentRef} />
+                        <button type='submit'>Comment</button>
+                    </form>
                     <ul className={styles.ticketComments}>
                         <TicketComment />
                         <TicketComment />
                         <TicketComment />
                     </ul>
-                    <form onSubmit={submitComment} className={styles.ticketForm}>
-                        <input type='text' placeholder='Enter comment...' ref={commentRef} />
-                        <button type='submit'>Comment</button>
-                    </form>
                 </div>
             </div>
         </div>
