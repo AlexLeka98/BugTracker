@@ -164,10 +164,32 @@
 .ticketComments{
     display: flex;
     flex-direction: column;
-    margin:0 0 20px 0;
-    padding:0;
+    margin:5px 0 20px 0;
+    padding:5px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 500px;
+}
+.ticketComments::-webkit-scrollbar {
+    width: 6px;
 }
 
+/* Track */
+.ticketComments::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.ticketComments::-webkit-scrollbar-thumb {
+    background: var(--med2);
+}
+
+/* Handle on hover */
+.ticketComments::-webkit-scrollbar-thumb:vertical:hover {
+    background: var(--med1);
+    padding:20px;
+}
 
 
 

@@ -1,21 +1,37 @@
 import styles from './SingleTicket.module.css'
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
+import AuthContext from '../../../../../../../../store/auth-context';
 import TicketComment from './TicketComment';
+import useHttp from '../../../../../../../../hooks/useHttp';
 
 
 
 const SingleTicket = (props) => {
     const commentRef = useRef();
     const { ticket } = props;
+    const { httpRequest, error, isLoading } = useHttp();
+    const authCtx = useContext(AuthContext);
 
     const submitComment = (event) => {
         event.preventDefault();
         const newComment = commentRef.current.value;
+        let httpInfo = {
+            url: `/tickets/${ticket._id}/comment`,
+            method: 'POST',
+            body: {
+                comment: newComment,
+                date: new Date(),
+                userInfo: authCtx.userInfo,
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }
+        httpRequest(httpInfo);
         console.log(newComment);
         console.log('We submit here');
         commentRef.current.value = '';
     }
-
     return (
         <div className={styles.panelStyles}>
             <h4>{ticket.title}</h4>
