@@ -2,24 +2,27 @@ const mongoose = require('mongoose');
 
 const ticketSchema = new mongoose.Schema({
     title: {
-        type:String,
-        required:true
+        type: String,
+        required: true
     },
     description: {
-        type:String,
-        required:true
+        type: String,
+        required: true
     },
     author: {
-        type:String,
-        required:true,
+        type: String,
+        required: true,
     },
-    type:{
-        type:String,
-        require:true,
+    type: {
+        type: String,
+        require: true,
     },
-    status:{
-        type:String,
-        require:true,
+    status: {
+        type: String,
+        require: true,
+    },
+    comments: {
+        type: [{ name: String, surnmame: String, comment: String, date: Date }]
     }
 });
 

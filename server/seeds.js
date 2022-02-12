@@ -14,23 +14,31 @@ mongoose.connect('mongodb://localhost:27017/myapp')
 const USER_DUMMY = [
     {
         name: 'Alex',
+        email:'alexleka98@outlook.com',
         surname: 'Leka',
         authority: 'admin',
+        phone: '0634361825',
     },
     {
         name: 'Mario',
+        email:'marioleka97@outlook.com',
         surname: 'Leka',
         authority: 'dev',
+        phone: '0634361825',
     },
     {
         name: 'Niko',
+        email:'nikoadipa94@outlook.com',
         surname: 'Adipa',
         authority: 'dev',
+        phone: '0634361825',
     },
     {
         name: 'Mark',
-        surname: 'Gohn',
+        surname: 'Johns',
+        email:'markjohns89@outlook.com',
         authority: 'dev',
+        phone: '0634361825',
     },
 ]
 
@@ -97,13 +105,13 @@ const TICKET_DUMMY = [
 
 
 const feedDataBase = () => {
-    // USER_DUMMY.map(item => {
-    //     new Users(item).save(err => {
-    //         if (err) {
-    //             console.log(err);
-    //         };
-    //     })
-    // });
+    USER_DUMMY.map(item => {
+        new Users(item).save(err => {
+            if (err) {
+                console.log(err);
+            };
+        })
+    });
 
     // TICKET_DUMMY.map(item => {
     //     new Tickets(item).save(err => {
@@ -113,13 +121,13 @@ const feedDataBase = () => {
     //     })
     // });
 
-    PROJECT_DUMMY.map(item => {
-        new Projects(item).save(err => {
-            if (err) {
-                console.log(err);
-            };
-        })
-    });
+    // PROJECT_DUMMY.map(item => {
+    //     new Projects(item).save(err => {
+    //         if (err) {
+    //             console.log(err);
+    //         };
+    //     })
+    // });
 }
 
 

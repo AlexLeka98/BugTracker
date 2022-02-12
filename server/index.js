@@ -22,6 +22,7 @@ mongoose.connect('mongodb://localhost:27017/myapp')
 const { Users } = require('./models/users');
 const { Tickets } = require('./models/tickets');
 const { Projects } = require('./models/projects');
+const { response } = require("express");
 
 
 
@@ -32,8 +33,6 @@ app.get('/projects', async (req, res) => {
   res.json(allProjects);
 })
 
-
-
 // Get the specific project with the id passed in the params
 app.get('/projects/:id', async (req, res) => {
   const { id } = req.params;
@@ -42,13 +41,9 @@ app.get('/projects/:id', async (req, res) => {
   const resProjPop = await resProj.populate('tickets').then(res => {
     return res.populate('users');
   })
-
-
   res.json(resProjPop)
-  console.log('Get the specific project, and all user & tickets of the project');
   // res.json({ message: 'Very good procect id' });
 })
-
 
 
 // Receive all tickets from the project with the corresponding id
@@ -87,16 +82,63 @@ app.post('/projects/ticket/:projectId', async (req, res) => {
 // Add a new user to the Users model, and then push that ticket 
 // to the project Id.
 app.post('/projects/users/:projectId', async (req, res) => {
+  console.log('/projects/users/:projectId')
   let userData = req.body;
+  const foundUsers = await Users.find({
+    '_id': {
+      $in: userData.map(item => mongoose.Types.ObjectId(item.id))
+    }
+  });
+
   let projectId = req.params.projectId;
   const project = await Projects.findById(projectId);
-  console.log(await project.populate('users'))
-  const newUser = await new Users(userData);
-  await newUser.save();
-  project.users.push(newUser);
+  foundUsers.map(user => {
+    project.users.push(user);
+  })
   await project.save();
-  res.json(newUser);
+  console.log(project);
+  res.json(foundUsers);
 })
+
+
+
+
+app.put('/tickets/:id', (req, res) => {
+  let newTicket = req.body;
+  let { id: ticketId } = req.params;
+  console.log(newTicket);
+  console.log(ticketId);
+
+  Tickets.findByIdAndUpdate(ticketId, newTicket, { new: true }).then(response => {
+    console.log(response);
+    res.json(response);
+  }).catch(err => {
+    console.log(err);
+    res.json({ error: err });
+  })
+
+  console.log('This is a PUT request')
+})
+
+app.post('/tickets/:ticketId/comment', async (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
+  const ticket = await Tickets.findById(req.params.ticketId);
+  const newComment = {
+    name: req.body.userInfo.username,
+    surname: req.body.userInfo.surname,
+    comment: req.body.comment,
+    date: req.body.date
+  }
+  await ticket.comments.push(newComment);
+  await ticket.save();
+  console.log(ticket);
+
+})
+
+
+
+
 
 
 
@@ -129,7 +171,7 @@ app.delete('/projects/ticket', async (req, res) => {
   const ticketId = req.body.ticketId;
   console.log("Project ID : ", projectId);
   console.log("Ticket ID : ", ticketId);
-    
+
   const filter = { _id: projectId };
   Projects.findOne(filter).then(projectFound => {
     const foundProjectsFiltered = projectFound.tickets.filter(item => item.toString() !== ticketId);
@@ -138,7 +180,7 @@ app.delete('/projects/ticket', async (req, res) => {
   }).catch(error => {
     console.log(error);
   })
-  await Tickets.findOneAndDelete({ _id:  ticketId});
+  await Tickets.findOneAndDelete({ _id: ticketId });
 
   res.json({ name: 'ok' });
 })
@@ -150,11 +192,11 @@ app.delete('/projects/user', async (req, res) => {
   const userId = req.body.userId;
   console.log("Project ID : ", projectId);
   console.log("User ID : ", userId);
-    
+
   const filter = { _id: projectId };
   Projects.findOne(filter).then(projectFound => {
     // const foundProjectsFiltered = projectFound.users.filter(item => item.toString() !== userId);
-    const foundProjectsFiltered = projectFound.users.filter(item => item.toString() === '');
+    const foundProjectsFiltered = projectFound.users.filter(item => item.toString() !== userId);
     projectFound.users = foundProjectsFiltered;
     return projectFound.save()
   }).catch(error => {
