@@ -22,7 +22,7 @@ const ticketSchema = new mongoose.Schema({
         require: true,
     },
     comments: {
-        type: [{ name: String, surnmame: String, comment: String, date: Date }]
+        type: [{ username: String, surname:String, comment: String, date: Date }]
     }
 });
 

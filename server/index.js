@@ -121,19 +121,41 @@ app.put('/tickets/:id', (req, res) => {
 })
 
 app.post('/tickets/:ticketId/comment', async (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
   const ticket = await Tickets.findById(req.params.ticketId);
   const newComment = {
-    name: req.body.userInfo.username,
-    surname: req.body.userInfo.surname,
+    username: req.body.username,
+    surname: req.body.surname,
     comment: req.body.comment,
-    date: req.body.date
+    date: req.body.date,
+    _id: new mongoose.Types.ObjectId(),
   }
-  await ticket.comments.push(newComment);
+  // ticket.comments = [];
+  await ticket.comments.unshift(newComment);
   await ticket.save();
-  console.log(ticket);
+  res.json(ticket);
+})
 
+app.delete('/tickets/:ticketId/comment', async (req, res) => {
+  const { id } = req.body;
+
+  const ticket = await Tickets.findById(req.params.ticketId);
+  // ticket.comments.filter(comment => comment._id.toString() !== id);
+  console.log("Ticket 1)   ",ticket.comments);
+
+  const newTicket = ticket.comments.filter(comment => {
+    // console.log("comment id ", comment._id.toString());
+    // console.log(id);
+    if (comment._id.toString() !== id) {
+      console.log('one')
+      return comment
+    }
+  });
+
+  ticket.comments = newTicket;
+  // console.log("This is the new ticket:",newTicket);
+  await ticket.save();
+  res.json(ticket);
+  // console.log("Ticket 2)   ",ticket.comments);
 })
 
 
