@@ -137,25 +137,16 @@ app.post('/tickets/:ticketId/comment', async (req, res) => {
 
 app.delete('/tickets/:ticketId/comment', async (req, res) => {
   const { id } = req.body;
-
   const ticket = await Tickets.findById(req.params.ticketId);
-  // ticket.comments.filter(comment => comment._id.toString() !== id);
-  console.log("Ticket 1)   ",ticket.comments);
-
   const newTicket = ticket.comments.filter(comment => {
-    // console.log("comment id ", comment._id.toString());
-    // console.log(id);
     if (comment._id.toString() !== id) {
       console.log('one')
       return comment
     }
   });
-
   ticket.comments = newTicket;
-  // console.log("This is the new ticket:",newTicket);
   await ticket.save();
   res.json(ticket);
-  // console.log("Ticket 2)   ",ticket.comments);
 })
 
 
@@ -265,12 +256,12 @@ app.delete('/users', async (req, res) => {
 
 
 // TICKETS
-app.get('/tickets', (req, res) => {
-  res.json({ message: 'Hello from bruh!' });
+app.get('/tickets', async (req, res) => {
+  const allTickets = await Tickets.find({});
+  res.json(allTickets);
 })
 
 app.post('/tickets', (req, res) => {
-  console.log("I think i made it")
   res.json({ message: 'Hello from bruh!' });
 })
 
