@@ -1,16 +1,17 @@
 import DashboardPanel from '../../../../UI/DashboardPanel';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useHttp from '../../../../../hooks/useHttp';
 import ProjectForm from './ProjectForm';
 import DashboardItem from '../../../../UI/DashboardItem';
 import { useHistory } from 'react-router-dom';
-
+import TicketContext from '../../../../../store/ticket-context';
 
 
 const DashboardProjects = () => {
     const [projectItems, setProjectItems] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const history = useHistory();
+    const ticketCtx = useContext(TicketContext);
 
 
     const closeFormModal = () => {
@@ -51,8 +52,8 @@ const DashboardProjects = () => {
             })
     }, [])
 
-
     const redirectProjectItemHandler = (item) => {
+        ticketCtx.setSelectedTicket(null);
         let path = `/app/dashboard/project/${item._id}`
         history.push(path);
     }
