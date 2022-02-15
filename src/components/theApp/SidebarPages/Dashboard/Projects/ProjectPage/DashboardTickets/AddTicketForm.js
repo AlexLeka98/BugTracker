@@ -14,12 +14,10 @@ const AddTicketForm = (props) => {
     const eneteredStatus = useRef();
 
     const match = useRouteMatch();
-    console.log(props);
 
     const onSubmitFormHandler = async (event) => {
         event.preventDefault();
-        console.log('I am here');
-        const projectId = match.params.id;
+        const projectId = match.params.projectId;
         let newTicket = {
             title: enteredTitle.current.value,
             description: enteredDescription.current.value,

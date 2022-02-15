@@ -7,7 +7,6 @@ import AuthContext from "../../store/auth-context";
 const LandingPage = () => {
 
     const authCtx = useContext(AuthContext);
-    console.log("Logged in user info: ",authCtx.userInfo);
     return (
         <div className={styles.landingContainer}>
             <h1>Welcome to BugTracker!</h1>

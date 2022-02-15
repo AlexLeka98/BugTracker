@@ -7,6 +7,7 @@ const Dashboard = () => {
 
     return (
         <div className={styles.dashboardContainer}>
+            <h1 className={styles.dashboardTitle}>Dashboard</h1>
             <div className={styles.location}>
             </div>
             <DashboardProjects />

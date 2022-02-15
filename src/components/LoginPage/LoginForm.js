@@ -18,7 +18,6 @@ const LoginForm = () => {
 
 
     const loginFunc = (authData, userInfo) => {
-        console.log(authData.idToken, '======', userInfo);
         const expirationTime = new Date(new Date().getTime() + (+authData.expiresIn * 1000))  // Data expires in an hour.
         authCtx.login(authData.idToken, userInfo, expirationTime.toString());
         history.replace('/app/dashboard')

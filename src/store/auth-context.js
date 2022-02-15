@@ -55,7 +55,6 @@ export const AuthContextProvider = (props) => {
 
 
     const logoutHandler = useCallback(() => {
-        console.log('Right before I refresh');
         setUserInfo(null);
         setToken(null);
         localStorage.removeItem('token');
@@ -89,7 +88,9 @@ export const AuthContextProvider = (props) => {
         }
     }, [tokenData, logoutHandler]);
 
-
+    useEffect(() => {
+        console.log('YEAAA');
+    },[])
 
 
 

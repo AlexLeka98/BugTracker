@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import useHttp from "../../../../hooks/useHttp";
 import DashboardPanel from "../../../UI/DashboardPanel";
 import DashboardItem from "../../../UI/DashboardItem";
@@ -25,8 +25,7 @@ const Tickets = () => {
     }, [])
 
     const selectATicket = (selectedTicket) => {
-        console.log(selectedTicket);
-        const path = `/app/dashboard/project/${selectedTicket.projectId}/${selectedTicket._id}`        
+        const path = `/app/dashboard/project/${selectedTicket.projectId}/${selectedTicket._id}`
         history.push(path);
     }
 
@@ -52,32 +51,37 @@ const Tickets = () => {
             width: 17
         },
     ]
+    console.log(allTickets);
     return (
-        <DashboardPanel
-            name='Tickets'
-            buttonName='New Ticket'
-            panelData={panelData}>
-            {allTickets.length > 0 && allTickets.map(ticket => {
-                let rowData = [
-                    { value: 'Project', width: 22 },
-                    { value: ticket.title, width: 22 },
-                    { value: ticket.status, width: 17 },
-                    { value: 3, width: 17 },
-                    { value: 'Resolved', width: 17 },
-                ]
-                return (
-                    <DashboardItem
-                        rowData={rowData}
-                        key={ticket._id}
-                        id={ticket._id}
-                        item={ticket}
-                        className={styles.hoverColor}
-                        // onRemoveItem={removeProjectHandler}
-                        onClickItem={selectATicket}
-                    />
-                )
-            })}
-        </DashboardPanel>
+        <Fragment>
+            <h1 className={styles.ticketsTitle}>Tickets</h1>
+            <DashboardPanel
+                name='Tickets'
+                buttonName='New Ticket'
+                panelData={panelData}>
+                {allTickets && allTickets.length > 0 && allTickets.map(ticket => {
+                    let rowData = [
+                        { value: 'Project', width: 22 },
+                        { value: ticket.title, width: 22 },
+                        { value: ticket.status, width: 17 },
+                        { value: 3, width: 17 },
+                        { value: 'Resolved', width: 17 },
+                    ]
+                    return (
+                        <DashboardItem
+                            rowData={rowData}
+                            key={ticket._id}
+                            id={ticket._id}
+                            item={ticket}
+                            className={styles.hoverColor}
+                            // onRemoveItem={removeProjectHandler}
+                            onClickItem={selectATicket}
+                        />
+                    )
+                })}
+                {isLoading && <div className="loader" style={{ marginTop: '30px' }}></div>}
+            </DashboardPanel>
+        </Fragment>
     )
 }
 

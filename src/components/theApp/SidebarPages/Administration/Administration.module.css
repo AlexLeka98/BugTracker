@@ -1,0 +1,92 @@
+.administrationContainer{
+    width:100%;
+    display: flex;
+}
+
+.administrationContainer > div{
+    width:50%;
+    height:200px;
+    margin:10px;
+}
+
+.administrationTitle{
+    margin:0;
+    text-align: start;
+    padding-bottom:10px;
+}
+
+.formStyle{
+    display: flex;
+    flex-direction: column;
+    padding:14px 30px;
+    box-sizing: border-box;
+}
+
+.formRow {
+    display: flex;
+}
+
+.formRow div{
+    display: flex;
+    flex-direction: column;
+    width:50%;
+    margin-bottom: 20px;
+}
+.formRow div:first-child{
+    margin-right:10px;
+}
+.formRow div:last-child{
+    margin-left:10px;
+}
+
+label{
+    width:100%;
+    text-align: start;
+    padding-left:10px;
+    padding:0 0 5px 10px
+}
+input, select{
+    width: 100%;
+    padding-left: 15px;
+    box-sizing: border-box;
+    height: 40px;
+    font-size: 16px;
+}
+
+
+
+.lastRow{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.lastRow label{
+    text-align: start;
+}
+/* 
+.formStyle > div:last-child{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+} */
+
+.formStyle button {
+    border: none;
+    background-color: var(--hardB);
+    color: #ffffff;
+    font-size: 15px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    transition: all 100ms ease-in;
+    margin-top:20px;
+    width:120px;
+}
+
+.formStyle button:hover{
+    cursor: pointer;
+    background-color:var(--med2);
+}
+.formStyle button:active{
+    background-color:var(--med3);
+}

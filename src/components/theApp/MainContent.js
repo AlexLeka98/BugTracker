@@ -1,15 +1,11 @@
-import { useContext } from "react";
 import { Route, Switch } from "react-router-dom";
-import AuthContext from "../../store/auth-context";
 import styles from "./MainContent.module.css";
 import Dashboard from "./SidebarPages/Dashboard/Dashboard";
 import Tickets from "./SidebarPages/Tickets/Tickets";
-import Administration from "./SidebarPages/Administration";
+import Administration from './SidebarPages/Administration/Administration'
 import ProjectPage from "./SidebarPages/Dashboard/Projects/ProjectPage/ProjectPage";
-import { TicketContextProvider } from "../../store/ticket-context";
 
-const MainContent = (props) => {
-    const authCtx = useContext(AuthContext);
+const MainContent = () => {
     return (
         <div className={styles.maincontentContainer}>
             <Switch>

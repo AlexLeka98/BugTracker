@@ -2,3 +2,9 @@
     background-color:var(--med3);
     cursor:pointer;
 } */
+
+.ticketsTitle{
+    margin:0;
+    text-align: start;
+    padding-bottom:10px;
+}

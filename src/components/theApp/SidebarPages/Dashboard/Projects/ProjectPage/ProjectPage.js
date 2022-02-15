@@ -65,6 +65,7 @@ const ProjectPage = () => {
 
     // Ticket operations, add, update, delete.
     const addNewTicketHandler = (newTicket) => {
+        console.log(ticketAddFormModalIsOpen);
         setTickets(prevTickets => {
             return [...prevTickets, newTicket];
         })
@@ -94,7 +95,7 @@ const ProjectPage = () => {
 
     return (
         <Fragment>
-            <h1>{project && project.title}</h1>
+            <h1 className={styles.projectTitle}>{project && project.title}</h1>
             {project &&
                 <div className={styles.projectPageContainer}>
                     <div className={styles.projectPage}>
@@ -123,6 +124,7 @@ const ProjectPage = () => {
                             ticket={ticketCtx.selectedTicket}
                             onUpdateSelectedTicket={updateTicketHandler}
                         />}
+                    
                 </div>
             }
             {isLoading && <div className={`${styles.loadingStyle} loader bigBlack`}></div>}
