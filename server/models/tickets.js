@@ -22,7 +22,11 @@ const ticketSchema = new mongoose.Schema({
         require: true,
     },
     comments: {
-        type: [{ username: String, surname:String, comment: String, date: Date }]
+        type: [{ username: String, surname: String, comment: String, date: Date }]
+    },
+    projectId: {
+        type: String,
+        required:true,
     }
 });
 

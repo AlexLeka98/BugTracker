@@ -138,6 +138,7 @@ app.post('/tickets/:ticketId/comment', async (req, res) => {
 app.delete('/tickets/:ticketId/comment', async (req, res) => {
   const { id } = req.body;
   const ticket = await Tickets.findById(req.params.ticketId);
+  console.log(ticket.comments);
   const newTicket = ticket.comments.filter(comment => {
     if (comment._id.toString() !== id) {
       console.log('one')
@@ -146,6 +147,7 @@ app.delete('/tickets/:ticketId/comment', async (req, res) => {
   });
   ticket.comments = newTicket;
   await ticket.save();
+  console.log(ticket.comments);
   res.json(ticket);
 })
 
@@ -265,8 +267,10 @@ app.post('/tickets', (req, res) => {
   res.json({ message: 'Hello from bruh!' });
 })
 
-app.get('/tickets/:id', (req, res) => {
-  res.json({ message: 'Hello from bruh!' });
+app.get('/tickets/:id', async (req, res) => {
+  console.log("We are here");
+  const ticket = await Tickets.findById(req.params.id);
+  res.json(ticket);
 })
 
 app.delete('/tickets', async (req, res) => {
