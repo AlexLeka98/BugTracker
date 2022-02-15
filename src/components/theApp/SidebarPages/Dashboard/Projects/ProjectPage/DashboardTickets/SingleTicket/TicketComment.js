@@ -1,21 +1,25 @@
 import styles from './TicketComment.module.css'
 
 
-const TicketComment = () => {
+const TicketComment = (props) => {
+
+
+    const deleteCommentHandler = () => {
+        props.onDeleteComment(props);
+    }
 
     return (
         <li className={styles.ticketContainer}>
-            <div className={styles.commentInfo}>
-                <p>Aleksander Leka</p><span>&#183;</span>
-                <p>June 14th 2021, 6:02:28pm</p>
+            <div className={styles.commentContainer}>
+                <div className={styles.commentInfo}>
+                    <p>{`${props.username} ${props.surname}`}</p><span>&#183;</span>
+                    <p>{props.date}</p>
+                </div>
+                <div className={styles.commentText}>
+                    <p>{props.comment}</p>
+                </div>
             </div>
-            <div className={styles.commentText}>
-                <p>This is the comment text, This is the comment text, This is the comment text, 
-                This is the comment text, This is the comment text, This is the comment text, This is the comment text, 
-                This is the comment text, This is the comment text, This is the comment text, 
-                This is the comment text, This is the comment text, 
-                </p>
-            </div>
+            <div className={styles.deleteComment} onClick={deleteCommentHandler}></div>
         </li>
     )
 

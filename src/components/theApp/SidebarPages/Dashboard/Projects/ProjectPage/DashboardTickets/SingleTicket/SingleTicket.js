@@ -14,24 +14,43 @@ const SingleTicket = (props) => {
 
     const submitComment = (event) => {
         event.preventDefault();
-        const newComment = commentRef.current.value;
+
+        let newCommentData = {
+            comment: commentRef.current.value,
+            date: new Date(),
+            username: authCtx.userInfo.username,
+            surname: authCtx.userInfo.surname,
+        }
+
         let httpInfo = {
             url: `/tickets/${ticket._id}/comment`,
             method: 'POST',
-            body: {
-                comment: newComment,
-                date: new Date(),
-                userInfo: authCtx.userInfo,
-            },
+            body: newCommentData,
             headers: {
                 'Content-Type': 'application/json'
             },
         }
-        httpRequest(httpInfo);
-        console.log(newComment);
-        console.log('We submit here');
+        httpRequest(httpInfo).then(ticketRes => {
+            props.onUpdateSelectedTicket(ticketRes);
+        });
         commentRef.current.value = '';
     }
+
+    const deleteCommentHandler = (comment) => {
+        let httpInfo = {
+            url: `/tickets/${ticket._id}/comment`,
+            method: 'DELETE',
+            body: { id: comment.id },
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }
+        httpRequest(httpInfo)
+            .then(ticketRes => {
+                props.onUpdateSelectedTicket(ticketRes);
+            });
+    }
+
     return (
         <div className={styles.panelStyles}>
             <h4>{ticket.title}</h4>
@@ -77,15 +96,22 @@ const SingleTicket = (props) => {
                         <button type='submit'>Comment</button>
                     </form>
                     <ul className={styles.ticketComments}>
-                        <TicketComment />
-                        <TicketComment />
-                        <TicketComment />
+                        {props.ticket.comments.map(comment => (
+                            <TicketComment
+                                comment={comment.comment}
+                                date={comment.date}
+                                username={comment.username}
+                                surname={comment.surname}
+                                id={comment._id}
+                                key={comment._id}
+                                onDeleteComment={deleteCommentHandler}
+                            />
+                        ))}
                     </ul>
                 </div>
             </div>
         </div>
     )
-
 }
 
 

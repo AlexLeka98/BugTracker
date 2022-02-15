@@ -33,7 +33,6 @@ const UpdateTicketForm = (props) => {
             type: enteredType.current.value,
             status: eneteredStatus.current.value,
         }
-        console.log(newTicket);
         let httpInfo = {
             url: `/tickets/${ticket._id}`,
             method: 'PUT',

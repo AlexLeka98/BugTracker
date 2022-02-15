@@ -8,42 +8,31 @@
     display: flex;
     width:100%;
     padding:14px 14px;
+
+}
+.listItem .linkItem:hover{
+    background-color:var(--med3);
+    cursor:pointer;
 }
 .listItem .linkItem div{
     padding-left:6px;
     text-align: start;
+
 }
 
-.listItem .linkItem div:nth-child(1){
-    width:15%;
-}
 
-.listItem .linkItem div:nth-child(2){
-    width:60%;
-}
-.listItem .linkItem div:nth-child(3){
-    width:20%;
-}
-.listItem .linkItem div:nth-child(4){
+.listItem .linkItem div:last-child{
     padding-left:0;
     width:5%;
 }
 
 
-.listItem .col1 a{
-    font-weight: 600;
-}
-.listItem a {
+.listItem p {
     width:100%;
     color:black;
     text-decoration: none;
     transition:all 100ms ease;
-}
-.listItem a:hover {
-    cursor: pointer;
-    width:100%;
-    color:var(--med2);
-    text-decoration: none;
+    margin:0;
 }
 
 
@@ -62,33 +51,25 @@
     text-align: start;
 }
 
-.headerItem div:nth-child(1){
-    width:15%;
-}
 
-.headerItem div:nth-child(2){
-    width:60%;
-}
-.headerItem div:nth-child(3){
-    width:20%;
-}
-
-.headerItem div:nth-child(4){
-    width:5%;
-}
 
 
 
 .dots{
     background:url('../../assets/more.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    background-size:contain;
+    background-repeat: no-repeat; 
+    background-position-x: center;
     background-position-y: center;
-    height:20px;
-    width:30px;
+    background-color:red;
+    padding:0 10px;
+
+    margin:0 auto;
+    height:25px;
+    width:25px;
     transition: all 100ms ease-in;
     position: relative;
+    z-index: 2;
 }
 
 .dots:hover{

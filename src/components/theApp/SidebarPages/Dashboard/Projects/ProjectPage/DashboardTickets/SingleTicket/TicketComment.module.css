@@ -1,5 +1,16 @@
 .ticketContainer{
+    display: flex;
+    justify-content: space-between;
     width:100%;
+    margin:10px 0;
+    background-color: var(--med3);
+    padding:10px;
+    box-sizing: border-box;
+    border-radius: 0.7rem 0 0.7rem 0.7rem;
+
+}
+.commentContainer{
+    /* width:100%; */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -11,13 +22,25 @@
 }
 
 
-.ticketContainer p{
-    font-size: 12px;
-    margin:0;
+.deleteComment{
+    background-image: url('../../../../../../../../assets/trash.png');
+    background-size: contain;
+    width:25px;
+    height:25px;   
+}
+
+.deleteComment:hover{
+    background-image: url('../../../../../../../../assets/trash-hover.png');
+    background-size: contain;
+    transform: scale(1.15);
+    cursor: pointer;
 }
 
 
-
+.commentContainer p{
+    font-size: 12px;
+    margin:0;
+}
 
 
 

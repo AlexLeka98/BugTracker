@@ -8,7 +8,6 @@ import useHttp from "../../../../../../../hooks/useHttp";
 
 const DashboardMembers = (props) => {
     const match = useRouteMatch();
-    const panelTitles = { col1: 'NAME', col2: 'EMAIL', col3: 'PHONE' }
     const [members, setMembers] = useState(props.members);
     const { isLoading, error, httpRequest } = useHttp()
 
@@ -43,23 +42,42 @@ const DashboardMembers = (props) => {
         console.log('redirect Ticket Item Handler');
     }
 
+    const panelData = [
+        {
+            title: 'NAME',
+            width: 15,
+        },
+        {
+            title: 'EMAIL',
+            width: 60,
+        },
+        {
+            title: 'PHONE',
+            width: 20,
+        },
+    ]
     return (
         <DashboardPanel
             name='Members'
             buttonName='Add Member'
             onClick={onToggleMemberFormModal}
-            panelTitles={panelTitles}>
-            {members.length > 0 && members.map(item => (
-                <DashboardItem
-                    col1={item.name}
-                    col2={item.email}
-                    col3={item.phone}
-                    key={item._id}
-                    id={item._id}
-                    onRemoveItem={removeMemberHandler}
-                    onClickItem={redirectMemberItemHandler}
-                />
-            ))}
+            panelData={panelData}>
+            {members.length > 0 && members.map(member => {
+                let rowData = [
+                    { value: member.name, width: 15 },
+                    { value: member.email, width: 60 },
+                    { value: member.phone, width: 20 },
+                ]
+                return (
+                    <DashboardItem
+                        rowData={rowData}
+                        key={members._id}
+                        id={members._id}
+                        onRemoveItem={removeMemberHandler}
+                        onClickItem={redirectMemberItemHandler}
+                    />
+                )
+            })}
             {members.length === 0 && <h5>No Members yet.</h5>}
             {props.memberAddFormModalIsOpen &&
                 <AddMemberForm

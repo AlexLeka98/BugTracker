@@ -5,6 +5,7 @@
     border-radius: 10px;
     box-shadow: 0px 0px 20px 1px black;
     box-sizing: border-box;
+    padding:10px 0;
 }
 
 .panelStyles h4 {

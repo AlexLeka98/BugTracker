@@ -38,8 +38,6 @@ const DashboardProjects = () => {
                 return prevProjects.filter(item => item._id !== id);
             })
         })
-
-
     }
 
     const { isLoading, error, httpRequest } = useHttp();
@@ -53,32 +51,53 @@ const DashboardProjects = () => {
             })
     }, [])
 
-    const panelTitles = { col1: 'PROJECT', col2: 'DESCRIPTION', col3: 'CONTRIBUTORS' }
 
     const redirectProjectItemHandler = (item) => {
         let path = `/app/dashboard/project/${item._id}`
         history.push(path);
     }
 
+    const panelData = [
+        {
+            title: 'PROJECT',
+            width: 15,
+        },
+        {
+            title: 'DESCRIPTION',
+            width: 60,
+        },
+        {
+            title: 'CONTRIBUTORS',
+            width: 20,
+        },
+    ]
+
+
+    const panelTitles = { col1: 'PROJECT', col2: 'DESCRIPTION', col3: 'CONTRIBUTORS' }
     return (
         <DashboardPanel
             name='Projects'
             buttonName='New Project'
             onClick={toggleFormModal}
-            panelTitles={panelTitles}>
-            {projectItems.length > 0 && projectItems.map(item => (
-                <DashboardItem
-                    col1={item.title}
-                    col2={item.description}
-                    col3={item.author}
-                    contrib={item.contributors}
-                    key={item._id}
-                    id={item._id}
-                    item={item}
-                    onRemoveItem={removeProjectHandler}
-                    onClickItem={redirectProjectItemHandler}
-                />
-            ))}
+            panelTitles={panelTitles}
+            panelData={panelData}>
+            {projectItems.length > 0 && projectItems.map(project => {
+                let rowData = [
+                    { value: project.title, width: 15 },
+                    { value: project.description, width: 60 },
+                    { value: project.author, width: 20 },
+                ]
+                return (
+                    <DashboardItem
+                        rowData={rowData}
+                        key={project._id}
+                        id={project._id}
+                        item={project}
+                        onRemoveItem={removeProjectHandler}
+                        onClickItem={redirectProjectItemHandler}
+                    />
+                )
+            })}
             {isLoading && <div className='loader'></div>}
             {projectItems.length === 0 && <h5>No Projects yet.</h5>}
             {modalIsOpen && <ProjectForm onAddNewProject={addNewProjectHandler} closeFormModal={closeFormModal} />}

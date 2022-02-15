@@ -26,18 +26,15 @@ const DashboardItem = (props) => {
         props.onClickItem(props.item);
     }
     return (
-        <li className={styles.listItem}>
-            <div className={styles.linkItem}>
-                <div className={styles.col1}>
-                    <a onClick={redirectItemPath}>{props.col1}</a>
-                </div>
-                <div className={styles.col2}>
-                    <a onClick={redirectItemPath}>{props.col2}</a>
-                </div>
-                <div className={styles.col3}>
-                    {`${props.col3}`}
-                    {/* {`${props.author}${props.contrib !== undefined && props.contrib.map(contributor => ` , ${contributor.name} ${contributor.surname}`)}`} */}
-                </div>
+        <li className={`${styles.listItem}`}>
+            {/* <li className={`${styles.listItem} ${props.className && props.className}`}> */}
+            {/* <div className={`${styles.linkItem} ${props.className && props.className}`}> */}
+            <div className={`${styles.linkItem} ${props.className && props.className}`}>
+                {props.rowData.map(row => (
+                    <div onClick={props.onClickItem && redirectItemPath} style={{ width: `${row.width}%` }}>
+                        <p>{row.value}</p>
+                    </div>
+                ))}
                 <OutsideClick eventHandler={onCloseDropDownHandler}>
                     <div className={styles.dots} onClick={toggleDropDownHandler}>
                         {openDropDown && <div className={styles.dropDown}>

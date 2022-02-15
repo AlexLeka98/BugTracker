@@ -4,6 +4,7 @@ import Modal from '../../../../../../UI/Modal';
 import useHttp from '../../../../../../../hooks/useHttp';
 import { useRouteMatch } from 'react-router-dom';
 
+
 const AddTicketForm = (props) => {
     const { httpRequest } = useHttp()
     const enteredTitle = useRef();
@@ -13,19 +14,22 @@ const AddTicketForm = (props) => {
     const eneteredStatus = useRef();
 
     const match = useRouteMatch();
-
+    console.log(props);
 
     const onSubmitFormHandler = async (event) => {
         event.preventDefault();
+        console.log('I am here');
+        const projectId = match.params.id;
         let newTicket = {
             title: enteredTitle.current.value,
             description: enteredDescription.current.value,
             author: enteredAuthor.current.value,
             type: enteredType.current.value,
             status: eneteredStatus.current.value,
+            projectId: projectId
         }
         let httpInfo = {
-            url: `/projects/ticket/${match.params.id}`,
+            url: `/projects/ticket/${projectId}`,
             method: 'POST',
             body: newTicket,
             headers: { 'Content-Type': 'application/json' }
@@ -38,7 +42,6 @@ const AddTicketForm = (props) => {
         enteredAuthor.current.value = '';
         enteredType.current.value = '';
         eneteredStatus.current.value = '';
-        props.closeTicketFormModal();
     }
 
 
