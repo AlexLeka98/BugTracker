@@ -24,6 +24,7 @@ const AddTicketForm = (props) => {
             author: enteredAuthor.current.value,
             type: enteredType.current.value,
             status: eneteredStatus.current.value,
+            days: 3,
             projectId: projectId
         }
         let httpInfo = {
@@ -33,6 +34,7 @@ const AddTicketForm = (props) => {
             headers: { 'Content-Type': 'application/json' }
         }
         httpRequest(httpInfo).then(res => {
+            console.log(res);
             props.addNewTicketHandler(res);
         })
         enteredTitle.current.value = '';

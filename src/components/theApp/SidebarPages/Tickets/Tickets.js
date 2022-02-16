@@ -60,7 +60,7 @@ const Tickets = () => {
                 panelData={panelData}>
                 {allTickets && allTickets.length > 0 && allTickets.map(ticket => {
                     let rowData = [
-                        { value: 'Project', width: 22 },
+                        { value: ticket.projectId.title, width: 22 },
                         { value: ticket.title, width: 22 },
                         { value: ticket.status, width: 17 },
                         { value: 3, width: 17 },
