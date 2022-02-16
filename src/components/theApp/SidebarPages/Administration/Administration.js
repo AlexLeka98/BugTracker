@@ -4,13 +4,14 @@ import styles from './Administration.module.css'
 import useHttp from '../../../../hooks/useHttp';
 import DashboardPanel from '../../../UI/DashboardPanel';
 import DashboardItem from '../../../UI/DashboardItem';
+import AddNewUserForm from './AddNewUserForm';
 
 
 const Administration = () => {
     const { httpRequest, isLoading, error } = useHttp();
     const [allUsers, setAllUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState({ name: '', surname: '' })
-
+    const [addNewUserFormIsOpen, setAddNewUserFormIsOpen] = useState(false);
     const nameRef = useRef();
     const surnameRef = useRef();
     const phoneRef = useRef();
@@ -36,6 +37,16 @@ const Administration = () => {
     }
     const deleteUser = () => {
         console.log('We are about to delete this mfker!');
+    }
+
+    const addUserToState = (newUser) => {
+        setAllUsers(prevUsers => {
+            return [...prevUsers, newUser];
+        })
+    }
+
+    const toggleAddNewUserForm = () => {
+        setAddNewUserFormIsOpen(prevState => (!prevState));
     }
 
     const updateAllUsers = (newUser) => {
@@ -81,7 +92,7 @@ const Administration = () => {
                         name='Organization'
                         buttonName='New User'
                         panelData={panelData1}
-                        onClick={deleteUser}>
+                        onClick={toggleAddNewUserForm}>
                         {allUsers && allUsers.length > 0 && allUsers.map(user => {
                             let rowData = [
                                 { value: `${user.name} ${user.surname}`, width: 95 },
@@ -100,7 +111,7 @@ const Administration = () => {
                         })}
                         {isLoading && <div className="loader" style={{ marginTop: '30px' }}></div>}
                     </DashboardPanel>
-
+                    {addNewUserFormIsOpen && <AddNewUserForm toggleAddNewUserForm={toggleAddNewUserForm} addUserToState={addUserToState}/>}
                 </div>
                 <div className={styles.editUser}>
                     <DashboardPanel

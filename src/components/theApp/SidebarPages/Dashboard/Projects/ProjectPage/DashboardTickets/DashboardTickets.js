@@ -55,10 +55,6 @@ const DashboardTickets = (props) => {
         history.push(path);
     }
 
-    const funcito = (yes) => {
-        console.log('Funcioto');
-    }
-
     return (
         <Fragment>
             <DashboardPanel

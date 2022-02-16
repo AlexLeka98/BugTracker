@@ -1,9 +1,10 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useHttp from '../../../../../hooks/useHttp';
 import styles from './ProjectForm.module.css'
 import Modal from '../../../../UI/Modal';
 
 const ProjectForm = (props) => {
+    const [allUsers, setAllUsers] = useState([]);
     const { httpRequest } = useHttp()
     const enteredTitle = useRef();
     const enteredDescription = useRef();
@@ -31,23 +32,44 @@ const ProjectForm = (props) => {
         props.closeFormModal();
     }
 
-
+    useEffect(() => {
+        let httpInfo = {
+            url: '/users'
+        }
+        httpRequest(httpInfo).then(res => {
+            setAllUsers(res);
+        })
+    }, [])
+    console.log(allUsers);
     return (
         <Modal onModalHandler={props.closeFormModal}>
             <div className={styles.formContainer}>
+
                 <form className={styles.formStyle} onSubmit={onSubmitFormHandler}>
                     <h2 className={styles.formHeader}>New Project</h2>
-                    <div>
-                        <label>Title</label>
-                        <input type='text' placeholder='title' ref={enteredTitle} />
+
+
+                    <div className={styles.formRow}>
+                        <div>
+                            <label>Title</label>
+                            <input type='text' placeholder='title' ref={enteredTitle} />
+                        </div>
+                        <div>
+                            <label>Author</label>
+                            <select name='authority' ref={enteredAuthor}>
+                                <option disabled selected value> -- select an option -- </option>
+                                {allUsers.length>0 && allUsers.map(user => (
+                                <option value={`${user.name} ${user.surname}`}>{`${user.name} ${user.surname}`}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                        <label>Description</label>
-                        <input type='text' placeholder='descripton' ref={enteredDescription} />
-                    </div>
-                    <div>
-                        <label>Author</label>
-                        <input type='text' placeholder='author' ref={enteredAuthor} />
+
+                    <div className={styles.formRow}>
+                        <div>
+                            <label>Description</label>
+                            <input type='text' placeholder='descripton' ref={enteredDescription} />
+                        </div>
                     </div>
                     <button type='submit'>Submit</button>
                 </form>

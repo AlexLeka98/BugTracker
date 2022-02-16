@@ -65,7 +65,6 @@ const AddMemberForm = (props) => {
             <div className={styles.formContainer}>
                 <form className={styles.formStyle} onSubmit={onSubmitFormHandler}>
                     <h2 className={styles.formHeader}>New Member</h2>
-
                     <ul>
                         {allUsers && allUsers.map(user => (
                             <li>

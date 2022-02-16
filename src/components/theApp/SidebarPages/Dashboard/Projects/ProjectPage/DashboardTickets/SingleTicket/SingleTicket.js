@@ -77,7 +77,7 @@ const SingleTicket = (props) => {
                         </div>
                         <div>
                             <p>PRIORITY</p>
-                            <h5>HIGH</h5>
+                            <h5>{ticket.priority}</h5>
                         </div>
                         <div>
                             <p>TYPE</p>

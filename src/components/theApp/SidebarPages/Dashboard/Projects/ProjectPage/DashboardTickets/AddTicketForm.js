@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import styles from './AddTicketForm.module.css'
 import Modal from '../../../../../../UI/Modal';
 import useHttp from '../../../../../../../hooks/useHttp';
@@ -12,8 +12,14 @@ const AddTicketForm = (props) => {
     const enteredAuthor = useRef();
     const enteredType = useRef();
     const eneteredStatus = useRef();
+    const enteredPriority = useRef();
+    const eneteredDays = useRef();
+    const eneteredHours = useRef();
+
+    const [allUsers, setAllUsers] = useState([]);
 
     const match = useRouteMatch();
+
 
     const onSubmitFormHandler = async (event) => {
         event.preventDefault();
@@ -22,10 +28,13 @@ const AddTicketForm = (props) => {
             title: enteredTitle.current.value,
             description: enteredDescription.current.value,
             author: enteredAuthor.current.value,
+            priority: enteredPriority.current.value,
             type: enteredType.current.value,
             status: eneteredStatus.current.value,
-            days: 3,
+            days: eneteredDays.current.value,
+            hours: eneteredHours.current.value,
             projectId: projectId
+
         }
         let httpInfo = {
             url: `/projects/ticket/${projectId}`,
@@ -42,34 +51,94 @@ const AddTicketForm = (props) => {
         enteredAuthor.current.value = '';
         enteredType.current.value = '';
         eneteredStatus.current.value = '';
+        enteredPriority.current.value = '';
+        eneteredDays.current.value = '';
+        eneteredHours.current.value = '';
     }
 
+    useEffect(() => {
+        let httpInfo = {
+            url: '/users'
+        }
+        httpRequest(httpInfo).then(res => {
+            setAllUsers(res);
+        })
+    }, [])
 
     return (
         <Modal onModalHandler={props.closeAddTicketFormModal}>
             <div className={styles.formContainer}>
                 <form className={styles.formStyle} onSubmit={onSubmitFormHandler}>
                     <h2 className={styles.formHeader}>New Ticket</h2>
-                    <div>
-                        <label>Title</label>
-                        <input type='text' placeholder='title' ref={enteredTitle} />
+
+
+                    <div className={styles.formRow}>
+                        <div>
+                            <label>Title</label>
+                            <input type='text' placeholder='title' ref={enteredTitle} />
+                        </div>
+                        <div>
+                            <label>Author</label>
+                            {/* <input type='text' placeholder='author' ref={enteredAuthor} /> */}
+                            <select name='author' ref={enteredAuthor}>
+                                <option disabled selected value> -- select an option -- </option>
+                                {allUsers && allUsers.length > 0 && allUsers.map(user => (
+                                    <option value={`${user.name} ${user.surname}`}>{`${user.name} ${user.surname}`}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                        <label>Description</label>
-                        <input type='text' placeholder='descripton' ref={enteredDescription} />
+
+                    <div className={styles.formRow}>
+                        <div>
+                            <label>Description</label>
+                            <input type='text' placeholder='descripton' ref={enteredDescription} />
+                        </div>
                     </div>
-                    <div>
-                        <label>Author</label>
-                        <input type='text' placeholder='author' ref={enteredAuthor} />
+
+
+                    <div className={styles.formRow}>
+                        <div>
+                            <label>Type</label>
+                            <select name='type' ref={enteredType}>
+                                <option disabled selected value> -- select an option -- </option>
+                                <option value='issue'>Issue</option>
+                                <option value='logical_error'>Logical error</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Status</label>
+                            <select name='status' ref={eneteredStatus}>
+                                <option disabled selected value> -- select an option -- </option>
+                                <option value='resolved'>Resolve</option>
+                                <option value='working'>Working</option>
+                            </select>
+
+                        </div>
+                        <div>
+                            <label>Priority</label>
+                            <select name='priority' ref={enteredPriority}>
+                                <option disabled selected value> -- select an option -- </option>
+                                <option value='immediate'>Immediate</option>
+                                <option value='medium'>Medium</option>
+                                <option value='light'>Light</option>
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                        <label>Type</label>
-                        <input type='text' placeholder='type' ref={enteredType} />
+
+
+                    <div className={styles.formRow}>
+                        <div>
+                            <label>Days</label>
+                            <input type='number' min='0' placeholder='days' ref={eneteredDays} />
+                        </div>
+                        <div>
+                            <label>Hours</label>
+                            <input type='number' min='0' placeholder='hours' ref={eneteredHours} />
+                        </div>
                     </div>
-                    <div>
-                        <label>Status</label>
-                        <input type='text' placeholder='status' ref={eneteredStatus} />
-                    </div>
+
+
                     <button type='submit'>Submit</button>
                 </form>
             </div>

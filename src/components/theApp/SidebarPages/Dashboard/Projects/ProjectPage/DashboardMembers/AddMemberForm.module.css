@@ -1,6 +1,7 @@
 .formContainer{
     padding:30px;
-    background-color: #4a4e69c2;
+    background-color: var(--hardB);
+    /* background-color: #4a4e69c2; */
     max-width: 600px;;
     border-radius: 1rem;
 }
@@ -21,23 +22,32 @@
 }
 .formStyle ul li{
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width:80%;
     padding:5px 10px;
+    border-bottom: 1px solid #fff;
+    padding:10px 20px;
+}
+
+.formStyle ul li:last-child{
+    border:none;
 }
 .formStyle ul li:hover{
-    background-color: red;
+    background-color: rgb(80, 92, 128);
+    cursor: pointer;
 }
 
 
 .formStyle ul li input {
     display: block;
     justify-self: flex-end;
-    color:red;
     padding:5px;
+    width:5%;
 }
 
+.formStyle ul li input:hover{
+    cursor: pointer;
+}
 
 .formStyle .formControl{
     display: flex;
@@ -58,18 +68,19 @@
 
 
 .formStyle button{
-    margin:0px auto;
-    padding:12px 30px;
+    margin:20px auto 0px;
+    padding:12px 40px;
     font-size:18px;
     border-radius: 0.6rem;
     border:none;
-    background-color: var(--hardB);
+    background-color: var(--med1);
     color:#ffffff;
     transition:all 200ms ease;
 }
 .formStyle button:hover{
     cursor: pointer;
-    background-color: var(--med2);
+    color:#000;
+    background-color: var(--med3);
 }
 .formStyle button:active{
     background-color:var(--med3)
