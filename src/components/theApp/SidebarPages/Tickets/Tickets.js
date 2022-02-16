@@ -57,7 +57,6 @@ const Tickets = () => {
             <h1 className={styles.ticketsTitle}>Tickets</h1>
             <DashboardPanel
                 name='Tickets'
-                buttonName='New Ticket'
                 panelData={panelData}>
                 {allTickets && allTickets.length > 0 && allTickets.map(ticket => {
                     let rowData = [
