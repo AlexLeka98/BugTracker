@@ -50,7 +50,18 @@ const Administration = () => {
     }
 
     const updateAllUsers = (newUser) => {
-        console.log('About to update the new user');
+        console.log(newUser);
+        console.log(allUsers);
+        setAllUsers(prevUsers => {
+            let updatedUsers = prevUsers.map(user => {
+                if (user._id === newUser._id) {
+                    return newUser
+                }
+                return user;
+            })
+            // console.log("Updaded usedres : ",updatedUsers);
+            return updatedUsers;
+        })
     }
 
     const panelData1 = [{ title: 'Users', width: 95 }];
@@ -111,7 +122,7 @@ const Administration = () => {
                         })}
                         {isLoading && <div className="loader" style={{ marginTop: '30px' }}></div>}
                     </DashboardPanel>
-                    {addNewUserFormIsOpen && <AddNewUserForm toggleAddNewUserForm={toggleAddNewUserForm} addUserToState={addUserToState}/>}
+                    {addNewUserFormIsOpen && <AddNewUserForm toggleAddNewUserForm={toggleAddNewUserForm} addUserToState={addUserToState} />}
                 </div>
                 <div className={styles.editUser}>
                     <DashboardPanel
@@ -142,7 +153,6 @@ const Administration = () => {
                                     </div>
                                     <div>
                                         <label htmlFor='authoriz'>Authorization Level</label>
-                                        {/* <input type='text' id='authoriz' ref={authorizRef} /> */}
                                         <select name='authority' ref={authorizRef}>
                                             <option disabled selected value> -- select an option -- </option>
                                             <option value='admin'>Admin</option>

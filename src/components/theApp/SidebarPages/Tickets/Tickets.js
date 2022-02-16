@@ -25,7 +25,9 @@ const Tickets = () => {
     }, [])
 
     const selectATicket = (selectedTicket) => {
-        const path = `/app/dashboard/project/${selectedTicket.projectId}/${selectedTicket._id}`
+        console.log(selectedTicket);
+        const path = `/app/dashboard/project/${selectedTicket.projectId._id}/${selectedTicket._id}`
+        console.log(path);
         history.push(path);
     }
 

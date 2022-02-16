@@ -34,7 +34,7 @@ const AddMemberForm = (props) => {
     const onSubmitFormHandler = async (event) => {
         event.preventDefault();
         let httpInfo = {
-            url: `/projects/users/${match.params.id}`,
+            url: `/projects/users/${match.params.projectId}`,
             method: 'POST',
             body: newMembers,
             headers: { 'Content-Type': 'application/json' }

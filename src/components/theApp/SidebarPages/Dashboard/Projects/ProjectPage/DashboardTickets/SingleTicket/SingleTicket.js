@@ -14,14 +14,14 @@ const SingleTicket = (props) => {
 
     const submitComment = (event) => {
         event.preventDefault();
-
+        
         let newCommentData = {
             comment: commentRef.current.value,
             date: new Date(),
             username: authCtx.userInfo.username,
             surname: authCtx.userInfo.surname,
         }
-
+        console.log(newCommentData);
         let httpInfo = {
             url: `/tickets/${ticket._id}/comment`,
             method: 'POST',
