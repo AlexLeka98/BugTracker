@@ -67,8 +67,8 @@ const AddNewUserForm = (props) => {
                             <label>Authority</label>
                             <select name='authority' ref={enteredAuthority}>
                                 <option disabled selected value> -- select an option -- </option>
-                                <option value='immediate'>Developer</option>
-                                <option value='medium'>Admin</option>
+                                <option value='developer'>Developer</option>
+                                <option value='admin'>Admin</option>
                             </select>
                         </div>
                     </div>

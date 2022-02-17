@@ -103,15 +103,17 @@ const AddTicketForm = (props) => {
                             <select name='type' ref={enteredType}>
                                 <option disabled selected value> -- select an option -- </option>
                                 <option value='issue'>Issue</option>
-                                <option value='logical_error'>Logical error</option>
+                                <option value='bug'>Bug</option>
+                                <option value='feature_request'>Feature request</option>
                             </select>
                         </div>
                         <div>
                             <label>Status</label>
                             <select name='status' ref={eneteredStatus}>
                                 <option disabled selected value> -- select an option -- </option>
-                                <option value='resolved'>Resolve</option>
-                                <option value='working'>Working</option>
+                                <option value='new'>New</option>
+                                <option value='in_progress'>In Progress</option>
+                                <option value='resolved'>Resolved</option>
                             </select>
 
                         </div>
@@ -120,8 +122,9 @@ const AddTicketForm = (props) => {
                             <select name='priority' ref={enteredPriority}>
                                 <option disabled selected value> -- select an option -- </option>
                                 <option value='immediate'>Immediate</option>
+                                <option value='high'>High</option>
                                 <option value='medium'>Medium</option>
-                                <option value='light'>Light</option>
+                                <option value='low'>Low</option>
                             </select>
                         </div>
                     </div>

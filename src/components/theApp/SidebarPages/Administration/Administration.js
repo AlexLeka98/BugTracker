@@ -5,6 +5,7 @@ import useHttp from '../../../../hooks/useHttp';
 import DashboardPanel from '../../../UI/DashboardPanel';
 import DashboardItem from '../../../UI/DashboardItem';
 import AddNewUserForm from './AddNewUserForm';
+import EditUserForm from './EditUserForm';
 
 
 const Administration = () => {
@@ -35,8 +36,17 @@ const Administration = () => {
         phoneRef.current.value = data.phone;
         setSelectedUser(data);
     }
-    const deleteUser = () => {
-        console.log('We are about to delete this mfker!');
+    const deleteUser = (user) => {
+        let httpInfo = {
+            url: '/users',
+            method: 'DELETE',
+            body: { id: selectedUser._id },
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }
+        httpRequest(httpInfo);
+        removeUserFromState(selectedUser._id);
     }
 
     const addUserToState = (newUser) => {
@@ -45,13 +55,21 @@ const Administration = () => {
         })
     }
 
+    const removeUserFromState = (id) => {
+        setAllUsers(prevUsers => {
+            const newUsers = prevUsers.filter(user => {
+                if (user._id !== id) return user;
+            })
+            console.log(newUsers);
+            return newUsers;
+        })
+    }
+
     const toggleAddNewUserForm = () => {
         setAddNewUserFormIsOpen(prevState => (!prevState));
     }
 
     const updateAllUsers = (newUser) => {
-        console.log(newUser);
-        console.log(allUsers);
         setAllUsers(prevUsers => {
             let updatedUsers = prevUsers.map(user => {
                 if (user._id === newUser._id) {
@@ -59,7 +77,6 @@ const Administration = () => {
                 }
                 return user;
             })
-            // console.log("Updaded usedres : ",updatedUsers);
             return updatedUsers;
         })
     }
@@ -85,13 +102,10 @@ const Administration = () => {
             },
         }
         httpRequest(httpInfo).then(res => {
-            // setSelectedUser(res);
-            console.log(res);
             updateAllUsers(res)
         })
-        console.log(nameRef.current.value);
     }
-
+    console.log(allUsers);
     return (
         <Fragment>
             <h1 className={styles.administrationTitle}>Administration</h1>
@@ -128,6 +142,7 @@ const Administration = () => {
                     <DashboardPanel
                         name='Edit User Information'
                         buttonName='Remove User'
+                        onClick={deleteUser}
                         panelData={[
                             {
                                 title: `${selectedUser.name} ${selectedUser.surname}`,
@@ -156,7 +171,7 @@ const Administration = () => {
                                         <select name='authority' ref={authorizRef}>
                                             <option disabled selected value> -- select an option -- </option>
                                             <option value='admin'>Admin</option>
-                                            <option value='dev'>Developer</option>
+                                            <option value='developer'>Developer</option>
                                         </select>
                                     </div>
                                 </div>
