@@ -19,8 +19,6 @@ const DashboardItem = (props) => {
     }
 
     const deleteItemHandler = () => {
-        console.log('OH yes!');
-        console.log(props.id);
         props.onRemoveItem(props.id);
     }
 

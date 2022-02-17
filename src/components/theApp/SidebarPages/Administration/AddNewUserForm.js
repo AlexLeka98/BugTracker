@@ -15,7 +15,8 @@ const AddNewUserForm = (props) => {
 
     const submitNewUserForm = (event) => {
         let newUser = {
-            name:enteredName.current.value,
+            // heree
+            username:enteredName.current.value,
             surname:enteredSurname.current.value,
             email:enteredEmail.current.value,
             phone:enteredPhone.current.value,

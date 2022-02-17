@@ -1,5 +1,5 @@
 import Input from '../UI/Input';
-import { useRef, useState, useContext, useEffect } from 'react';
+import { useRef, useState, useContext, useEffect, Fragment } from 'react';
 import AuthContext from "../../store/auth-context";
 import styles from './LoginForm.module.css'
 import { useHistory } from 'react-router-dom';
@@ -15,6 +15,7 @@ const LoginForm = () => {
     const surnameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
+    const phoneRef = useRef();
 
 
     const loginFunc = (authData, userInfo) => {
@@ -74,11 +75,14 @@ const LoginForm = () => {
         else {
             const enteredName = nameRef.current.value;
             const enteredSurname = surnameRef.current.value;
+            const enteredPhone = phoneRef.current.value;
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0';
             userInfo = {
                 email: user.email,
                 username: enteredName,
-                surname: enteredSurname
+                surname: enteredSurname,
+                phone: enteredPhone,
+                auhority:'none',
             }
             httpInfo = {
                 url: dbUrl,
@@ -89,10 +93,20 @@ const LoginForm = () => {
                 body: userInfo
             }
             const authData = await httpRequest(httpInfo);
+
+            //Add user to the Mongo Database
+            await httpRequest({
+                url:'/users',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: userInfo
+            });
             userInfoFunc(userInfo);
         }
-        loginFunc(authData, userInfo);
 
+        loginFunc(authData, userInfo);
     }
 
     // if password is correct, we procced to make the authentication.
@@ -117,20 +131,28 @@ const LoginForm = () => {
             <form className={styles.formStyle} onSubmit={submitHandler}>
                 <h3 className={styles.formHeader}>{showLoginForm ? 'Login' : 'Sign Up'}</h3>
                 {!showLoginForm &&
-                    <div className={styles.namesStyle}>
+                    <Fragment>
+                        <div className={styles.namesStyle}>
+                            <Input
+                                type='text'
+                                label='Username'
+                                placeholder='Enter name...'
+                                ref={nameRef}
+                            />
+                            <Input
+                                type='text'
+                                label='Surname'
+                                placeholder='Enter surname...'
+                                ref={surnameRef}
+                            />
+                        </div>
                         <Input
                             type='text'
-                            label='Username'
-                            placeholder='Enter name...'
-                            ref={nameRef}
+                            label='Phone'
+                            placeholder='Enter phone...'
+                            ref={phoneRef}
                         />
-                        <Input
-                            type='text'
-                            label='Surname'
-                            placeholder='Enter surname...'
-                            ref={surnameRef}
-                        />
-                    </div>
+                    </Fragment>
                 }
                 <Input
                     type='email'

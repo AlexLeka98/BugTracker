@@ -11,7 +11,7 @@ import EditUserForm from './EditUserForm';
 const Administration = () => {
     const { httpRequest, isLoading, error } = useHttp();
     const [allUsers, setAllUsers] = useState([]);
-    const [selectedUser, setSelectedUser] = useState({ name: '', surname: '' })
+    const [selectedUser, setSelectedUser] = useState({ username: '', surname: '' })
     const [addNewUserFormIsOpen, setAddNewUserFormIsOpen] = useState(false);
     const nameRef = useRef();
     const surnameRef = useRef();
@@ -29,7 +29,7 @@ const Administration = () => {
     }, [])
 
     const selectAUser = (data) => {
-        nameRef.current.value = data.name;
+        nameRef.current.value = data.username;
         surnameRef.current.value = data.surname;
         emailRef.current.value = data.email;
         authorizRef.current.value = data.authority;
@@ -86,7 +86,8 @@ const Administration = () => {
     const submitUserChanges = (event) => {
         event.preventDefault();
         let data = {
-            name: nameRef.current.value,
+            // heree
+            username: nameRef.current.value,
             surname: surnameRef.current.value,
             email: emailRef.current.value,
             phone: phoneRef.current.value,
@@ -120,7 +121,7 @@ const Administration = () => {
                         onClick={toggleAddNewUserForm}>
                         {allUsers && allUsers.length > 0 && allUsers.map(user => {
                             let rowData = [
-                                { value: `${user.name} ${user.surname}`, width: 95 },
+                                { value: `${user.username} ${user.surname}`, width: 95 },
                             ]
                             return (
                                 <DashboardItem
@@ -145,7 +146,7 @@ const Administration = () => {
                         onClick={deleteUser}
                         panelData={[
                             {
-                                title: `${selectedUser.name} ${selectedUser.surname}`,
+                                title: `${selectedUser.username} ${selectedUser.surname}`,
                                 width: 95
                             },
                         ]}>

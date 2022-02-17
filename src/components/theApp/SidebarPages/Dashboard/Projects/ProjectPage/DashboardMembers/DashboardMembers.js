@@ -44,11 +44,11 @@ const DashboardMembers = (props) => {
     const panelData = [
         {
             title: 'NAME',
-            width: 15,
+            width: 25,
         },
         {
             title: 'EMAIL',
-            width: 60,
+            width: 50,
         },
         {
             title: 'PHONE',
@@ -63,8 +63,8 @@ const DashboardMembers = (props) => {
             panelData={panelData}>
             {members.length > 0 && members.map(member => {
                 let rowData = [
-                    { value: member.name, width: 15 },
-                    { value: member.email, width: 60 },
+                    { value: member.username, width: 25 },
+                    { value: member.email, width: 50 },
                     { value: member.phone, width: 20 },
                 ]
                 return (

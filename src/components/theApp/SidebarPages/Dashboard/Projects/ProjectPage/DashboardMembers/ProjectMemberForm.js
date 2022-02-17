@@ -16,7 +16,8 @@ const ProjectMemberForm = (props) => {
     const onSubmitFormHandler = async (event) => {
         event.preventDefault();
         let newMember = {
-            name: enteredName.current.value,
+            // heree
+            username: enteredName.current.value,
             email: enteredEmail.current.value,
             phone: enteredPhone.current.value,
             authority: enteredAuthority.current.value,

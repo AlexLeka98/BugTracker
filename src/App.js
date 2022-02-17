@@ -12,7 +12,7 @@ function App() {
   const [data, setData] = useState(null)
   const authCtx = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
-
+  console.log(authCtx);
 
   // Relogin in if user was logged in before refresh.
   // const { token } = authCtx;

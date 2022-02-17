@@ -68,8 +68,8 @@ const AddMemberForm = (props) => {
                     <ul>
                         {allUsers && allUsers.map(user => (
                             <li>
-                                <label htmlFor={user._id} className={styles.formControl}>{`${user.name} ${user.surname}`}</label>
-                                <input type="checkbox" name={user.name} id={user._id} onChange={onCheckboxMember} />
+                                <label htmlFor={user._id} className={styles.formControl}>{`${user.username} ${user.surname}`}</label>
+                                <input type="checkbox" name={user.username} id={user._id} onChange={onCheckboxMember} />
                             </li>
                         ))}
                     </ul>
