@@ -20,13 +20,12 @@ const DashboardMembers = (props) => {
             return [...prevMembers, ...newMember];
         })
     }
-
-
     const removeMemberHandler = (userId) => {
+        console.log(userId);
         let httpInfo = {
             url: '/projects/user',
             method: 'DELETE',
-            body: { userId: userId, projectId: match.params.id },
+            body: { userId: userId, projectId: match.params.projectId },
             headers: { 'Content-Type': 'application/json' }
         }
         httpRequest(httpInfo).then(() => {
@@ -71,8 +70,8 @@ const DashboardMembers = (props) => {
                 return (
                     <DashboardItem
                         rowData={rowData}
-                        key={members._id}
-                        id={members._id}
+                        key={member._id}
+                        id={member._id}
                         onRemoveItem={removeMemberHandler}
                         onClickItem={redirectMemberItemHandler}
                     />
