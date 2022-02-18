@@ -2,15 +2,16 @@ import DashboardPanel from "../../../../../../UI/DashboardPanel"
 import AddMemberForm from "./AddMemberForm";
 import { useRouteMatch } from "react-router-dom";
 import DashboardItem from "../../../../../../UI/DashboardItem";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useHttp from "../../../../../../../hooks/useHttp";
+import AuthContext from "../../../../../../../store/auth-context";
 
 
 const DashboardMembers = (props) => {
     const match = useRouteMatch();
     const [members, setMembers] = useState(props.members);
     const { isLoading, error, httpRequest } = useHttp()
-
+    const authCtx = useContext(AuthContext);
     const onToggleMemberFormModal = () => {
         props.toggleAddMemberFormModal();
     }
@@ -58,7 +59,7 @@ const DashboardMembers = (props) => {
     return (
         <DashboardPanel
             name='Members'
-            buttonName='Add Member'
+            buttonName={authCtx.userInfo.authority === 'admin' ? 'Add Member' : ''}
             onClick={onToggleMemberFormModal}
             panelData={panelData}>
             {members.length > 0 && members.map(member => {

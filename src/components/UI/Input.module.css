@@ -25,7 +25,7 @@
     padding:10px 0 10px 10px;
     font-weight: 500;
     outline-width: 0;
-    color:var(--lightB);
+    color:#000;
 }
 
 .inputContainer input:focus{

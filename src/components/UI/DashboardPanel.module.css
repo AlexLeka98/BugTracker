@@ -5,7 +5,6 @@
     border-radius: 10px;
     box-shadow: 0px 0px 20px 1px black;
     box-sizing: border-box;
-    padding:10px 0;
 }
 
 .panelStyles h4 {
@@ -24,6 +23,8 @@
     display: flex; 
     justify-content: space-between;
     padding:20px;
+    background-color: var(--lightB);
+    border-radius: 10px 10px 0 0;
 }
 
 .panelTitleAndButton button {
@@ -51,7 +52,9 @@
     font-size:12px;
     font-weight: 700;
     display: flex;
-    background-color:rgb(245, 245, 245);
+    /* background-color:var(--hardB); */
+    background-color:#fff;
+    color:#000;
     padding:8px 14px;
     min-height: 34px;
 }

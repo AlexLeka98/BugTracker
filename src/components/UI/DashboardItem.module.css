@@ -10,6 +10,11 @@
     padding:14px 14px;
     border-bottom: 1px solid #fff;
 }
+
+.listItem div:last-child{
+    border-bottom: none;
+}
+
 .listItem .linkItem:hover{
     background-color:var(--med3);
     cursor:pointer;

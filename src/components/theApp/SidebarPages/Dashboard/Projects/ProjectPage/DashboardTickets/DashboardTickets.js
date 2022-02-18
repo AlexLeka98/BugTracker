@@ -6,6 +6,7 @@ import useHttp from "../../../../../../../hooks/useHttp";
 import DashboardPanel from "../../../../../../UI/DashboardPanel"
 import DashboardItem from "../../../../../../UI/DashboardItem";
 import TicketContext from "../../../../../../../store/ticket-context";
+import AuthContext from "../../../../../../../store/auth-context";
 
 const DashboardTickets = (props) => {
     const match = useRouteMatch();
@@ -13,6 +14,7 @@ const DashboardTickets = (props) => {
     const { httpRequest } = useHttp();
 
     const ticketCtx = useContext(TicketContext);
+    const authCtx = useContext(AuthContext);
     const history = useHistory();
 
     const selectUpdateItem = (ticket) => {
@@ -98,7 +100,7 @@ const DashboardTickets = (props) => {
                     />
                 }
             </DashboardPanel>
-        </Fragment>
+        </Fragment >
     )
 }
 

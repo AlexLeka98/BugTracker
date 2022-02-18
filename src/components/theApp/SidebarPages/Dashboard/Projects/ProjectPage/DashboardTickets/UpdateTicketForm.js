@@ -79,11 +79,10 @@ const UpdateTicketForm = (props) => {
                         </div>
                         <div>
                             <label>Author</label>
-                            {/* <input type='text' placeholder='author' ref={enteredAuthor} /> */}
                             <select name='author' ref={enteredAuthor}>
                                 <option disabled selected value> -- select an option -- </option>
                                 {allUsers && allUsers.length > 0 && allUsers.map(user => (
-                                    <option key={user._id} value={`${user.name} ${user.surname}`}>{`${user.name} ${user.surname}`}</option>
+                                    <option key={user._id} value={`${user.username} ${user.surname}`}>{`${user.username} ${user.surname}`}</option>
                                 ))}
                             </select>
                         </div>
@@ -145,34 +144,6 @@ const UpdateTicketForm = (props) => {
                     <button type='submit'>Submit</button>
                 </form>
             </div>
-
-
-            {/* <div className={styles.formContainer}>
-                <form className={styles.formStyle} onSubmit={onSubmitFormHandler}>
-                    <h2 className={styles.formHeader}>New Ticket</h2>
-                    <div>
-                        <label>Title</label>
-                        <input type='text' placeholder='title' ref={enteredTitle} />
-                    </div>
-                    <div>
-                        <label>Description</label>
-                        <input type='text' placeholder='descripton' ref={enteredDescription} />
-                    </div>
-                    <div>
-                        <label>Author</label>
-                        <input type='text' placeholder='author' ref={enteredAuthor} />
-                    </div>
-                    <div>
-                        <label>Type</label>
-                        <input type='text' placeholder='type' ref={enteredType} />
-                    </div>
-                    <div>
-                        <label>Status</label>
-                        <input type='text' placeholder='status' ref={eneteredStatus} />
-                    </div>
-                    <button type='submit'>Submit</button>
-                </form>
-            </div> */}
         </Modal>
     )
 }

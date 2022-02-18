@@ -2,7 +2,7 @@
     width:230px;
     /* height:100vh; */
     min-height:calc(100vh - 80px);
-    background-color:var(--lightB);
+    background-color:var(--hardB);
     position: sticky;
     position:-webkit-sticky;
     top:0;
@@ -21,11 +21,13 @@
     padding:15px 0 15px 30px;
     max-width:100%;
     transition: all 120ms ease-in;
+    /* color:var(--lightB); */
 }
 
 .sidebarMenu a{
     text-decoration: none;
-    color:#000000;
+    /* color:#000000; */
+    color:var(--lightB);
     font-size:20px;
     font-weight: 700;
     text-align: left;
@@ -35,9 +37,12 @@
 }
 
 .sidebarMenu a li:hover{
-    background-color: var(--med2);
+    background-color: var(--lightB);
+    color:var(--hardB);
 }
 
+
 .active li{
-    background-color: var(--med2);
+    background-color: var(--med3);
+    color:var(--hardB);
 }

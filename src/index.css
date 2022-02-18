@@ -7,18 +7,28 @@ body {
     font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--med2);
+  background-color: #ffffff;
   max-width: 100%;
   overflow-x: hidden;
 }
 
 :root {
-  --hardB: #22223B;
+  /* --hardB: #22223B;
   --lightB: #4A4E69;
   --med1: #9A8C98;
   --med2: #C9ADA7;
   --med3: #F2E9E4;
-  --med4: rgba(240, 248, 255, 0.74);
+  --med4: rgba(240, 248, 255, 0.74); */
+  --hardB: #002447;
+  --lightB: #79c5e7;
+
+
+  --med1: #fffaf7;
+  --med2: #f2dcc5;
+  --med3: #79c5e7;
+
+  --med4: #ccdde8;
+  /* --med4: #fffaf7; */
 }
 
 code {

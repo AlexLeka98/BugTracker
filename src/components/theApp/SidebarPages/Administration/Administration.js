@@ -104,7 +104,7 @@ const Administration = () => {
         })
     }
 
-    const panelData1 = [{ title: 'Users', width: 95 }];
+    const panelData1 = [{ title: 'Users', width: 50 }, { title: 'Authority', width: 45 }];
 
     const submitUserChanges = (event) => {
         event.preventDefault();
@@ -142,7 +142,8 @@ const Administration = () => {
                         onClick={toggleAddNewUserForm}>
                         {allUsers && allUsers.length > 0 && allUsers.map(user => {
                             let rowData = [
-                                { value: `${user.username} ${user.surname}`, width: 95 },
+                                { value: `${user.username} ${user.surname}`, width: 45 },
+                                { value: `${user.authority}`, width: 45 },
                             ]
                             return (
                                 <DashboardItem

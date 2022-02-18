@@ -1,8 +1,11 @@
 import styles from "./SideBar.module.css";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../../store/auth-context";
 
 
 const SideBar = () => {
+    const authCtx = useContext(AuthContext);
     return (
         <div className={styles.sidebarContainer}>
             <ul className={styles.sidebarMenu}>
@@ -10,8 +13,10 @@ const SideBar = () => {
                     <li>Dashboard</li></NavLink>
                 <NavLink to='/app/tickets' activeClassName={styles.active}>
                     <li>Tickets</li></NavLink>
-                <NavLink to='/app/administration' activeClassName={styles.active}>
-                    <li>Administration</li></NavLink>
+                {authCtx.userInfo.authority === 'admin' &&
+                    <NavLink to='/app/administration' activeClassName={styles.active}>
+                        <li>Administration</li></NavLink>
+                }
             </ul>
         </div>
     )
