@@ -39,7 +39,7 @@
 
 .panelTitleAndButton button:hover{
     cursor: pointer;
-    background-color:var(--med2);
+    background-color:var(--med4);
 }
 .panelTitleAndButton button:active{
     background-color:var(--med3);

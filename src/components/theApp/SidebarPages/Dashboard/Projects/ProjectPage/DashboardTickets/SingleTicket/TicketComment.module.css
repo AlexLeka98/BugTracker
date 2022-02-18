@@ -21,6 +21,9 @@
     border-radius: 0.7rem 0 0.7rem 0.7rem;
     width:calc(100% - 25px);
 }
+.commentRight{
+    align-items: flex-end;
+}
 
 
 .deleteComment{
@@ -53,6 +56,8 @@
     padding:0 10px;
     margin-bottom:10px;
 }
+
+
 
 .commentInfo p:first-child{
     font-size:10px;

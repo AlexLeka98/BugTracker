@@ -6,7 +6,7 @@
 
 .dropButton{
     border:none;
-    background-color:var(--med1);
+    background-color:var(--lightB);
     font-size:20px;
     padding:8px 30px;
     color:#000000;
@@ -14,7 +14,7 @@
 
 .dropButton:hover{
     cursor: pointer;
-    background-color:var(--med1);
+    background-color:var(--med4);
 }
 .dropButton:active{
     cursor: pointer;
@@ -32,7 +32,7 @@
     border:none;
     border-radius:5px 0px 5px 5px;
     padding:20px 0;
-    background-color:var(--med1);
+    background-color:var(--lightB);
     animation: slide-down 250ms ease-out forwards;
 }
 
@@ -46,13 +46,13 @@
     width:200px;
     display: inline-block;
     box-sizing: border-box;
-    background-color:var(--med1);
+    background-color:var(--lightB);
     color:black;
     /* text-align: start; */
     animation: slide-down 150ms ease-out forwards;
 }
 .dropdownContent a:hover{
-    background-color:var(--med2);
+    background-color:var(--med4);
 }
 
 .show {
@@ -62,7 +62,7 @@
 }
 
 .anchorStyle,.dropDown:hover{
-    color:var(--med1);
+    color:var(--med4);
 }
 
 

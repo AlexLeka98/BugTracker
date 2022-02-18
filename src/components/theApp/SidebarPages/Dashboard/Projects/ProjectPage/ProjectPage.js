@@ -72,6 +72,7 @@ const ProjectPage = () => {
     }
 
     const updateTicketHandler = (updatedTicket) => {
+        console.log(updatedTicket);
         setTickets(prevTickets => {
             let newTickets = [...prevTickets];
             prevTickets.map((ticket, index) => {

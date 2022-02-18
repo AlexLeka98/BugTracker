@@ -15,12 +15,11 @@ const SingleTicket = (props) => {
     const submitComment = (event) => {
         event.preventDefault();
         let date = new Date().toLocaleString(('en-GB', { timeZone: 'UTC' }));
-        console.log(date.toString());
+        console.log(authCtx.userInfo);
         let newCommentData = {
             comment: commentRef.current.value,
             date: date,
-            username: authCtx.userInfo.username,
-            surname: authCtx.userInfo.surname,
+            userId: authCtx.userInfo._id,
         }
         let httpInfo = {
             url: `/tickets/${ticket._id}/comment`,
@@ -31,6 +30,7 @@ const SingleTicket = (props) => {
             },
         }
         httpRequest(httpInfo).then(ticketRes => {
+            console.log("Ticket Res : ", ticketRes);
             props.onUpdateSelectedTicket(ticketRes);
         });
         commentRef.current.value = '';

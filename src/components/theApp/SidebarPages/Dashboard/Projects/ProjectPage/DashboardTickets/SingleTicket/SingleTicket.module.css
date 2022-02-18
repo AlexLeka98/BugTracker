@@ -150,12 +150,13 @@
 }
 .ticketForm button{
     border:none;
-    background-color:var(--lightB);
+    background-color:var(--hardB);
     color:#ffffff;
     padding: 0 12px;
 }
 .ticketForm button:hover{
-    background-color: var(--hardB);
+    background-color: var(--med4);
+    color:#000;
     cursor: pointer;
 }
 

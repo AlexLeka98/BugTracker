@@ -17,8 +17,8 @@ const TicketComment = (props) => {
 
     return (
         <li className={styles.ticketContainer}>
-            <div className={styles.commentContainer}>
-                <div className={styles.commentInfo}>
+            <div className={`${styles.commentContainer} ${styles.commentRight}`}>
+                <div className={`${styles.commentInfo} `}>
                     <p>{`${props.username} ${props.surname}`}</p><span>&#183;</span>
                     <p>{date}</p>
                 </div>
