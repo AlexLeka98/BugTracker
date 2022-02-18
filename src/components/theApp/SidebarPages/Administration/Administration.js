@@ -5,7 +5,7 @@ import useHttp from '../../../../hooks/useHttp';
 import DashboardPanel from '../../../UI/DashboardPanel';
 import DashboardItem from '../../../UI/DashboardItem';
 import AddNewUserForm from './AddNewUserForm';
-import { AuthContextProvider } from '../../../../store/auth-context';
+import AuthContext from '../../../../store/auth-context';
 
 const Administration = () => {
     const { httpRequest, isLoading, error } = useHttp();
@@ -18,7 +18,7 @@ const Administration = () => {
     const phoneRef = useRef();
     const authorizRef = useRef();
     const emailRef = useRef();
-    const authCtx = useContext(AuthContextProvider);
+    const authCtx = useContext(AuthContext);
 
 
     useState(() => {
@@ -46,7 +46,9 @@ const Administration = () => {
         }
     }, [showUserForm, selectedUser])
 
+
     const deleteUser = (user) => {
+
         let httpInfo = {
             url: '/users',
             method: 'DELETE',
@@ -55,12 +57,20 @@ const Administration = () => {
                 'Content-Type': 'application/json'
             },
         }
-        httpRequest(httpInfo);
-        // httpRequest({
-        //     url:`https://identitytoolkit.googleapis.com/v1/accounts:delete?key=${authCtx.firebaseKey}`,
-
-
-        // })
+        console.log('SELECTED USER: ', selectedUser);
+        httpRequest(httpInfo).then(res => {
+            let authHttpInfo = {
+                url: `https://identitytoolkit.googleapis.com/v1/accounts:delete?key=${authCtx.firebaseKey}`,
+                method: 'POST',
+                body: {
+                    idToken: selectedUser.idToken,
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
+            httpRequest(authHttpInfo);
+        })
         removeUserFromState(selectedUser._id);
     }
     const addUserToState = (newUser) => {
