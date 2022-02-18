@@ -25,6 +25,7 @@ const LoginForm = () => {
     }
 
     const userInfoFunc = async (data) => {
+        console.log(data);
         authCtx.updateUserInfo(data);
     }
 
@@ -82,7 +83,7 @@ const LoginForm = () => {
                 username: enteredName,
                 surname: enteredSurname,
                 phone: enteredPhone,
-                auhority:'none',
+                authority: 'none',
             }
             httpInfo = {
                 url: dbUrl,
@@ -92,18 +93,19 @@ const LoginForm = () => {
                 },
                 body: userInfo
             }
-            const authData = await httpRequest(httpInfo);
-
-            //Add user to the Mongo Database
-            await httpRequest({
-                url:'/users',
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: userInfo
-            });
-            userInfoFunc(userInfo);
+            await httpRequest(httpInfo);
+            if (!error) {
+                //Add user to the Mongo Database
+                let resp = await httpRequest({
+                    url: '/users',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: userInfo
+                });
+                userInfoFunc(resp);
+            }
         }
 
         loginFunc(authData, userInfo);

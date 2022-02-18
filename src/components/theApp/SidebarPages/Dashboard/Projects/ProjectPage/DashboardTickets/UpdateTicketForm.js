@@ -83,7 +83,7 @@ const UpdateTicketForm = (props) => {
                             <select name='author' ref={enteredAuthor}>
                                 <option disabled selected value> -- select an option -- </option>
                                 {allUsers && allUsers.length > 0 && allUsers.map(user => (
-                                    <option value={`${user.name} ${user.surname}`}>{`${user.name} ${user.surname}`}</option>
+                                    <option key={user._id} value={`${user.name} ${user.surname}`}>{`${user.name} ${user.surname}`}</option>
                                 ))}
                             </select>
                         </div>

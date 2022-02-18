@@ -15,14 +15,12 @@ const AddNewUserForm = (props) => {
 
     const submitNewUserForm = (event) => {
         let newUser = {
-            // heree
             username:enteredName.current.value,
             surname:enteredSurname.current.value,
             email:enteredEmail.current.value,
             phone:enteredPhone.current.value,
             authority:enteredAuthority.current.value,
         }
-        console.log(newUser);
         event.preventDefault();
         let httpInfo = {
             url:'/users',
@@ -34,7 +32,7 @@ const AddNewUserForm = (props) => {
             console.log(res);
             props.addUserToState(res);
         })
-        // props.toggleAddNewUserForm();
+        props.toggleAddNewUserForm();
     }
 
     return (
@@ -66,7 +64,7 @@ const AddNewUserForm = (props) => {
                         </div>
                         <div>
                             <label>Authority</label>
-                            <select name='authority' ref={enteredAuthority}>
+                            <select name='authority' ref={enteredAuthority} >
                                 <option disabled selected value> -- select an option -- </option>
                                 <option value='developer'>Developer</option>
                                 <option value='admin'>Admin</option>

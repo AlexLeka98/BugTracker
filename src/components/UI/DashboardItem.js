@@ -28,8 +28,8 @@ const DashboardItem = (props) => {
     return (
         <li className={`${styles.listItem}`}>
             <div className={`${styles.linkItem} ${props.className && props.className}`}>
-                {props.rowData.map(row => (
-                    <div onClick={props.onClickItem && redirectItemPath} style={{ width: `${row.width}%` }}>
+                {props.rowData.map((row, index) => (
+                    <div key={index} onClick={props.onClickItem && redirectItemPath} style={{ width: `${row.width}%` }}>
                         <p>{row.value}</p>
                     </div>
                 ))}

@@ -9,8 +9,8 @@ const DashboardPanel = (props) => {
                 {props.buttonName ? <button onClick={props.onClick}>{props.buttonName}</button> : null}
             </div>
             <div className={styles.panelHeader}>
-                {props.panelData && props.panelData.map(col => (
-                    <div style={{width: `${col.width}%`}}>
+                {props.panelData && props.panelData.map((col, index) => (
+                    <div key={index} style={{ width: `${col.width}%` }}>
                         {col.title}
                     </div>
                 ))}

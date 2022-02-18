@@ -1,12 +1,12 @@
 
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useContext, useRef, useState } from 'react';
 import styles from './Administration.module.css'
 import useHttp from '../../../../hooks/useHttp';
 import DashboardPanel from '../../../UI/DashboardPanel';
 import DashboardItem from '../../../UI/DashboardItem';
 import AddNewUserForm from './AddNewUserForm';
 import EditUserForm from './EditUserForm';
-
+import AuthContext from '../../../../store/auth-context';
 
 const Administration = () => {
     const { httpRequest, isLoading, error } = useHttp();
@@ -18,6 +18,9 @@ const Administration = () => {
     const phoneRef = useRef();
     const authorizRef = useRef();
     const emailRef = useRef();
+    
+    const authCtx = useContext(AuthContext);
+
 
     useState(() => {
         let httpInfo = {
@@ -60,7 +63,6 @@ const Administration = () => {
             const newUsers = prevUsers.filter(user => {
                 if (user._id !== id) return user;
             })
-            console.log(newUsers);
             return newUsers;
         })
     }
@@ -86,14 +88,12 @@ const Administration = () => {
     const submitUserChanges = (event) => {
         event.preventDefault();
         let data = {
-            // heree
             username: nameRef.current.value,
             surname: surnameRef.current.value,
             email: emailRef.current.value,
             phone: phoneRef.current.value,
             authority: authorizRef.current.value,
         }
-        console.log(data);
         let httpInfo = {
             url: `/users/${selectedUser._id}`,
             method: 'PUT',
@@ -106,7 +106,6 @@ const Administration = () => {
             updateAllUsers(res)
         })
     }
-    console.log(allUsers);
     return (
         <Fragment>
             <h1 className={styles.administrationTitle}>Administration</h1>

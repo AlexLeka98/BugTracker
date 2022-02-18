@@ -25,9 +25,7 @@ const Tickets = () => {
     }, [])
 
     const selectATicket = (selectedTicket) => {
-        console.log(selectedTicket);
         const path = `/app/dashboard/project/${selectedTicket.projectId._id}/${selectedTicket._id}`
-        console.log(path);
         history.push(path);
     }
 
@@ -53,7 +51,6 @@ const Tickets = () => {
             width: 17
         },
     ]
-    console.log(allTickets);
     return (
         <Fragment>
             <h1 className={styles.ticketsTitle}>Tickets</h1>

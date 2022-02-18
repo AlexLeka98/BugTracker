@@ -14,7 +14,6 @@ export default function DropDownButton() {
 
     const onDropdownHandler = () => {
         authCtx.toggleDropDown();
-        console.log('Hey');
     }
 
     return (

@@ -40,7 +40,6 @@ const ProjectForm = (props) => {
             setAllUsers(res);
         })
     }, [])
-    console.log(allUsers);
     return (
         <Modal onModalHandler={props.closeFormModal}>
             <div className={styles.formContainer}>
@@ -56,10 +55,10 @@ const ProjectForm = (props) => {
                         </div>
                         <div>
                             <label>Author</label>
-                            <select name='authority' ref={enteredAuthor}>
+                            <select name='author' ref={enteredAuthor}>
                                 <option disabled selected value> -- select an option -- </option>
                                 {allUsers.length>0 && allUsers.map(user => (
-                                <option value={`${user.name} ${user.surname}`}>{`${user.name} ${user.surname}`}</option>
+                                <option key={user._id} value={`${user.username} ${user.surname}`}>{`${user.username} ${user.surname}`}</option>
                                 ))}
                             </select>
                         </div>

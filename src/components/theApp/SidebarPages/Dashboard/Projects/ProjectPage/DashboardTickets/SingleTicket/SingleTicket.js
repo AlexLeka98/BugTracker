@@ -21,7 +21,6 @@ const SingleTicket = (props) => {
             username: authCtx.userInfo.username,
             surname: authCtx.userInfo.surname,
         }
-        console.log(newCommentData);
         let httpInfo = {
             url: `/tickets/${ticket._id}/comment`,
             method: 'POST',

@@ -28,7 +28,6 @@ const useHttp = () => {
             return data;
         }
         catch (error) {
-            console.log(error);
             setError(error);
         }
     }

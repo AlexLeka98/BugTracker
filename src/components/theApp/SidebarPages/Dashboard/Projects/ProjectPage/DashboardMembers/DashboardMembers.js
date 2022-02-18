@@ -21,7 +21,6 @@ const DashboardMembers = (props) => {
         })
     }
     const removeMemberHandler = (userId) => {
-        console.log(userId);
         let httpInfo = {
             url: '/projects/user',
             method: 'DELETE',
@@ -38,6 +37,7 @@ const DashboardMembers = (props) => {
     }
 
     const redirectMemberItemHandler = (id) => {
+        // Redirect to User profile.
         console.log('redirect Ticket Item Handler');
     }
 

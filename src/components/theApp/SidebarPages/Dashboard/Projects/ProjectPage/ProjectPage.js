@@ -65,7 +65,6 @@ const ProjectPage = () => {
 
     // Ticket operations, add, update, delete.
     const addNewTicketHandler = (newTicket) => {
-        console.log(ticketAddFormModalIsOpen);
         setTickets(prevTickets => {
             return [...prevTickets, newTicket];
         })

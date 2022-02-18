@@ -67,7 +67,7 @@ const AddMemberForm = (props) => {
                     <h2 className={styles.formHeader}>New Member</h2>
                     <ul>
                         {allUsers && allUsers.map(user => (
-                            <li>
+                            <li key={user._id}>
                                 <label htmlFor={user._id} className={styles.formControl}>{`${user.username} ${user.surname}`}</label>
                                 <input type="checkbox" name={user.username} id={user._id} onChange={onCheckboxMember} />
                             </li>

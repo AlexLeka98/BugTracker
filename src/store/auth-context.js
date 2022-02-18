@@ -69,12 +69,9 @@ export const AuthContextProvider = (props) => {
     // Save the tokenId, calculate the remaining time to be logged in.
     // Logout after the remaining time is over.
     const loginHandler = (token, userInfo, expirationTime) => {
-        console.log(token, userInfo, expirationTime);
-        console.log(expirationTime);
         updateUserInfo(userInfo);
         setToken(token);
         const remainingTime = calculateRemainingTime(expirationTime);
-        console.log(remainingTime);
         localStorage.setItem('token', JSON.stringify({ token: token, userInfo: userInfo }));
         localStorage.setItem('expirationTime', expirationTime);
         logoutTimer = setTimeout(logoutHandler, remainingTime);
@@ -87,14 +84,6 @@ export const AuthContextProvider = (props) => {
             logoutTimer = setTimeout(logoutHandler, tokenData.duration);
         }
     }, [tokenData, logoutHandler]);
-
-    useEffect(() => {
-        console.log('YEAAA');
-    },[])
-
-
-
-
 
 
     const toggleDropDown = () => {
