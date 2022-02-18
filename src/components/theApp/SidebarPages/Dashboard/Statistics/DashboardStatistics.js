@@ -67,6 +67,7 @@ const getStatusArray = (allTickets) => {
 
 const DashboardStatistics = () => {
     const { httpRequest, error, isLoading } = useHttp();
+    const [allTickets, setAllTickets] = useState([]);
     const [typeArray, setTypeArray] = useState([]);
     const [priorityArray, setPriorityArray] = useState([]);
     const [statusArray, setStatusArray] = useState([]);
@@ -77,11 +78,21 @@ const DashboardStatistics = () => {
             method: 'GET',
         }
         httpRequest(httpInfo).then(res => {
-            setTypeArray(getTypeArray(res));
-            setPriorityArray(getPriorityArray(res));
-            setStatusArray(getStatusArray(res));
+            setAllTickets(res);
+            // setTypeArray(getTypeArray(res));
+            // setPriorityArray(getPriorityArray(res));
+            // setStatusArray(getStatusArray(res));
         })
     }, [])
+
+
+    useEffect(() => {
+        setTypeArray(getTypeArray(allTickets));
+        setPriorityArray(getPriorityArray(allTickets));
+        setStatusArray(getStatusArray(allTickets));
+    }, [allTickets])
+
+
     const DUMMY_DATA = [
         {
             name: 'Tickets by Type',
@@ -92,7 +103,7 @@ const DashboardStatistics = () => {
         {
             name: 'Tickets by Priority',
             values: priorityArray,
-            labels: ['Immediate', 'High','Medium', 'Low'],
+            labels: ['Immediate', 'High', 'Medium', 'Low'],
             id: Math.random(),
         },
         {

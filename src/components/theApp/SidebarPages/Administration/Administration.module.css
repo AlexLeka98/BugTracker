@@ -102,3 +102,9 @@ input:focus{
 .formStyle button:active{
     background-color:var(--med3);
 }
+
+.selectUserMessage{
+    margin:15px 0 0 0;
+    font-size:25px;
+    color:#838383;
+}

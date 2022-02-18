@@ -62,8 +62,8 @@ const Tickets = () => {
                         { value: ticket.projectId.title, width: 22 },
                         { value: ticket.title, width: 22 },
                         { value: ticket.status, width: 17 },
-                        { value: 3, width: 17 },
-                        { value: 'Resolved', width: 17 },
+                        { value: ticket.days, width: 17 },
+                        { value: ticket.priority, width: 17 },
                     ]
                     return (
                         <DashboardItem

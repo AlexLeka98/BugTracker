@@ -1,26 +1,22 @@
 
-import { Fragment, useContext, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import styles from './Administration.module.css'
 import useHttp from '../../../../hooks/useHttp';
 import DashboardPanel from '../../../UI/DashboardPanel';
 import DashboardItem from '../../../UI/DashboardItem';
 import AddNewUserForm from './AddNewUserForm';
-import EditUserForm from './EditUserForm';
-import AuthContext from '../../../../store/auth-context';
 
 const Administration = () => {
     const { httpRequest, isLoading, error } = useHttp();
     const [allUsers, setAllUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState({ username: '', surname: '' })
     const [addNewUserFormIsOpen, setAddNewUserFormIsOpen] = useState(false);
+    const [showUserForm, setShowUserForm] = useState(false);
     const nameRef = useRef();
     const surnameRef = useRef();
     const phoneRef = useRef();
     const authorizRef = useRef();
     const emailRef = useRef();
-    
-    const authCtx = useContext(AuthContext);
-
 
     useState(() => {
         let httpInfo = {
@@ -31,14 +27,22 @@ const Administration = () => {
         })
     }, [])
 
+
     const selectAUser = (data) => {
-        nameRef.current.value = data.username;
-        surnameRef.current.value = data.surname;
-        emailRef.current.value = data.email;
-        authorizRef.current.value = data.authority;
-        phoneRef.current.value = data.phone;
+        setShowUserForm(true);
         setSelectedUser(data);
     }
+
+    useEffect(() => {
+        if (showUserForm) {
+            nameRef.current.value = selectedUser.username;
+            surnameRef.current.value = selectedUser.surname;
+            emailRef.current.value = selectedUser.email;
+            authorizRef.current.value = selectedUser.authority;
+            phoneRef.current.value = selectedUser.phone;
+        }
+    }, [showUserForm, selectedUser])
+
     const deleteUser = (user) => {
         let httpInfo = {
             url: '/users',
@@ -51,7 +55,6 @@ const Administration = () => {
         httpRequest(httpInfo);
         removeUserFromState(selectedUser._id);
     }
-
     const addUserToState = (newUser) => {
         setAllUsers(prevUsers => {
             return [...prevUsers, newUser];
@@ -105,6 +108,7 @@ const Administration = () => {
         httpRequest(httpInfo).then(res => {
             updateAllUsers(res)
         })
+        setShowUserForm(prevState => !prevState);
     }
     return (
         <Fragment>
@@ -149,7 +153,7 @@ const Administration = () => {
                                 width: 95
                             },
                         ]}>
-                        {selectedUser && !isLoading &&
+                        {showUserForm && !isLoading &&
                             <form className={styles.formStyle} onSubmit={submitUserChanges}>
                                 <div className={styles.formRow}>
                                     <div>
@@ -182,6 +186,7 @@ const Administration = () => {
                                 <button>Submit</button>
                             </form>
                         }
+                        {!showUserForm && <h5 className={styles.selectUserMessage}>Select a user</h5>}
                         {isLoading && <div className='loader'></div>}
                     </DashboardPanel>
                 </div>

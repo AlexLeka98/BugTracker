@@ -1,19 +1,26 @@
+import { useEffect, useState } from 'react';
 import styles from './TicketComment.module.css'
 
 
 const TicketComment = (props) => {
-
+    const [date, setDate] = useState();
 
     const deleteCommentHandler = () => {
         props.onDeleteComment(props);
     }
+
+    useEffect(() => {
+        let dateTemp = new Date(props.date).toLocaleString(('en-GB', { timeZone: 'UTC' }));
+        console.log(dateTemp);
+        setDate(dateTemp);
+    }, [])
 
     return (
         <li className={styles.ticketContainer}>
             <div className={styles.commentContainer}>
                 <div className={styles.commentInfo}>
                     <p>{`${props.username} ${props.surname}`}</p><span>&#183;</span>
-                    <p>{props.date}</p>
+                    <p>{date}</p>
                 </div>
                 <div className={styles.commentText}>
                     <p>{props.comment}</p>

@@ -14,10 +14,11 @@ const SingleTicket = (props) => {
 
     const submitComment = (event) => {
         event.preventDefault();
-        
+        let date = new Date().toLocaleString(('en-GB', { timeZone: 'UTC' }));
+        console.log(date.toString());
         let newCommentData = {
             comment: commentRef.current.value,
-            date: new Date(),
+            date: date,
             username: authCtx.userInfo.username,
             surname: authCtx.userInfo.surname,
         }
@@ -49,7 +50,6 @@ const SingleTicket = (props) => {
                 props.onUpdateSelectedTicket(ticketRes);
             });
     }
-
     return (
         <div className={styles.panelStyles}>
             <h4>{ticket.title}</h4>
