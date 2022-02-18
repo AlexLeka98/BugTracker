@@ -1,10 +1,11 @@
 
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import styles from './Administration.module.css'
 import useHttp from '../../../../hooks/useHttp';
 import DashboardPanel from '../../../UI/DashboardPanel';
 import DashboardItem from '../../../UI/DashboardItem';
 import AddNewUserForm from './AddNewUserForm';
+import { AuthContextProvider } from '../../../../store/auth-context';
 
 const Administration = () => {
     const { httpRequest, isLoading, error } = useHttp();
@@ -17,6 +18,8 @@ const Administration = () => {
     const phoneRef = useRef();
     const authorizRef = useRef();
     const emailRef = useRef();
+    const authCtx = useContext(AuthContextProvider);
+
 
     useState(() => {
         let httpInfo = {
@@ -53,6 +56,11 @@ const Administration = () => {
             },
         }
         httpRequest(httpInfo);
+        // httpRequest({
+        //     url:`https://identitytoolkit.googleapis.com/v1/accounts:delete?key=${authCtx.firebaseKey}`,
+
+
+        // })
         removeUserFromState(selectedUser._id);
     }
     const addUserToState = (newUser) => {

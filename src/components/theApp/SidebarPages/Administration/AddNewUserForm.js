@@ -1,36 +1,55 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import useHttp from "../../../../hooks/useHttp";
+import { AuthContextProvider } from "../../../../store/auth-context";
+import AuthContext from "../../../../store/auth-context";
 import Modal from "../../../UI/Modal";
 import styles from './AddNewUserForm.module.css'
 
 const AddNewUserForm = (props) => {
-    const {httpRequest,isLoading,error} = useHttp();
-
+    const { httpRequest, isLoading, error } = useHttp();
+    const authCtx = useContext(AuthContext);
 
     const enteredName = useRef();
     const enteredSurname = useRef();
     const enteredEmail = useRef();
     const enteredPhone = useRef();
     const enteredAuthority = useRef();
+    const enteredPassword = useRef();
+
 
     const submitNewUserForm = (event) => {
-        let newUser = {
-            username:enteredName.current.value,
-            surname:enteredSurname.current.value,
-            email:enteredEmail.current.value,
-            phone:enteredPhone.current.value,
-            authority:enteredAuthority.current.value,
-        }
         event.preventDefault();
-        let httpInfo = {
-            url:'/users',
-            method:'POST',
-            body: newUser,
-            headers: { 'Content-Type': 'application/json' }
+        let newUser = {
+            username: enteredName.current.value,
+            surname: enteredSurname.current.value,
+            email: enteredEmail.current.value,
+            phone: enteredPhone.current.value,
+            authority: enteredAuthority.current.value,
         }
-        httpRequest(httpInfo).then(res=>{
-            console.log(res);
-            props.addUserToState(res);
+
+        let authInfo = {
+            url: `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${authCtx.firebaseKey}`,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: {
+                email: enteredEmail.current.value,
+                password: enteredPassword.current.value,
+                returnSecureToken: true
+            }
+        }
+        httpRequest(authInfo).then(res => {
+            let httpInfo = {
+                url: '/users',
+                method: 'POST',
+                body: { ...newUser, idToken: res.idToken },
+                headers: { 'Content-Type': 'application/json' }
+            }
+            httpRequest(httpInfo).then(res => {
+                console.log(res);
+                props.addUserToState(res);
+            })
         })
         props.toggleAddNewUserForm();
     }
@@ -49,12 +68,15 @@ const AddNewUserForm = (props) => {
                             <label>Surname</label>
                             <input type='text' placeholder='Surname' ref={enteredSurname} />
                         </div>
-
                     </div>
                     <div className={styles.formRow}>
                         <div>
                             <label>Email</label>
                             <input type='email' placeholder='Email' ref={enteredEmail} />
+                        </div>
+                        <div>
+                            <label>Password</label>
+                            <input type='password' placeholder='Password' ref={enteredPassword} />
                         </div>
                     </div>
                     <div className={styles.formRow}>

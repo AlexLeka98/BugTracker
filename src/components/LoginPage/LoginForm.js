@@ -16,7 +16,7 @@ const LoginForm = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const phoneRef = useRef();
-
+    const firebase_key = authCtx.firebaseKey;
 
     const loginFunc = (authData, userInfo) => {
         const expirationTime = new Date(new Date().getTime() + (+authData.expiresIn * 1000))  // Data expires in an hour.
@@ -39,7 +39,6 @@ const LoginForm = () => {
 
 
 
-
     const onChangeLoginHandler = () => {
         setShowLoginForm(prevState => (!prevState));
     }
@@ -49,13 +48,14 @@ const LoginForm = () => {
     // This makes a authentication request , and later receives the user information
     // from the database.
     const authenticateUser = async (user) => {
-        let dbUrl = 'https://react-http-a713f-default-rtdb.europe-west1.firebasedatabase.app/users.json'
+        let dbUrl = '/users'
         let url;
         let httpInfo;
         let userInfo;
+
         // Authentication POST request
         httpInfo = {
-            url: `https://identitytoolkit.googleapis.com/v1/accounts:${showLoginForm ? 'signInWithPassword' : 'signUp'}?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0`,
+            url: `https://identitytoolkit.googleapis.com/v1/accounts:${showLoginForm ? 'signInWithPassword' : 'signUp'}?key=${firebase_key}`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -67,23 +67,25 @@ const LoginForm = () => {
             }
         }
         let authData = await httpRequest(httpInfo);
-
-        // Recieving user information after Authentication request.
+        console.log(authData);
+        // Recieving user information after Authentication request. (Firebase Database)
         if (showLoginForm) {
-            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0';
+            url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebase_key}`;
             userInfo = await httpRequest({ url: dbUrl }, getUserInfo);
+            console.log(userInfo);
         } // Add new user to the database.
         else {
             const enteredName = nameRef.current.value;
             const enteredSurname = surnameRef.current.value;
             const enteredPhone = phoneRef.current.value;
-            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAa7bYb1a6bAeVDDONSMYyOZYTzD7z8BB0';
+            url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebase_key}`;
             userInfo = {
                 email: user.email,
                 username: enteredName,
                 surname: enteredSurname,
                 phone: enteredPhone,
                 authority: 'none',
+                idToken: authData.idToken,
             }
             httpInfo = {
                 url: dbUrl,
@@ -94,18 +96,6 @@ const LoginForm = () => {
                 body: userInfo
             }
             await httpRequest(httpInfo);
-            if (!error) {
-                //Add user to the Mongo Database
-                let resp = await httpRequest({
-                    url: '/users',
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: userInfo
-                });
-                userInfoFunc(resp);
-            }
         }
 
         loginFunc(authData, userInfo);
