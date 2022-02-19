@@ -39,6 +39,7 @@
 
 .panelTitleAndButton button:hover{
     cursor: pointer;
+    color:var(--lightB);
     background-color:var(--buttonHover);
 }
 .panelTitleAndButton button:active{

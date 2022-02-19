@@ -11,13 +11,13 @@
     color:var(--lightB);
     font-size:22px;
     padding:8px 30px;
-    /* color:#000000; */
     transition: all 200ms ease;
 }
 
 .dropButton:hover{
     cursor: pointer;
     /* background-color:var(--buttonHover); */
+    color:var(--buttonHover);
     transform: scale(1.05);
 }
 .dropButton:active{

@@ -118,6 +118,7 @@
 
 .dots .dropDown ul li:hover{
     background-color: var(--buttonHover);
+    color: var(--lightB);
 }
 
 .dots .dropDown ul li:first-child{
