@@ -61,7 +61,8 @@ const DashboardMembers = (props) => {
             name='Members'
             buttonName={authCtx.userInfo.authority === 'admin' ? 'Add Member' : ''}
             onClick={onToggleMemberFormModal}
-            panelData={panelData}>
+            panelData={panelData}
+            pages={Math.ceil(members.length / 5)}>
             {members.length > 0 && members.map(member => {
                 let rowData = [
                     { value: member.username, width: 25 },

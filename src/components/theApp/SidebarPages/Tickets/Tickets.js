@@ -56,7 +56,8 @@ const Tickets = () => {
             <h1 className={styles.ticketsTitle}>Tickets</h1>
             <DashboardPanel
                 name='Tickets'
-                panelData={panelData}>
+                panelData={panelData}
+                pages={Math.ceil(allTickets.length / 10)}>
                 {allTickets && allTickets.length > 0 && allTickets.map(ticket => {
                     let rowData = [
                         { value: ticket.projectId.title, width: 22 },

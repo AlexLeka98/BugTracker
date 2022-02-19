@@ -8,6 +8,9 @@ import TicketContext from '../../../../../store/ticket-context';
 
 
 const DashboardProjects = () => {
+    const [page, setPage] = useState(1);
+
+
     const [projectItems, setProjectItems] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const history = useHistory();
@@ -72,8 +75,9 @@ const DashboardProjects = () => {
             width: 20,
         },
     ]
-
-
+    if (projectItems) {
+        console.log();
+    }
     const panelTitles = { col1: 'PROJECT', col2: 'DESCRIPTION', col3: 'CONTRIBUTORS' }
     return (
         <DashboardPanel
@@ -81,7 +85,9 @@ const DashboardProjects = () => {
             buttonName='New Project'
             onClick={toggleFormModal}
             panelTitles={panelTitles}
-            panelData={panelData}>
+            panelData={panelData}
+            pages={Math.ceil(projectItems.length/5)}
+            >
             {projectItems.length > 0 && projectItems.map(project => {
                 let rowData = [
                     { value: project.title, width: 15 },

@@ -89,3 +89,86 @@
 .panelList li:last-child div{
     border-radius: 0 0 10px 10px;
 }
+
+
+/* page buttons */
+.pageButtons {
+    display: flex;
+    background-color:var(--lightB);
+    align-items: center;
+    height:40px;
+    padding:0 40px;
+    border-radius: 0 0 10px 10px;
+}
+.pageButtons div{
+    margin:0 6px;
+}
+
+.leftArrow{
+    background-image: url('../../assets/leftArrow.png');
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+}
+.leftArrow:hover{
+    background-image: url('../../assets/leftArrowHover.png');
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+.rightArrow{
+    background-image: url('../../assets/rightArrow.png');
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+}
+
+.rightArrow:hover{
+    background-image: url('../../assets/rightArrowHover.png');
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.page1{
+    height:18px;
+    width:18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 600;
+    border:1px solid black;
+    border-radius: 50%;
+}
+
+.page1:hover{
+    border:1px solid #EDEDED;
+    color:#EDEDED;
+    cursor:pointer;
+}
+
+.page2{
+    height:18px;
+    width:18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 600;
+    border:1px solid black;
+    border-radius: 50%;
+}
+
+.page2:hover{
+    border:1px solid #EDEDED;
+    color:#EDEDED;
+    cursor:pointer;
+}

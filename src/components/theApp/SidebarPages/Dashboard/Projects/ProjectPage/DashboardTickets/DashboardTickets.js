@@ -56,14 +56,15 @@ const DashboardTickets = (props) => {
         let path = `/app/dashboard/project/${match.params.projectId}/${ticket._id}`
         history.push(path);
     }
-
+    console.log(props.tickets.length);
     return (
         <Fragment>
             <DashboardPanel
                 name='Tickets'
                 buttonName='New Ticket'
                 onClick={props.toggleAddTicketFormModal}
-                panelData={panelData}>
+                panelData={panelData}
+                pages={Math.ceil(props.tickets.length / 5)}>
                 {props.tickets.length > 0 && props.tickets.map(ticket => {
                     let rowData = [
                         { value: ticket.title, width: 15 },

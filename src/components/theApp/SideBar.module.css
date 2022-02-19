@@ -2,11 +2,10 @@
     width:230px;
     position:sticky;
     left:0;
-    top:0;
-    height:100vh;
+    top:80px;
+    height:calc(100vh - 80px);
     background-color:var(--hardB);
-
-
+    
 }
 
 .sidebarMenu {

@@ -2,6 +2,12 @@ import styles from './DashboardPanel.module.css'
 
 
 const DashboardPanel = (props) => {
+
+    let rows = [];
+    for (let i = 0; i < props.pages; i++) {
+        rows.push(<div className={styles.page1}>{i + 1}</div>)
+    }
+
     return (
         <div className={styles.panelStyles}>
             <div className={styles.panelTitleAndButton}>
@@ -19,6 +25,13 @@ const DashboardPanel = (props) => {
             <ul className={styles.panelList}>
                 {props.children}
             </ul>
+            {rows.length > 1 &&
+                <div className={styles.pageButtons}>
+                    <div className={styles.leftArrow}></div>
+                    {rows}
+                    <div className={styles.rightArrow}></div>
+                </div>
+            }
         </div>
     )
 }
