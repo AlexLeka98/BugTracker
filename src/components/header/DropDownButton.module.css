@@ -33,11 +33,13 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border:none;
-    border-radius:5px 0px 5px 5px;
-    padding:20px 0;
+    border-radius:5px;
+    padding:0;
     background-color:var(--lightB);
     animation: slide-down 250ms ease-out forwards;
 }
+
+
 
 
 
@@ -45,8 +47,8 @@
     color:var(--med3);
     font-size:20px;
     text-decoration: none;
-    padding:5px 20px;
-    width:200px;
+    padding:8px 20px;
+    width:180px;
     display: inline-block;
     box-sizing: border-box;
     background-color:var(--lightB);
@@ -56,6 +58,13 @@
 }
 .dropdownContent a:hover{
     background-color:var(--med4);
+}
+
+.dropdownContent a:first-child{
+    border-radius: 5px 5px 0 0;
+}
+.dropdownContent a:last-child{
+    border-radius: 0 0 5px 5px;
 }
 
 .show {
