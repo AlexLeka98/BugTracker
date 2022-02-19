@@ -17,7 +17,6 @@ const useHttp = () => {
             const data = await response.json();
             if (!response.ok) {
                 setIsLoading(false);
-                console.dir(error)
                 throw new Error(data.error.message);
             }
             if (dataFunc !== undefined) {
@@ -29,6 +28,7 @@ const useHttp = () => {
         }
         catch (error) {
             setError(error);
+            return ({error: error.message});
         }
     }
 

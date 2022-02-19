@@ -12,8 +12,15 @@
     text-decoration: none;
 }
 
+
+
 .logoStyle a h1{
     color:var(--med3);
+    transition: all 200ms ease;
+}
+
+.logoStyle a h1:hover{
+    color:var(--med1)
 }
 
 
@@ -34,5 +41,9 @@ ul li{
     font-size:20px;
     margin-left:40px;
     text-decoration: none;
+    transition: all 200ms ease;
 }
 
+.anchorStyle:hover{
+    color:var(--med1);
+}

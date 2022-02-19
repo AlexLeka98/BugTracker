@@ -67,7 +67,17 @@ const LoginForm = () => {
             }
         }
         let authData = await httpRequest(httpInfo);
-        console.log(authData);
+        if (authData.error) {
+            console.log(authData.error);
+            passwordRef.current.value='';
+            return;
+        }
+        // let authData
+        // httpRequest(httpInfo).then(res=>{
+        //     console.log(res);
+        //     authData = res;
+        // })
+        // console.log(authData);
         // Recieving user information after Authentication request. (Firebase Database)
         if (showLoginForm) {
             url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebase_key}`;

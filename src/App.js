@@ -1,5 +1,5 @@
 import Header from './components/header/Header';
-import LoginMenu from './components/LoginPage/LoginMenu';
+import LoginMenu from './components/Authentication/LoginMenu';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import BugTracker from './components/theApp/BugTracker';
 import './App.css';
