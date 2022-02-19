@@ -26,9 +26,8 @@ body {
   --med1: #fffaf7;
   --med2: #f2dcc5;
   --med3: #79c5e7;
-
   --med4: #ccdde8;
-  /* --med4: #fffaf7; */
+  --buttonHover: #3cb1ff;
 }
 
 code {

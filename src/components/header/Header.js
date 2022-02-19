@@ -13,7 +13,7 @@ export default function Header() {
     return (
         <header className={styles.headerStyle}>
             <div className={styles.logoStyle}>
-                <Link to='/'><h1 className={styles.logo}>BugTracker</h1></Link>
+                <Link to='/app/dashboard'><h1 className={styles.logo}>BugTracker</h1></Link>
             </div>
             {!isLoggedIn &&
                 <ul>

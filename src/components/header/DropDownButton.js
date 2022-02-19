@@ -24,12 +24,14 @@ export default function DropDownButton() {
     return (
         <OutsideClick eventHandler={closeDropDown}>
             <div className={styles.dropdown}>
-                <button onClick={toggleDropDown} className={styles.dropButton}>My Profile</button>
+                <button onClick={toggleDropDown} className={styles.dropButton}>{`${authCtx.userInfo.username} ${authCtx.userInfo.surname}`}</button>
                 <div id="myDropdown" className={`${styles.dropdownContent} ${dropDownIsOpen && styles.show}`}>
                     {/* <div id="myDropdown" className={`${styles.dropdownContent} ${authCtx.dropDownIsOpen && styles.show}`}> */}
-                    <Link to="/">{`${authCtx.userInfo.username} ${authCtx.userInfo.surname}`}</Link>
-                    <Link to="/">Settings</Link>
-                    <Link to="/" onClick={logoutClickHandler}>Logout</Link>
+                    {/* <Link to="/">{`${authCtx.userInfo.username} ${authCtx.userInfo.surname}`}</Link> */}
+                    <Link onClick={toggleDropDown} to="/app/dashboard">Projects</Link>
+                    <Link onClick={toggleDropDown} to="/app/tickets">Tickets</Link>
+                    <Link onClick={toggleDropDown} to="/">Settings</Link>
+                    <Link onClick={toggleDropDown} to="/" onClick={logoutClickHandler}>Logout</Link>
                 </div>
             </div>
         </OutsideClick>
