@@ -8,7 +8,7 @@ import TicketContext from '../../../../../store/ticket-context';
 
 
 const DashboardProjects = () => {
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
 
 
     const [projectItems, setProjectItems] = useState([]);
@@ -52,6 +52,7 @@ const DashboardProjects = () => {
         httpRequest(httpInfo)
             .then(res => {
                 setProjectItems(res);
+
             })
     }, [])
 
@@ -59,6 +60,15 @@ const DashboardProjects = () => {
         ticketCtx.setSelectedTicket(null);
         let path = `/app/dashboard/project/${item._id}`
         history.push(path);
+    }
+
+    const onChangePage = (page) => {
+        console.log(page);
+        console.log(Math.ceil(projectItems.length / 5 -1));
+        if (page >= 0 && page <= Math.ceil(projectItems.length / 5 -1)) {
+            console.log("I am still here");
+            setPage(page);
+        }
     }
 
     const panelData = [
@@ -75,9 +85,10 @@ const DashboardProjects = () => {
             width: 20,
         },
     ]
-    if (projectItems) {
-        console.log();
-    }
+
+    console.log(projectItems.slice(1, 5));
+    console.log(projectItems);
+
     const panelTitles = { col1: 'PROJECT', col2: 'DESCRIPTION', col3: 'CONTRIBUTORS' }
     return (
         <DashboardPanel
@@ -86,9 +97,11 @@ const DashboardProjects = () => {
             onClick={toggleFormModal}
             panelTitles={panelTitles}
             panelData={panelData}
-            pages={Math.ceil(projectItems.length/5)}
-            >
-            {projectItems.length > 0 && projectItems.map(project => {
+            pages={Math.ceil(projectItems.length / 5)}
+            onChangePage={onChangePage}
+            page={page}
+        >
+            {projectItems.length > 0 && projectItems.slice(page * 5, (page + 1) * 5).map(project => {
                 let rowData = [
                     { value: project.title, width: 15 },
                     { value: project.description, width: 60 },

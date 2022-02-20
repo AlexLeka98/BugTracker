@@ -6,16 +6,16 @@ import useHttp from "../../../../../../../hooks/useHttp";
 import DashboardPanel from "../../../../../../UI/DashboardPanel"
 import DashboardItem from "../../../../../../UI/DashboardItem";
 import TicketContext from "../../../../../../../store/ticket-context";
-import AuthContext from "../../../../../../../store/auth-context";
 
 const DashboardTickets = (props) => {
     const match = useRouteMatch();
+    const [page, setPage] = useState(0);
     const [updateTicket, setUpdateTicket] = useState(null);
     const { httpRequest } = useHttp();
 
     const ticketCtx = useContext(TicketContext);
-    const authCtx = useContext(AuthContext);
     const history = useHistory();
+
 
     const selectUpdateItem = (ticket) => {
         props.toggleUpdateTicketFormModal();
@@ -35,6 +35,15 @@ const DashboardTickets = (props) => {
         }).catch(err => {
             console.log(err);
         })
+    }
+
+    const onChangePage = (page) => {
+        console.log(page);
+        console.log(Math.ceil(props.tickets.length / 5 - 1));
+        if (page >= 0 && page <= Math.ceil(props.tickets.length / 5 - 1)) {
+            console.log("I am still here");
+            setPage(page);
+        }
     }
 
     const panelData = [
@@ -64,8 +73,10 @@ const DashboardTickets = (props) => {
                 buttonName='New Ticket'
                 onClick={props.toggleAddTicketFormModal}
                 panelData={panelData}
-                pages={Math.ceil(props.tickets.length / 5)}>
-                {props.tickets.length > 0 && props.tickets.map(ticket => {
+                pages={Math.ceil(props.tickets.length / 5)}
+                onChangePage={onChangePage}
+                page={page}>
+                {props.tickets.length > 0 && props.tickets.slice(page * 5, (page + 1) * 5).map(ticket => {
                     let rowData = [
                         { value: ticket.title, width: 15 },
                         { value: ticket.description, width: 60 },

@@ -9,6 +9,7 @@ import AuthContext from "../../../../../../../store/auth-context";
 
 const DashboardMembers = (props) => {
     const match = useRouteMatch();
+    const [page, setPage] = useState(0);
     const [members, setMembers] = useState(props.members);
     const { isLoading, error, httpRequest } = useHttp()
     const authCtx = useContext(AuthContext);
@@ -42,6 +43,15 @@ const DashboardMembers = (props) => {
         console.log('redirect Ticket Item Handler');
     }
 
+    const onChangePage = (page) => {
+        console.log(page);
+        console.log(Math.ceil(members.length / 5 - 1));
+        if (page >= 0 && page <= Math.ceil(members.length / 5 - 1)) {
+            console.log("I am still here");
+            setPage(page);
+        }
+    }
+
     const panelData = [
         {
             title: 'NAME',
@@ -62,8 +72,11 @@ const DashboardMembers = (props) => {
             buttonName={authCtx.userInfo.authority === 'admin' ? 'Add Member' : ''}
             onClick={onToggleMemberFormModal}
             panelData={panelData}
-            pages={Math.ceil(members.length / 5)}>
-            {members.length > 0 && members.map(member => {
+            pages={Math.ceil(members.length / 5)}
+            onChangePage={onChangePage}
+            page={page}
+        >
+            {members.length > 0 && members.slice(page * 5, (page + 1) * 5).map(member => {
                 let rowData = [
                     { value: member.username, width: 25 },
                     { value: member.email, width: 50 },

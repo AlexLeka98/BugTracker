@@ -83,7 +83,9 @@
     display: flex;
     flex-direction: column;
     padding:0;
-    margin:0 0 16px 0;
+    margin:0 0 0 0;
+    min-height: 265px;
+    /* margin:0 0 16px 0; */
 }
 
 .panelList li:last-child div{
@@ -135,7 +137,7 @@
     cursor: pointer;
 }
 
-.page1{
+.page{
     height:18px;
     width:18px;
     display: flex;
@@ -148,27 +150,15 @@
     border-radius: 50%;
 }
 
-.page1:hover{
-    border:1px solid #EDEDED;
+.page:hover{
     color:#EDEDED;
     cursor:pointer;
+    background-color:var(--hardB);
 }
 
-.page2{
-    height:18px;
-    width:18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    font-size: 14px;
-    font-weight: 600;
-    border:1px solid black;
-    border-radius: 50%;
-}
-
-.page2:hover{
-    border:1px solid #EDEDED;
-    color:#EDEDED;
-    cursor:pointer;
+.activePage {
+    background-color:var(--hardB);
+    color:#fff;
+    outline: 1px solid #EDEDED;
 }

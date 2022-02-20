@@ -13,6 +13,7 @@ const Administration = () => {
     const [selectedUser, setSelectedUser] = useState({ username: '', surname: '' })
     const [addNewUserFormIsOpen, setAddNewUserFormIsOpen] = useState(false);
     const [showUserForm, setShowUserForm] = useState(false);
+    const [page, setPage] = useState(0);
     const nameRef = useRef();
     const surnameRef = useRef();
     const phoneRef = useRef();
@@ -104,6 +105,15 @@ const Administration = () => {
         })
     }
 
+    const onChangePage = (page) => {
+        console.log(page);
+        console.log(Math.ceil(allUsers.length / 5 - 1));
+        if (page >= 0 && page <= Math.ceil(allUsers.length / 5 - 1)) {
+            console.log("I am still here");
+            setPage(page);
+        }
+    }
+
     const panelData1 = [{ title: 'Users', width: 50 }, { title: 'Authority', width: 45 }];
 
     const submitUserChanges = (event) => {
@@ -139,8 +149,11 @@ const Administration = () => {
                         name='Organization'
                         buttonName='New User'
                         panelData={panelData1}
-                        onClick={toggleAddNewUserForm}>
-                        {allUsers && allUsers.length > 0 && allUsers.map(user => {
+                        onClick={toggleAddNewUserForm}
+                        pages={Math.ceil(allUsers.length / 5)}
+                        onChangePage={onChangePage}
+                        page={page}>
+                        {allUsers && allUsers.length > 0 && allUsers.slice(page * 5, (page + 1) * 5).map(user => {
                             let rowData = [
                                 { value: `${user.username} ${user.surname}`, width: 45 },
                                 { value: `${user.authority}`, width: 45 },

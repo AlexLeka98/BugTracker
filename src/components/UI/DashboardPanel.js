@@ -1,11 +1,25 @@
+import { Fragment } from 'react';
 import styles from './DashboardPanel.module.css'
 
 
 const DashboardPanel = (props) => {
 
     let rows = [];
+
+    const onSelectPanelPage = (event) => {
+        let page = parseInt(event.target.innerText);
+        props.onChangePage(page - 1);
+    }
+
+    const onIncreasePanelPage = () => {
+        props.onChangePage(props.page + 1);
+    }
+    const onDecreasePanelPage = () => {
+        props.onChangePage(props.page - 1);
+    }
+
     for (let i = 0; i < props.pages; i++) {
-        rows.push(<div className={styles.page1}>{i + 1}</div>)
+        rows.push(<div onClick={onSelectPanelPage} className={`${styles.page} ${props.page === i && styles.activePage}`}>{i + 1}</div>)
     }
 
     return (
@@ -25,13 +39,15 @@ const DashboardPanel = (props) => {
             <ul className={styles.panelList}>
                 {props.children}
             </ul>
-            {rows.length > 1 &&
-                <div className={styles.pageButtons}>
-                    <div className={styles.leftArrow}></div>
-                    {rows}
-                    <div className={styles.rightArrow}></div>
-                </div>
-            }
+            <div className={styles.pageButtons}>
+                {props.page >= 0 &&
+                    <Fragment>
+                        <div onClick={onDecreasePanelPage} className={styles.leftArrow}></div>
+                        {rows}
+                        <div onClick={onIncreasePanelPage} className={styles.rightArrow}></div>
+                    </Fragment>
+                }
+            </div>
         </div>
     )
 }

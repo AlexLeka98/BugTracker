@@ -18,7 +18,6 @@
     cursor: pointer;
     /* background-color:var(--buttonHover); */
     color:var(--buttonHover);
-    transform: scale(1.05);
 }
 .dropButton:active{
     cursor: pointer;
