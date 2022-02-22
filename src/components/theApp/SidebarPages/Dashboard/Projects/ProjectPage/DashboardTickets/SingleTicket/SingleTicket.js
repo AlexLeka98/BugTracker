@@ -15,7 +15,6 @@ const SingleTicket = (props) => {
     const submitComment = (event) => {
         event.preventDefault();
         let date = new Date().toLocaleString(('en-GB', { timeZone: 'UTC' }));
-        console.log(authCtx.userInfo);
         let newCommentData = {
             comment: commentRef.current.value,
             date: date,
@@ -35,7 +34,7 @@ const SingleTicket = (props) => {
         });
         commentRef.current.value = '';
     }
-
+    console.log(props.ticket);
     const deleteCommentHandler = (comment) => {
         let httpInfo = {
             url: `/tickets/${ticket._id}/comment`,
@@ -99,8 +98,8 @@ const SingleTicket = (props) => {
                             <TicketComment
                                 comment={comment.comment}
                                 date={comment.date}
-                                username={comment.username}
-                                surname={comment.surname}
+                                username={comment.user.username}
+                                surname={comment.user.surname}
                                 id={comment._id}
                                 key={comment._id}
                                 onDeleteComment={deleteCommentHandler}

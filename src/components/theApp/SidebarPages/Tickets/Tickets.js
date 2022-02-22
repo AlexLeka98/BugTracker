@@ -5,6 +5,7 @@ import DashboardItem from "../../../UI/DashboardItem";
 import styles from './Tickets.module.css'
 import { useHistory } from "react-router-dom";
 import TicketContext from "../../../../store/ticket-context";
+import BugTrackHeader from "../BugTrackHeader";
 
 
 
@@ -63,7 +64,7 @@ const Tickets = () => {
     ]
     return (
         <Fragment>
-            <h1 className={styles.ticketsTitle}>Tickets</h1>
+            <BugTrackHeader>Tickets</BugTrackHeader>
             <DashboardPanel
                 name='Tickets'
                 panelData={panelData}

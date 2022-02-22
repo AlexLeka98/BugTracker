@@ -6,6 +6,7 @@ import DashboardPanel from '../../../UI/DashboardPanel';
 import DashboardItem from '../../../UI/DashboardItem';
 import AddNewUserForm from './AddNewUserForm';
 import AuthContext from '../../../../store/auth-context';
+import BugTrackHeader from '../BugTrackHeader';
 
 const Administration = () => {
     const { httpRequest, isLoading, error } = useHttp();
@@ -140,7 +141,7 @@ const Administration = () => {
     }
     return (
         <Fragment>
-            <h1 className={styles.administrationTitle}>Administration</h1>
+            <BugTrackHeader>Administration</BugTrackHeader>
             <div className={styles.administrationContainer}>
                 <div className={styles.organizationPanel}>
 

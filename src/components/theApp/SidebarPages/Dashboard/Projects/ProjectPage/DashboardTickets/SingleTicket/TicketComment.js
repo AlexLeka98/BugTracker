@@ -11,7 +11,6 @@ const TicketComment = (props) => {
 
     useEffect(() => {
         let dateTemp = new Date(props.date).toLocaleString(('en-GB', { timeZone: 'UTC' }));
-        console.log(dateTemp);
         setDate(dateTemp);
     }, [])
 
