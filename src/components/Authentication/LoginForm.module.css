@@ -35,15 +35,16 @@
     font-size:18px;
     border-radius: 0.6rem;
     border:none;
-    background-color: var(--med1);
-    color:var(--hardB);
+    background-color: var(--lightB);
+    color:#fff;
     transition:all 200ms ease;
 }
 
 
 .submitButton:hover{
     cursor: pointer;
-    background-color: var(--lightB);
+    background-color: #fff;
+    color: var(--lightB);
 }
 .submitButton:focus{
     background-color:var(--med3);
@@ -60,12 +61,13 @@
     border-radius: 0.6rem;
     background:none;
     border:none;
-    color: var(--med1);
+    color: var(--lightB);
+    transition: all 200ms ease;
 }
 
 .changeAuthButton:hover{
     cursor: pointer;
-    color: var(--med3);
+    color: #fff;
 }
 
 .changeAuthButton:active{

@@ -44,15 +44,15 @@
     font-size:18px;
     border-radius: 0.6rem;
     border:none;
-    background-color: var(--med1);
+    background-color: var(--lightB);
     color:#ffffff;
     transition:all 200ms ease;
 }
 
 .formStyle button:hover{
     cursor: pointer;
-    color:#000;
-    background-color: var(--med3);
+    color:var(--lightB);
+    background-color: #fff;
 }
 .formStyle button:active{
     background-color:var(--med3)
