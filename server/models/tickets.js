@@ -17,16 +17,37 @@ const ticketSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
+    priority: {
+        type: String,
+        required: true,
+    },
     status: {
         type: String,
         require: true,
     },
-    comments: {
-        type: [{ username: String, surname: String, comment: String, date: Date }]
+    days: {
+        type: Number,
+        required: true,
     },
+    hours: {
+        type: Number,
+        required: true,
+    },
+    comments:
+        // type: [{ username: String, surname: String, comment: String, date: Date }]
+        [{
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Users'
+
+            },
+            comment: String,
+            date: Date
+        }],
     projectId: {
-        type: String,
-        required:true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Projects',
+        required: true
     }
 });
 

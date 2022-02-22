@@ -13,7 +13,7 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    contributors: [{ name: String, surname: String }],
+    contributors: [{ username: String, surname: String }],
     users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
     tickets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tickets' }],
 });

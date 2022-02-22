@@ -13,28 +13,28 @@ mongoose.connect('mongodb://localhost:27017/myapp')
 
 const USER_DUMMY = [
     {
-        name: 'Alex',
+        username: 'Alex',
         email:'alexleka98@outlook.com',
         surname: 'Leka',
         authority: 'admin',
         phone: '0634361825',
     },
     {
-        name: 'Mario',
+        username: 'Mario',
         email:'marioleka97@outlook.com',
         surname: 'Leka',
         authority: 'dev',
         phone: '0634361825',
     },
     {
-        name: 'Niko',
+        username: 'Niko',
         email:'nikoadipa94@outlook.com',
         surname: 'Adipa',
         authority: 'dev',
         phone: '0634361825',
     },
     {
-        name: 'Mark',
+        username: 'Mark',
         surname: 'Johns',
         email:'markjohns89@outlook.com',
         authority: 'dev',
@@ -47,7 +47,7 @@ const PROJECT_DUMMY = [
         title: 'Bug Tracker',
         description: 'But tracking software for professional software development.',
         author: 'Aleksander Leka',
-        contributors: [{name:'Nick',surname:'Papadopoulos'}]
+        contributors: [{username:'Nick',surname:'Papadopoulos'}]
     },
     {
         title: 'Facebook 2.0',
