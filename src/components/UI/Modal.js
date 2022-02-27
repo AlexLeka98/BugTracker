@@ -1,5 +1,5 @@
 import styles from './Modal.module.css';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
 
