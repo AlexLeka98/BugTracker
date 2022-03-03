@@ -14,9 +14,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/myapp')
-  .then(res => (console.log('We are in!! : ')))
-  .catch(error => handleError(error));
+const mongoDatabase = 'mongodb+srv://alexluwees:Colege697@cluster0.n1dil.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const localDatabase = 'mongodb://localhost:27017/myapp'; 
+mongoose.connect(localDatabase)
+  .then(res => (console.log('We are in!')))
+  .catch(error => console.log(error));
 
 
 const { Users } = require('./models/users');
@@ -115,7 +117,7 @@ app.put('/tickets/:id', (req, res) => {
 app.post('/tickets/:ticketId/comment', async (req, res) => {
   const ticket = await Tickets.findById(req.params.ticketId);
   const user = await Users.findById(req.body.userId)
-  console.log(req.body);
+  console.log("This is the user: ",user);
   const newComment = {
     user: user,
     comment: req.body.comment,
@@ -242,6 +244,7 @@ app.get('/users/:id', (req, res) => {
 })
 
 app.post('/users', async (req, res) => {
+  console.log('New User incoming ');
   const newUserData = req.body;
   const newUser = new Users(newUserData);
   console.log(newUser);
@@ -282,8 +285,17 @@ app.post('/tickets', (req, res) => {
 })
 
 app.get('/tickets/:id', async (req, res) => {
+  // populate all comment users before returning.
   const ticket = await Tickets.findById(req.params.id);
-  res.json(ticket);
+  let popTicket = await Promise.all(ticket.comments.map(async (comment, index) => {
+    const popComment = await ticket.populate(`comments.${index}.user`);
+    // console.log(popComment.comments);
+    return popComment;
+    // return await ticket.populate(`comments.${index}.user`)
+  }));
+  console.log(popTicket);
+  console.log("eeee");
+  res.json(popTicket[0]);
 })
 
 app.delete('/tickets', async (req, res) => {
