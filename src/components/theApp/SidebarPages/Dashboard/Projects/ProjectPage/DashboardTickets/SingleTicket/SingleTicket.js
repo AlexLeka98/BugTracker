@@ -1,5 +1,5 @@
 import styles from './SingleTicket.module.css'
-import { useContext, useRef } from 'react';
+import { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import AuthContext from '../../../../../../../../store/auth-context';
 import TicketComment from './TicketComment';
 import useHttp from '../../../../../../../../hooks/useHttp';
@@ -8,10 +8,22 @@ import useHttp from '../../../../../../../../hooks/useHttp';
 
 const SingleTicket = (props) => {
     const commentRef = useRef();
-    const { ticket } = props;
+    const { ticketId, selectedTicket } = props;
+    const [ticket, setTicket] = useState();
     const { httpRequest, error, isLoading } = useHttp();
     const authCtx = useContext(AuthContext);
-
+    // I want to get a specific ticket (thats why I pass the tickets ID )
+    // because I need the comments. Comments have a user field as an object Id,
+    // so I need to populate that field before I return the results.
+    useEffect(() => {
+        let httpInfo = {
+            url: `/tickets/${ticketId}`,
+            method: 'GET'
+        }
+        httpRequest(httpInfo).then(ticketRes => {
+            setTicket(ticketRes);
+        });
+    }, [ticketId])
     const submitComment = (event) => {
         event.preventDefault();
         let date = new Date().toLocaleString(('en-GB', { timeZone: 'UTC' }));
@@ -29,12 +41,11 @@ const SingleTicket = (props) => {
             },
         }
         httpRequest(httpInfo).then(ticketRes => {
-            console.log("Ticket Res : ", ticketRes);
             props.onUpdateSelectedTicket(ticketRes);
         });
         commentRef.current.value = '';
     }
-    console.log(props.ticket);
+
     const deleteCommentHandler = (comment) => {
         let httpInfo = {
             url: `/tickets/${ticket._id}/comment`,
@@ -49,66 +60,72 @@ const SingleTicket = (props) => {
                 props.onUpdateSelectedTicket(ticketRes);
             });
     }
+
     return (
-        <div className={styles.panelStyles}>
-            <h4>{ticket.title}</h4>
-            <div className={styles.ticketContainer}>
-                <div className={styles.ticketInfo}>
-                    <div className={styles.firstInfoRow}>
-                        <div>
-                            <p>TICKET TITLE</p>
-                            <h5>{ticket.title}</h5>
+
+        <Fragment>
+            {selectedTicket &&
+                <div className={styles.panelStyles}>
+                    <h4>{selectedTicket.title}</h4>
+                    <div className={styles.ticketContainer}>
+                        <div className={styles.ticketInfo}>
+                            <div className={styles.firstInfoRow}>
+                                <div>
+                                    <p>TICKET TITLE</p>
+                                    <h5>{selectedTicket.title}</h5>
+                                </div>
+                                <div>
+                                    <p>AUTHOR</p>
+                                    <h5>{selectedTicket.author}</h5>
+                                </div>
+                                <div>
+                                    <p>DESCRIPTION</p>
+                                    <h5>{selectedTicket.description}</h5>
+                                </div>
+                            </div>
+                            <div className={styles.secondInfoRow}>
+                                <div>
+                                    <p>STATUS</p>
+                                    <h5>{selectedTicket.status}</h5>
+                                </div>
+                                <div>
+                                    <p>PRIORITY</p>
+                                    <h5>{selectedTicket.priority}</h5>
+                                </div>
+                                <div>
+                                    <p>TYPE</p>
+                                    <h5>{selectedTicket.type}</h5>
+                                </div>
+                                <div>
+                                    <p>TIME ESTIMATE (HOURS)</p>
+                                    <h5>{selectedTicket.hours}</h5>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <p>AUTHOR</p>
-                            <h5>{ticket.author}</h5>
-                        </div>
-                        <div>
-                            <p>DESCRIPTION</p>
-                            <h5>{ticket.description}</h5>
-                        </div>
-                    </div>
-                    <div className={styles.secondInfoRow}>
-                        <div>
-                            <p>STATUS</p>
-                            <h5>{ticket.status}</h5>
-                        </div>
-                        <div>
-                            <p>PRIORITY</p>
-                            <h5>{ticket.priority}</h5>
-                        </div>
-                        <div>
-                            <p>TYPE</p>
-                            <h5>{ticket.type}</h5>
-                        </div>
-                        <div>
-                            <p>TIME ESTIMATE (HOURS)</p>
-                            <h5>4</h5>
+                        <div className={styles.ticketComments}>
+                            <h5>Comments</h5>
+                            <form onSubmit={submitComment} className={styles.ticketForm}>
+                                <input type='text' placeholder='Enter comment...' ref={commentRef} />
+                                <button type='submit'>Comment</button>
+                            </form>
+                            <ul className={styles.ticketComments}>
+                                {selectedTicket.comments.map(comment => (
+                                    <TicketComment
+                                        comment={comment.comment}
+                                        date={comment.date}
+                                        username={comment.user.username}
+                                        surname={comment.user.surname}
+                                        id={comment._id}
+                                        key={comment._id}
+                                        onDeleteComment={deleteCommentHandler}
+                                    />
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div className={styles.ticketComments}>
-                    <h5>Comments</h5>
-                    <form onSubmit={submitComment} className={styles.ticketForm}>
-                        <input type='text' placeholder='Enter comment...' ref={commentRef} />
-                        <button type='submit'>Comment</button>
-                    </form>
-                    <ul className={styles.ticketComments}>
-                        {props.ticket.comments.map(comment => (
-                            <TicketComment
-                                comment={comment.comment}
-                                date={comment.date}
-                                username={comment.user.username}
-                                surname={comment.user.surname}
-                                id={comment._id}
-                                key={comment._id}
-                                onDeleteComment={deleteCommentHandler}
-                            />
-                        ))}
-                    </ul>
-                </div>
-            </div>
-        </div>
+            }
+        </Fragment>
     )
 }
 

@@ -65,7 +65,7 @@ const DashboardTickets = (props) => {
         let path = `/app/dashboard/project/${match.params.projectId}/${ticket._id}`
         history.push(path);
     }
-    console.log(props.tickets.length);
+
     return (
         <Fragment>
             <DashboardPanel

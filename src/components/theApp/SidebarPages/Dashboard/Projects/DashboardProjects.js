@@ -52,7 +52,6 @@ const DashboardProjects = () => {
         httpRequest(httpInfo)
             .then(res => {
                 setProjectItems(res);
-
             })
     }, [])
 
@@ -63,10 +62,7 @@ const DashboardProjects = () => {
     }
 
     const onChangePage = (page) => {
-        console.log(page);
-        console.log(Math.ceil(projectItems.length / 5 -1));
         if (page >= 0 && page <= Math.ceil(projectItems.length / 5 -1)) {
-            console.log("I am still here");
             setPage(page);
         }
     }
@@ -85,10 +81,6 @@ const DashboardProjects = () => {
             width: 20,
         },
     ]
-
-    console.log(projectItems.slice(1, 5));
-    console.log(projectItems);
-
     const panelTitles = { col1: 'PROJECT', col2: 'DESCRIPTION', col3: 'CONTRIBUTORS' }
     return (
         <DashboardPanel

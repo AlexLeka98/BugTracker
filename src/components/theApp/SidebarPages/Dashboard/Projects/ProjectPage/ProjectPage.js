@@ -41,7 +41,6 @@ const ProjectPage = () => {
             setProject({}); // This worked for me
         };
     }, [])
-
     // Member and Ticket modal communicate with each other, thats why they have to be in the parebt component.
     const toggleAddMemberFormModal = () => {
         setTicketAddFormModalIsOpen(false);
@@ -72,7 +71,7 @@ const ProjectPage = () => {
     }
 
     const updateTicketHandler = (updatedTicket) => {
-        console.log(updatedTicket);
+        console.log('This is where we update the ticket');
         setTickets(prevTickets => {
             let newTickets = [...prevTickets];
             prevTickets.map((ticket, index) => {
@@ -81,7 +80,7 @@ const ProjectPage = () => {
                     ticketCtx.setSelectedTicket(updatedTicket);
                 }
             })
-            console.log(newTickets);
+            console.log("The new Ticket: ", newTickets);
             return newTickets;
         })
         // After we update the ticket, we check if the selectedTicket was update, cuz in that case
@@ -93,7 +92,7 @@ const ProjectPage = () => {
             return prevTickets.filter(ticket => ticket._id !== ticketId);
         })
     }
-
+    console.log(ticketCtx.selectedTicket);
     return (
         <Fragment>
             <h1 className={styles.projectTitle}>{project && project.title}</h1>
@@ -122,10 +121,11 @@ const ProjectPage = () => {
                     </div>
                     {ticketCtx.selectedTicket &&
                         <SingleTicket
-                            ticket={ticketCtx.selectedTicket}
+                            ticketId={ticketCtx.selectedTicket._id}
+                            selectedTicket={ticketCtx.selectedTicket}
                             onUpdateSelectedTicket={updateTicketHandler}
                         />}
-                    
+
                 </div>
             }
             {isLoading && <div className={`${styles.loadingStyle} loader bigBlack`}></div>}
