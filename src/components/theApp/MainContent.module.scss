@@ -1,0 +1,16 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+.maincontentContainer{
+    width:calc(100% - $sidebar-desktop-width);
+    /* min-height:calc(100vh - 80px); */
+    height:100%;
+    padding:30px;
+    position: relative;
+    /* overflow-y: scroll; */
+    padding-top:100px;
+
+    @include tablet{
+        width:calc(100% - $sidebar-tablet-width);
+    }
+}

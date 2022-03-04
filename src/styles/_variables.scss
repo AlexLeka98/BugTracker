@@ -1,0 +1,24 @@
+
+// play mostly with green and red shades
+$sidebar-desktop-width:230px;
+$sidebar-tablet-width:130px;
+
+
+
+$font-weights: (
+    "thin":100,
+    "exthin":200,
+    "light":300,
+    "regular":400,
+    "medium":500,
+    "bold":700,
+    "exbold":800,
+    "black":900,
+);
+
+@function weight($weight-name) {
+    @return map-get($font-weights, $weight-name );
+};
+
+$tablet: 1080px;
+$mobile: 640px;

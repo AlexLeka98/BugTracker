@@ -1,4 +1,4 @@
-import styles from './DashboardItem.module.css'
+import styles from './DashboardItem.module.scss'
 import { useState } from 'react';
 
 import OutsideClick from '../../hooks/OutsideClick';

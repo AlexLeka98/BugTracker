@@ -1,4 +1,4 @@
-import styles from "./SideBar.module.css";
+import styles from "./SideBar.module.scss";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";

@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import AuthContext from '../../store/auth-context';
 import { Link } from 'react-router-dom';
-import styles from './Header.module.css'
+import styles from './Header.module.scss'
 import DropDownButton from './DropDownButton';
 
 

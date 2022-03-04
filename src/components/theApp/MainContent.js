@@ -1,5 +1,5 @@
 import { Route, Switch } from "react-router-dom";
-import styles from "./MainContent.module.css";
+import styles from "./MainContent.module.scss";
 import Dashboard from "./SidebarPages/Dashboard/Dashboard";
 import Tickets from "./SidebarPages/Tickets/Tickets";
 import Administration from './SidebarPages/Administration/Administration'

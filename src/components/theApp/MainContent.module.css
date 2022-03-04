@@ -1,9 +1,0 @@
-.maincontentContainer{
-    width:calc(100% - 200px);
-    /* min-height:calc(100vh - 80px); */
-    height:100%;
-    padding:30px;
-    position: relative;
-    /* overflow-y: scroll; */
-    padding-top:100px;
-}

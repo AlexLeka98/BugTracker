@@ -2,13 +2,18 @@
 .listItem {
     width:100%;
     text-decoration: none;
+    height:50px;
+    box-sizing: border-box;
+    /* margin:14px; */
 }
 
 
 .listItem .linkItem {
     display: flex;
+    align-items: center;
     width:100%;
-    padding:14px 14px;
+    height:100%;
+    padding-left:14px;
     border-bottom: 1px solid #fff;
 }
 
@@ -40,6 +45,7 @@
     text-decoration: none;
     transition:all 100ms ease;
     margin:0;
+    height:100%;
 }
 
 

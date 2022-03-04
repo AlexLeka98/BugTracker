@@ -1,3 +1,6 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
 .headerStyle {
     position:sticky;
     top:0;
@@ -8,6 +11,9 @@
     background-color: var(--hardB);
     padding:0 0 0 150px;
     z-index:10;
+    @include tablet{
+        padding:0 0 0 40px;
+    }
 }
 
 .logoStyle a {

@@ -1,0 +1,22 @@
+@import './variables';
+
+// Bigger than tablet
+@mixin desktop() {
+    @media (min-width: $tablet){
+        @content;
+    }
+}
+
+// Smaller than tablet
+@mixin tablet() {
+    @media (max-width: $tablet){
+        @content;
+    }
+}
+
+// Smaller than mobile
+@mixin mobile() {
+    @media (max-width: $mobile){
+        @content;
+    }
+}

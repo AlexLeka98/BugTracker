@@ -1,6 +1,6 @@
 
 import { Fragment, useContext, useEffect, useRef, useState } from 'react';
-import styles from './Administration.module.css'
+import styles from './Administration.module.scss'
 import useHttp from '../../../../hooks/useHttp';
 import DashboardPanel from '../../../UI/DashboardPanel';
 import DashboardItem from '../../../UI/DashboardItem';

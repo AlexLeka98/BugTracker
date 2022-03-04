@@ -1,12 +1,22 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/mixins";
+
+
 .administrationContainer{
     width:100%;
     display: flex;
+    // flex-direction: column;
+    @include tablet{
+        flex-direction: column;
+    }
 }
 
 .administrationContainer > div{
     width:50%;
-    height:200px;
     margin:10px;
+    @include tablet{
+        width: 100%;
+    }
 }
 
 .administrationTitle{
