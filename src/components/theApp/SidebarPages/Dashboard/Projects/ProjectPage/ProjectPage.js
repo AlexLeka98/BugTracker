@@ -80,7 +80,6 @@ const ProjectPage = () => {
                     ticketCtx.setSelectedTicket(updatedTicket);
                 }
             })
-            console.log("The new Ticket: ", newTickets);
             return newTickets;
         })
         // After we update the ticket, we check if the selectedTicket was update, cuz in that case
