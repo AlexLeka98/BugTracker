@@ -8,22 +8,10 @@ import useHttp from '../../../../../../../../hooks/useHttp';
 
 const SingleTicket = (props) => {
     const commentRef = useRef();
-    const { ticketId, selectedTicket } = props;
-    const [ticket, setTicket] = useState();
+    const { selectedTicket } = props;
     const { httpRequest, error, isLoading } = useHttp();
     const authCtx = useContext(AuthContext);
-    // I want to get a specific ticket (thats why I pass the tickets ID )
-    // because I need the comments. Comments have a user field as an object Id,
-    // so I need to populate that field before I return the results.
-    useEffect(() => {
-        let httpInfo = {
-            url: `/tickets/${ticketId}`,
-            method: 'GET'
-        }
-        httpRequest(httpInfo).then(ticketRes => {
-            setTicket(ticketRes);
-        });
-    }, [ticketId])
+
     const submitComment = (event) => {
         event.preventDefault();
         let date = new Date().toLocaleString(('en-GB', { timeZone: 'UTC' }));
@@ -33,7 +21,7 @@ const SingleTicket = (props) => {
             userId: authCtx.userInfo._id,
         }
         let httpInfo = {
-            url: `/tickets/${ticket._id}/comment`,
+            url: `/tickets/${selectedTicket._id}/comment`,
             method: 'POST',
             body: newCommentData,
             headers: {
@@ -48,7 +36,7 @@ const SingleTicket = (props) => {
 
     const deleteCommentHandler = (comment) => {
         let httpInfo = {
-            url: `/tickets/${ticket._id}/comment`,
+            url: `/tickets/${selectedTicket._id}}/comment`,
             method: 'DELETE',
             body: { id: comment.id },
             headers: {
@@ -60,7 +48,7 @@ const SingleTicket = (props) => {
                 props.onUpdateSelectedTicket(ticketRes);
             });
     }
-
+    console.log(selectedTicket)
     return (
 
         <Fragment>

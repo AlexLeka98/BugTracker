@@ -1,7 +1,7 @@
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import useHttp from '../../../../../../hooks/useHttp';
-import styles from './ProjectPage.module.css'
+import styles from './ProjectPage.module.scss'
 import DashboardTickets from './DashboardTickets/DashboardTickets';
 import DashboardMembers from './DashboardMembers/DashboardMembers';
 import TicketContext from '../../../../../../store/ticket-context';

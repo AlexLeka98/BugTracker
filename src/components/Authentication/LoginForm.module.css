@@ -47,7 +47,8 @@
     color: var(--lightB);
 }
 .submitButton:focus{
-    background-color:var(--med3);
+    background-color:var(--med1);
+    color:var(--med3);
     outline:none;
 }
 .submitButton:active{
