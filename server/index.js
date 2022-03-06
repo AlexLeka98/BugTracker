@@ -15,8 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const mongoDatabase = 'mongodb+srv://alexluwees:Colege697@cluster0.n1dil.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
-const localDatabase = 'mongodb://localhost:27017/myapp'; 
-mongoose.connect(localDatabase)
+const localDatabase = 'mongodb://localhost:27017/myapp';
+mongoose.connect(mongoDatabase)
   .then(res => (console.log('We are in!')))
   .catch(error => console.log(error));
 
@@ -38,13 +38,23 @@ app.get('/projects', async (req, res) => {
 // Get the specific project with the id passed in the params
 app.get('/projects/:id', async (req, res) => {
   const { id } = req.params;
-  const resProj = await Projects.findById(id);
-  resProj.users.map(item => typeof (item));
-  const resProjPop = await resProj.populate('tickets').then(res => {
+  const project = await Projects.findById(id);
+  const resProjPop = await project.populate('tickets').then(res => {
     return res.populate('users');
-  })
-  res.json(resProjPop)
-  // res.json({ message: 'Very good procect id' });
+  });
+
+
+  await Promise.all(resProjPop.tickets.map(async ticket => {
+    // console.log("The ticket:  ",ticket)
+    // let aa = await Promise.all(ticket.comments.map(async (comment, index) => {
+    await Promise.all(ticket.comments.map(async (comment, index) => {
+      await ticket.populate(`comments.${index}.user`);
+      // const popComment = await ticket.populate(`comments.${index}.user`);
+      // return popComment;
+    }));
+    // return aa;
+  }))
+  res.json(resProjPop);
 })
 
 
@@ -117,7 +127,7 @@ app.put('/tickets/:id', (req, res) => {
 app.post('/tickets/:ticketId/comment', async (req, res) => {
   const ticket = await Tickets.findById(req.params.ticketId);
   const user = await Users.findById(req.body.userId)
-  console.log("This is the user: ",user);
+  console.log("This is the user: ", user);
   const newComment = {
     user: user,
     comment: req.body.comment,
@@ -132,12 +142,13 @@ app.post('/tickets/:ticketId/comment', async (req, res) => {
     return popComment;
     // return await ticket.populate(`comments.${index}.user`)
   }));
-  console.log("Populated ticket: ", populatedTicket[ticket.comments.length-1].comments[0].user.username);
-  res.json(populatedTicket[ticket.comments.length-1]);
+  console.log("Populated ticket: ", populatedTicket[ticket.comments.length - 1].comments[0].user.username);
+  res.json(populatedTicket[ticket.comments.length - 1]);
 })
 
 app.delete('/tickets/:ticketId/comment', async (req, res) => {
   const { id } = req.body;
+  console.log(req.params.ticketId ," <-----");
   const ticket = await Tickets.findById(req.params.ticketId);
   const newTicket = ticket.comments.filter(comment => {
     if (comment._id.toString() !== id) {
@@ -285,17 +296,8 @@ app.post('/tickets', (req, res) => {
 })
 
 app.get('/tickets/:id', async (req, res) => {
-  // populate all comment users before returning.
   const ticket = await Tickets.findById(req.params.id);
-  let popTicket = await Promise.all(ticket.comments.map(async (comment, index) => {
-    const popComment = await ticket.populate(`comments.${index}.user`);
-    // console.log(popComment.comments);
-    return popComment;
-    // return await ticket.populate(`comments.${index}.user`)
-  }));
-  console.log(popTicket);
-  console.log("eeee");
-  res.json(popTicket[0]);
+  res.json(ticket);
 })
 
 app.delete('/tickets', async (req, res) => {
