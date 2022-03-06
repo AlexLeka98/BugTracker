@@ -11,8 +11,18 @@
     background-color: var(--hardB);
     padding:0 0 0 150px;
     z-index:10;
-    @include tablet{
-        padding:0 0 0 40px;
+    @include mobile{
+        // padding:0 0 0 40px;
+        height:auto;
+        flex-direction: column;
+        padding:0;
+        ul{
+            padding:0;  
+            margin:0 0 20px 0;
+            a{
+                margin:0;
+            }
+        }
     }
 }
 
