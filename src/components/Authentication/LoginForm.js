@@ -1,7 +1,7 @@
 import Input from '../UI/Input';
 import { useRef, useState, useContext, useEffect, Fragment } from 'react';
 import AuthContext from "../../store/auth-context";
-import styles from './LoginForm.module.css'
+import styles from './LoginForm.module.scss'
 import { useHistory } from 'react-router-dom';
 import useHttp from '../../hooks/useHttp';
 

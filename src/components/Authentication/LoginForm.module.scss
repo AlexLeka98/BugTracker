@@ -1,3 +1,8 @@
+/* @import "../../styles/mixins";
+@import "../../styles/variables"; */
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
 .formContainer {
     width:100%;
     margin:0 auto;
@@ -10,14 +15,17 @@
 
 
 .formStyle{
-    max-width:600px;
-    width:600px;
+    // max-width:600px;
+    width:50%;
     margin:0 auto;
     background-color:var(--hardB);
     padding:20px 50px;
     border-radius: 1rem; 
     display: flex;
     flex-direction: column;
+    // @include tablet{
+    //     // width:70%;
+    // }
 }
 
 
