@@ -129,6 +129,7 @@ const LoginForm = () => {
         authenticateUser({ email: enteredEmail, password: enteredPassword });
     }
 
+    
     return (
         <div className={styles.formContainer}>
             <form className={styles.formStyle} onSubmit={submitHandler}>
