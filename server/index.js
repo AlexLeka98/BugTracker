@@ -1,23 +1,22 @@
 // https://www.freecodecamp.org/news/how-to-create-a-react-app-with-a-node-backend-the-complete-guide/
 // You will need this to deploy the application
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 
 
-
-
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const mongoDatabase = 'mongodb+srv://alexluwees:Colege697@cluster0.n1dil.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+// const mongoDatabase = 'mongodb+srv://alexluwees:Colege697@cluster0.n1dil.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const mongoDBURI = 'mongodb+srv://alexluwees:Colege697@cluster0.n1dil.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const localDatabase = 'mongodb://localhost:27017/myapp';
-mongoose.connect(mongoDatabase)
-  .then(res => (console.log('We are in!')))
+mongoose.connect(localDatabase)
+  .then(res => (console.log('We are ooooon!')))
   .catch(error => console.log(error));
 
 
@@ -31,7 +30,9 @@ const { response } = require("express");
 
 // PROJECTS
 app.get('/projects', async (req, res) => {
+  console.log('All projects');
   const allProjects = await Projects.find({});
+  // res.json({message:'allprojects'});
   res.json(allProjects);
 })
 
@@ -79,6 +80,7 @@ app.post('/projects', async (req, res) => {
 // Add a new ticket to the Tickets model, and then push that ticket 
 // to the project Id.
 app.post('/projects/ticket/:projectId', async (req, res) => {
+  console.log('I am ahererereer');
   let ticketData = req.body;
   let projectId = req.params.projectId;  // Get the project Id from params
   const project = await Projects.findById(projectId); //Find the project with the projectId
@@ -148,7 +150,7 @@ app.post('/tickets/:ticketId/comment', async (req, res) => {
 
 app.delete('/tickets/:ticketId/comment', async (req, res) => {
   const { id } = req.body;
-  console.log(req.params.ticketId ," <-----");
+  console.log(req.params.ticketId, " <-----");
   const ticket = await Tickets.findById(req.params.ticketId);
   const newTicket = ticket.comments.filter(comment => {
     if (comment._id.toString() !== id) {
@@ -246,6 +248,7 @@ app.delete('/projects/user', async (req, res) => {
 
 // USERS
 app.get('/users', async (req, res) => {
+  console.log('users');
   const allUsers = await Users.find({});
   res.json(allUsers);
 })
