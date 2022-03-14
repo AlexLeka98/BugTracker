@@ -41,6 +41,7 @@ const ProjectPage = () => {
             setProject({}); // This worked for me
         };
     }, [])
+    console.log(tickets);
     // Member and Ticket modal communicate with each other, thats why they have to be in the parebt component.
     const toggleAddMemberFormModal = () => {
         setTicketAddFormModalIsOpen(false);

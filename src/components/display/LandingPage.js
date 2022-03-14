@@ -1,10 +1,26 @@
 import styles from "./LandingPage.module.css";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../../store/auth-context";
+import useHttp from "../../hooks/useHttp";
 
 
 const LandingPage = () => {
+    let url = 'users'
+    useEffect(() => {
+        fetch('/' + url).then(res => {
+            if (!res.ok) {
+                throw new Error('Somethign happends');
+            }
+            const data = res.json()
+                .then(data => {
+                    console.log(data);
+                })
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [])
+
 
     const authCtx = useContext(AuthContext);
     return (

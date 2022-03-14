@@ -21,6 +21,15 @@ const AddTicketForm = (props) => {
     const match = useRouteMatch();
 
 
+    useEffect(() => {
+        let httpInfo = {
+            url: '/users'
+        }
+        httpRequest(httpInfo).then(res => {
+            setAllUsers(res);
+        })
+    }, [])
+
     const onSubmitFormHandler = async (event) => {
         event.preventDefault();
         const projectId = match.params.projectId;
@@ -36,6 +45,7 @@ const AddTicketForm = (props) => {
             projectId: projectId
 
         }
+        console.log('the new ticket', newTicket);
         let httpInfo = {
             url: `/projects/ticket/${projectId}`,
             method: 'POST',
@@ -43,6 +53,7 @@ const AddTicketForm = (props) => {
             headers: { 'Content-Type': 'application/json' }
         }
         httpRequest(httpInfo).then(res => {
+            console.log(res);
             props.addNewTicketHandler(res);
         })
         enteredTitle.current.value = '';
@@ -54,15 +65,8 @@ const AddTicketForm = (props) => {
         eneteredDays.current.value = '';
         eneteredHours.current.value = '';
     }
+    //"proxy": "http://www.api.bugtracker.alexluwees.com",
 
-    useEffect(() => {
-        let httpInfo = {
-            url: '/users'
-        }
-        httpRequest(httpInfo).then(res => {
-            setAllUsers(res);
-        })
-    }, [])
 
     return (
         <Modal onModalHandler={props.closeAddTicketFormModal}>

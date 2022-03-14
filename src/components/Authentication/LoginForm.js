@@ -1,5 +1,5 @@
 import Input from '../UI/Input';
-import { useRef, useState, useContext, useEffect, Fragment } from 'react';
+import { useRef, useState, useContext, Fragment } from 'react';
 import AuthContext from "../../store/auth-context";
 import styles from './LoginForm.module.scss'
 import { useHistory } from 'react-router-dom';
@@ -67,29 +67,23 @@ const LoginForm = () => {
                 returnSecureToken: true
             }
         }
+
         let authData = await httpRequest(httpInfo);
         if (authData.error) {
             console.log(authData.error);
-            passwordRef.current.value='';
+            passwordRef.current.value = '';
             return;
         }
-        // let authData
-        // httpRequest(httpInfo).then(res=>{
-        //     console.log(res);
-        //     authData = res;
-        // })
-        // console.log(authData);
-        // Recieving user information after Authentication request. (Firebase Database)
+        
+        // If we login
         if (showLoginForm) {
-            url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebase_key}`;
             userInfo = await httpRequest({ url: dbUrl }, getUserInfo);
             console.log(userInfo);
-        } // Add new user to the database.
+        } // If we signup, Add new user to the database.
         else {
             const enteredName = nameRef.current.value;
             const enteredSurname = surnameRef.current.value;
             const enteredPhone = phoneRef.current.value;
-            url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebase_key}`;
             userInfo = {
                 email: user.email,
                 username: enteredName,
@@ -98,6 +92,7 @@ const LoginForm = () => {
                 authority: 'none',
                 idToken: authData.idToken,
             }
+            console.log(userInfo);
             httpInfo = {
                 url: dbUrl,
                 method: 'POST',
@@ -108,7 +103,7 @@ const LoginForm = () => {
             }
             await httpRequest(httpInfo);
         }
-
+        console.log(authData);
         loginFunc(authData, userInfo);
     }
 
@@ -129,7 +124,7 @@ const LoginForm = () => {
         authenticateUser({ email: enteredEmail, password: enteredPassword });
     }
 
-    
+
     return (
         <div className={styles.formContainer}>
             <form className={styles.formStyle} onSubmit={submitHandler}>

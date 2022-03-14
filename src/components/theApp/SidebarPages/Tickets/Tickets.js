@@ -22,6 +22,7 @@ const Tickets = () => {
             method: 'GET'
         }
         httpRequest(httpInfo).then(res => {
+            console.log('This is t he res:', res);
             setAllTickets(res);
         })
     }, [])

@@ -23,6 +23,7 @@ const ProjectForm = (props) => {
             body: newProject,
             headers: { 'Content-Type': 'application/json' }
         }
+        console.log('New project: ', httpInfo);
         httpRequest(httpInfo).then(res => {
             props.onAddNewProject({ ...res, key: res._id });
         })
@@ -57,8 +58,8 @@ const ProjectForm = (props) => {
                             <label>Author</label>
                             <select name='author' ref={enteredAuthor}>
                                 <option disabled selected value> -- select an option -- </option>
-                                {allUsers.length>0 && allUsers.map(user => (
-                                <option key={user._id} value={`${user.username} ${user.surname}`}>{`${user.username} ${user.surname}`}</option>
+                                {allUsers.length > 0 && allUsers.map(user => (
+                                    <option key={user._id} value={`${user.username} ${user.surname}`}>{`${user.username} ${user.surname}`}</option>
                                 ))}
                             </select>
                         </div>

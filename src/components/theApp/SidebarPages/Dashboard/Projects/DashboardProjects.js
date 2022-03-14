@@ -51,6 +51,7 @@ const DashboardProjects = () => {
         }
         httpRequest(httpInfo)
             .then(res => {
+                console.log("This is the res: ", res);
                 setProjectItems(res);
             })
     }, [])
@@ -62,7 +63,7 @@ const DashboardProjects = () => {
     }
 
     const onChangePage = (page) => {
-        if (page >= 0 && page <= Math.ceil(projectItems.length / 5 -1)) {
+        if (page >= 0 && page <= Math.ceil(projectItems.length / 5 - 1)) {
             setPage(page);
         }
     }
