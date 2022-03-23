@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 // const mongoDatabase = 'mongodb+srv://alexluwees:Colege697@cluster0.n1dil.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const mongoDBURI = 'mongodb+srv://alexluwees:Colege697@cluster0.n1dil.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const localDatabase = 'mongodb://localhost:27017/myapp';
-mongoose.connect(localDatabase)
+mongoose.connect(mongoDBURI)
   .then(res => (console.log('We are ooooon!')))
   .catch(error => console.log(error));
 
