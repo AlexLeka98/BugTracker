@@ -6,6 +6,7 @@ import DashboardTickets from './DashboardTickets/DashboardTickets';
 import DashboardMembers from './DashboardMembers/DashboardMembers';
 import TicketContext from '../../../../../../store/ticket-context';
 import SingleTicket from './DashboardTickets/SingleTicket/SingleTicket';
+import BugTrackHeader from '../../../BugTrackHeader';
 
 const ProjectPage = () => {
     const { isLoading, httpRequest } = useHttp();
@@ -95,7 +96,9 @@ const ProjectPage = () => {
     console.log(ticketCtx.selectedTicket);
     return (
         <Fragment>
-            <h1 className={styles.projectTitle}>{project && project.title}</h1>
+
+            {/* <h1 className={styles.projectTitle}>{project && project.title}</h1> */}
+            <BugTrackHeader>Project: {project && project.title}</BugTrackHeader>
             {project &&
                 <div className={styles.projectPageContainer}>
                     <div className={styles.projectPage}>

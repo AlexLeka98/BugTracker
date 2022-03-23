@@ -10,7 +10,7 @@ const LandingPage = () => {
     useEffect(() => {
         fetch('/' + url).then(res => {
             if (!res.ok) {
-                throw new Error('Somethign happends');
+                throw new Error('Somethign happend');
             }
             const data = res.json()
                 .then(data => {

@@ -10,7 +10,7 @@ const LoginMenu = () => {
     return (
         <Switch>
             <Route path='/auth' exact>
-                <button onClick={loginFirstHandler} >Login first!</button>
+                <button onClick={loginFirstHandler}>Login first!</button>
             </Route>
             <Route path='/auth/login'>
                 <LoginForm />

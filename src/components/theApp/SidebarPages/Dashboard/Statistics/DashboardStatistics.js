@@ -79,9 +79,6 @@ const DashboardStatistics = () => {
         }
         httpRequest(httpInfo).then(res => {
             setAllTickets(res);
-            // setTypeArray(getTypeArray(res));
-            // setPriorityArray(getPriorityArray(res));
-            // setStatusArray(getStatusArray(res));
         })
     }, [])
 
