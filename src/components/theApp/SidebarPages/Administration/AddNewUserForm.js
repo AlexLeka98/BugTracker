@@ -47,7 +47,6 @@ const AddNewUserForm = (props) => {
                 headers: { 'Content-Type': 'application/json' }
             }
             httpRequest(httpInfo).then(res => {
-                console.log(res);
                 props.addUserToState(res);
             })
         })

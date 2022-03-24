@@ -12,7 +12,7 @@ import BugTrackHeader from "../BugTrackHeader";
 const Tickets = () => {
     const [allTickets, setAllTickets] = useState([]);
     const [page, setPage] = useState(0);
-    const { httpRequest, error, isLoading } = useHttp();
+    const { httpRequest, error, isLoading, cancelRequest, setCancelRequest } = useHttp();
     const history = useHistory();
     const ticketCtx = useContext(TicketContext);
 
@@ -22,9 +22,13 @@ const Tickets = () => {
             method: 'GET'
         }
         httpRequest(httpInfo).then(res => {
-            console.log('This is t he res:', res);
-            setAllTickets(res);
+            if (!cancelRequest) {
+                setAllTickets(res);
+            }
         })
+        return () => {
+            setCancelRequest(true);
+        }
     }, [])
 
     const selectATicket = (selectedTicket) => {
@@ -33,10 +37,7 @@ const Tickets = () => {
     }
 
     const onChangePage = (page) => {
-        console.log(page);
-        console.log(Math.ceil(allTickets.length / 9 - 1));
         if (page >= 0 && page <= Math.ceil(allTickets.length / 9 - 1)) {
-            console.log("I am still here");
             setPage(page);
         }
     }

@@ -38,10 +38,7 @@ const DashboardTickets = (props) => {
     }
 
     const onChangePage = (page) => {
-        console.log(page);
-        console.log(Math.ceil(props.tickets.length / 5 - 1));
         if (page >= 0 && page <= Math.ceil(props.tickets.length / 5 - 1)) {
-            console.log("I am still here");
             setPage(page);
         }
     }

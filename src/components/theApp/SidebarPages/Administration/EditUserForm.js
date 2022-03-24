@@ -30,7 +30,6 @@
 //             phone: phoneRef.current.value,
 //             authority: authorizRef.current.value,
 //         }
-//         console.log(data);
 //         let httpInfo = {
 //             url: `/users/${selectedUser._id}`,
 //             method: 'PUT',
@@ -42,7 +41,6 @@
 //         httpRequest(httpInfo).then(res => {
 //             updateAllUsers(res)
 //         })
-//         console.log(nameRef.current.value);
 //     }
 
 

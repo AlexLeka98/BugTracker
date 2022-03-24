@@ -51,7 +51,6 @@ const DashboardProjects = () => {
         }
         httpRequest(httpInfo)
             .then(res => {
-                console.log("This is the res: ", res);
                 setProjectItems(res);
             })
     }, [])

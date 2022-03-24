@@ -3,10 +3,11 @@ import { useState } from 'react';
 const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-
+    const [cancelRequest, setCancelRequest] = useState(false);
     const httpRequest = async (httpInfo, dataFunc) => {
         setIsLoading(true);
         setError(null);
+
         try {
             const response = await fetch(httpInfo.url,
                 {
@@ -23,16 +24,15 @@ const useHttp = () => {
                 return await dataFunc(data);
             }
             setIsLoading(false);
-            // console.log(data);
             return data;
         }
         catch (error) {
             setError(error);
-            return ({error: error.message});
+            return ({ error: error.message });
         }
     }
 
-    return { httpRequest, error, isLoading }
+    return { httpRequest, error, isLoading, cancelRequest, setCancelRequest }
 }
 
 export default useHttp;

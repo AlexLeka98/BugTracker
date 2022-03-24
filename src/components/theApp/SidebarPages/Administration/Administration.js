@@ -107,10 +107,7 @@ const Administration = () => {
     }
 
     const onChangePage = (page) => {
-        console.log(page);
-        console.log(Math.ceil(allUsers.length / 5 - 1));
         if (page >= 0 && page <= Math.ceil(allUsers.length / 5 - 1)) {
-            console.log("I am still here");
             setPage(page);
         }
     }

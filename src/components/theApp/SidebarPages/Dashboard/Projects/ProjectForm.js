@@ -23,7 +23,6 @@ const ProjectForm = (props) => {
             body: newProject,
             headers: { 'Content-Type': 'application/json' }
         }
-        console.log('New project: ', httpInfo);
         httpRequest(httpInfo).then(res => {
             props.onAddNewProject({ ...res, key: res._id });
         })

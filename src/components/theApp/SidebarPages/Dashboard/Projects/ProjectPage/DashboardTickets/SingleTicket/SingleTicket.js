@@ -35,8 +35,6 @@ const SingleTicket = (props) => {
     }
 
     const deleteCommentHandler = (comment) => {
-        console.log(comment);
-        console.log(selectedTicket._id);
         let httpInfo = {
             url: `/tickets/${selectedTicket._id}/comment`,
             method: 'DELETE',
@@ -50,7 +48,6 @@ const SingleTicket = (props) => {
                 props.onUpdateSelectedTicket(ticketRes);
             });
     }
-    console.log("This is the selected Ticket ",selectedTicket)
     return (
 
         <Fragment>

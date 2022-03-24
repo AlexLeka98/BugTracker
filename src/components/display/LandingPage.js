@@ -2,7 +2,6 @@ import styles from "./LandingPage.module.css";
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import AuthContext from "../../store/auth-context";
-import useHttp from "../../hooks/useHttp";
 
 
 const LandingPage = () => {
@@ -13,9 +12,6 @@ const LandingPage = () => {
                 throw new Error('Somethign happend');
             }
             const data = res.json()
-                .then(data => {
-                    console.log(data);
-                })
         }).catch(err => {
             console.log(err)
         })

@@ -45,7 +45,6 @@ const AddTicketForm = (props) => {
             projectId: projectId
 
         }
-        console.log('the new ticket', newTicket);
         let httpInfo = {
             url: `/projects/ticket/${projectId}`,
             method: 'POST',
@@ -53,7 +52,6 @@ const AddTicketForm = (props) => {
             headers: { 'Content-Type': 'application/json' }
         }
         httpRequest(httpInfo).then(res => {
-            console.log(res);
             props.addNewTicketHandler(res);
         })
         enteredTitle.current.value = '';

@@ -6,6 +6,8 @@ import App from './App';
 import { AuthContextProvider } from './store/auth-context';
 import { TicketContextProvider } from './store/ticket-context';
 
+
+
 ReactDOM.render(
   <BrowserRouter>
     <AuthContextProvider>
@@ -18,4 +20,3 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root')
 );
-

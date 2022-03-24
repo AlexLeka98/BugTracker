@@ -40,14 +40,11 @@ const DashboardMembers = (props) => {
 
     const redirectMemberItemHandler = (id) => {
         // Redirect to User profile.
-        console.log('redirect Ticket Item Handler');
+        console.log('Functionality is not ready yet.');
     }
 
     const onChangePage = (page) => {
-        console.log(page);
-        console.log(Math.ceil(members.length / 5 - 1));
         if (page >= 0 && page <= Math.ceil(members.length / 5 - 1)) {
-            console.log("I am still here");
             setPage(page);
         }
     }

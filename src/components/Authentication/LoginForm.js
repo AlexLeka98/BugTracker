@@ -20,13 +20,11 @@ const LoginForm = () => {
 
     const loginFunc = (authData, userInfo) => {
         const expirationTime = new Date(new Date().getTime() + (+authData.expiresIn * 1000))  // Data expires in an hour.
-        console.log(userInfo);
         authCtx.login(authData.idToken, userInfo, expirationTime.toString());
         history.replace('/app/dashboard')
     }
 
     const userInfoFunc = async (data) => {
-        console.log(data);
         authCtx.updateUserInfo(data);
     }
 
@@ -50,7 +48,6 @@ const LoginForm = () => {
     // from the database.
     const authenticateUser = async (user) => {
         let dbUrl = '/users'
-        let url;
         let httpInfo;
         let userInfo;
 
@@ -70,15 +67,14 @@ const LoginForm = () => {
 
         let authData = await httpRequest(httpInfo);
         if (authData.error) {
-            console.log(authData.error);
             passwordRef.current.value = '';
             return;
         }
-        
+
         // If we login
         if (showLoginForm) {
             userInfo = await httpRequest({ url: dbUrl }, getUserInfo);
-            console.log(userInfo);
+
         } // If we signup, Add new user to the database.
         else {
             const enteredName = nameRef.current.value;
@@ -92,7 +88,6 @@ const LoginForm = () => {
                 authority: 'none',
                 idToken: authData.idToken,
             }
-            console.log(userInfo);
             httpInfo = {
                 url: dbUrl,
                 method: 'POST',
@@ -103,7 +98,6 @@ const LoginForm = () => {
             }
             await httpRequest(httpInfo);
         }
-        console.log(authData);
         loginFunc(authData, userInfo);
     }
 
@@ -161,6 +155,7 @@ const LoginForm = () => {
                 />
                 <Input
                     type='password'
+                    autoComplete='on'
                     label='Password'
                     placeholder='Enter password...'
                     ref={passwordRef}
