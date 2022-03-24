@@ -230,22 +230,6 @@ app.delete('/projects/user', async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // USERS
 app.get('/users', async (req, res) => {
   console.log('users');
